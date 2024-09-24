@@ -1,0 +1,34 @@
+version: '3.7'
+
+networks:
+    db:
+        driver: bridge
+
+services:
+  servidorbbdd:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_USER:  usuario
+      MYSQL_PASSWORD: usuariopwd
+      MYSQL_ROOT_PASSWORD: rootpwd
+    expose:
+        - "3306"
+    ports:
+        - "3306:3306"
+    networks:
+      db:
+
+  miphpma:
+    image: phpmyadmin
+    restart: always
+    expose:
+      - "8080"
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=servidorbbdd
+      - PMA_PORT=3306
+    networks:
+      db:
+
