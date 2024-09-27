@@ -7,10 +7,6 @@ android {
     namespace = "dam.moviles.t1_proyecto02"
     compileSdk = 34
 
-    buildFeatures {
-        viewBinding = true
-    }
-
     defaultConfig {
         applicationId = "dam.moviles.t1_proyecto02"
         minSdk = 24

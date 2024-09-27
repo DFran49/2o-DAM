@@ -15,53 +15,58 @@ public class Ejercicio06 {
         String palabra = new Scanner(System.in).nextLine();
 
         String linea;
-        ArrayList<String> texto = new ArrayList<>();
-        ArrayList<Character> letras = new ArrayList<>();
+        String texto = "";
         int coincidencias = 0;
-        int lineas = 0;
         int letraINI = 0;
+        int lineas = 0;
         int contador = 0;
         int chars = 0;
+        boolean romper = false;
 
         if (!origen.exists()) {
             System.out.println("El fichero indicado no existe");
         } else {
-            System.out.println("a");
-            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(origen)); BufferedReader lector = new BufferedReader(new FileReader(origen))) {
-                System.out.println(lector.readLine());
-                while ((linea = lector.readLine()) != null) {
-                    for (int i = 0; i < linea.length(); i++) {
-                        System.out.println(linea.charAt(i));
-                        if ((linea.charAt(i) == palabra.charAt(coincidencias))) {
+            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(origen,true));
+                 BufferedReader lector = new BufferedReader(new FileReader(origen))) {
+                while ((linea = lector.readLine()) != null || !romper) {
+                    for (int i = 0; i < linea.length() && !romper; i++) {
+                        if ((linea.charAt(i) == palabra.charAt(coincidencias)) && coincidencias < palabra.length()) {
                             coincidencias++;
-                            letraINI = i;
-                            lineas = contador;
-                            System.out.println(coincidencias);
-                            System.out.println(letraINI);
-                            System.out.println(lineas);
-                        } else if (contador != palabra.length()) {
+                            if (letraINI == 0) {
+                                letraINI = i;
+                            }
+                        } else if (coincidencias != palabra.length()) {
                             coincidencias = 0;
                             letraINI = 0;
-                            lineas = 0;
                         }
                         if (coincidencias != palabra.length()) {
                             chars++;
+                        }
+                        if (coincidencias == palabra.length()) {
+                            romper = true;
+                            texto = linea;
+                            lineas = contador;
                         }
 
                     }
                     contador++;
                 }
 
-                System.out.println(coincidencias);
+                System.out.println(lineas);
+                System.out.println(letraINI);
                 if (coincidencias != palabra.length()) {
                     System.err.println("No se ha encontrado la palabra");
                 } else {
                     System.out.println("Introduzca la palabra por la cual la quiere sustituir");
                     String nuevaPalabra = new Scanner(System.in).nextLine();
-                    String lineaModificable = texto.get(lineas);
 
-                    //texto.set(lineas, lineaModificable.substring(0,letraINI-1) + nuevaPalabra + lineaModificable.substring(letraINI+nuevaPalabra.length())):
-                    System.out.println(lineaModificable.substring(0,letraINI) + nuevaPalabra + lineaModificable.substring(letraINI+nuevaPalabra.length()));
+                    //escritor.write(nuevaPalabra,chars,nuevaPalabra.length()-1);
+                    if (letraINI == 1) {
+                        System.out.println(texto.substring(0,letraINI-1) + nuevaPalabra +
+                                texto.substring(letraINI+palabra.length()));
+                    }
+
+
 
                 }
 

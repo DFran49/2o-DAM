@@ -11,32 +11,38 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import dam.moviles.t1_proyecto02.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    //Este objeto contiene todos los controles del archivo activity_main.xml
-    private lateinit var controles:ActivityMainBinding
+    private lateinit var spiCursos: Spinner
+    private lateinit var btnSeleccionarCurso: Button
+    private lateinit var btnEnviar:Button
+    private lateinit var txtObservaciones:EditText
+    private lateinit var txtAsignaturas:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Esta línea crea el objeto controler con los objetos que hay en el archivo activity_main.xml
-        controles = ActivityMainBinding.inflate(layoutInflater)
-
-        ///la interfaz de MainActivity es el FrameLayout que es el padre de activity_main.xml
-        setContentView(controles.root)
-
+        setContentView(R.layout.activity_main)
+        this.inicializarAtributos()
         this.inicializarBotones()
     }
 
+    fun inicializarAtributos(){
+        spiCursos = findViewById(R.id.spiCurso)
+        btnSeleccionarCurso = findViewById(R.id.btnSeleccionarCurso)
+        btnEnviar = findViewById(R.id.btnEnviar)
+        txtObservaciones = findViewById(R.id.txtObservaciones)
+        txtAsignaturas = findViewById(R.id.txtAsignatura)
+    }
+
     fun inicializarBotones() {
-        controles.btnSeleccionarCurso.setOnClickListener{
-            val curso:String = controles.spiCurso.selectedItem.toString()
-            controles.txtAsignatura.text = getListaAsignaturasBonica(this.getAsignaturas(curso))
+        btnSeleccionarCurso.setOnClickListener{
+            val curso:String = spiCursos.selectedItem.toString()
+            txtAsignaturas.text = getListaAsignaturasBonica(this.getAsignaturas(curso))
         }
 
-        controles.btnEnviar.setOnClickListener() {
-            val texto:String = controles.txtObservaciones.text.toString()
+        btnEnviar.setOnClickListener() {
+            val texto:String = txtObservaciones.text.toString()
             Toast.makeText(
                 this, //Se verá en la activity que estamos programando
                 getString(R.string.mensajeToast,texto), //texto que se verá
