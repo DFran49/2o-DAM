@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">T1_Proyecto03</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="pausa">Pausa</string>
+    <string name="reiniciar">Reiniciar</string>
+</resources>
