@@ -7,19 +7,25 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import dam.moviles.t1_proyecto03.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mochila:ActivityMainBinding
-
+    private lateinit var viewModel: MainActivityViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        inicializarViewModel()
         inicializarMochila()
         inicializarBotones()
 
+    }
+
+    private fun inicializarViewModel() {
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
     }
 
     private fun inicializarBotones() {
@@ -27,16 +33,16 @@ class MainActivity : AppCompatActivity() {
             btnInicio.setOnClickListener { iniciar() }
             btnStop.setOnClickListener { detener() }
             btnPausa.setOnClickListener { pausa() }
-            btnReiniciar.setOnClickListener { reiniciar() }
+            btnReiniciar.setOnClickListener { viewModel.reiniciar(mochila.chrReloj) }
         }
 
     }
 
     private fun iniciar() {
         habilitarBotonStart(false)
-        when(situacion) {
-            Situacion.PAUSA -> reiniciarManteniendoTiempo()
-            Situacion.PARADO -> reiniciar()
+        when(viewModel.situacion) {
+            Situacion.PAUSA -> viewModel.reiniciarManteniendoTiempo(mochila.chrReloj)
+            Situacion.PARADO -> viewModel.reiniciar(mochila.chrReloj)
             Situacion.FUNCIONANDO -> {}
         }
         /*if (situacion == Situacion.PAUSA) {
@@ -46,32 +52,56 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         mochila.chrReloj.start()
-        situacion = Situacion.FUNCIONANDO
+        viewModel.situacion = Situacion.FUNCIONANDO
     }
 
-    private fun reiniciarManteniendoTiempo() {
-        base = SystemClock.elapsedRealtime() - tiempoTranscurrido
-        mochila.chrReloj.base = base
+    override fun onStart() {
+        super.onStart()
+        when(viewModel.situacion) {
+            Situacion.PARADO -> habilitarBotonStart(true)
+            Situacion.FUNCIONANDO -> {
+                mochila.chrReloj.base = viewModel.base
+                mochila.chrReloj.start()
+                habilitarBotonStart(false)
+            }
+            Situacion.PAUSA -> {
+                habilitarBotonStart(true)
+                viewModel.reiniciarManteniendoTiempo(mochila.chrReloj)
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (viewModel.situacion == Situacion.FUNCIONANDO) {
+            viewModel.actualizarTiempoTranscurrido()
+            mochila.chrReloj.stop()
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (viewModel.situacion == Situacion.FUNCIONANDO) {
+            viewModel.reiniciarManteniendoTiempo(mochila.chrReloj)
+            mochila.chrReloj.start()
+        }
     }
 
     private fun detener() {
         habilitarBotonStart(true)
         mochila.chrReloj.stop()
-        reiniciar()
-        situacion = Situacion.PARADO
+        viewModel.reiniciar(mochila.chrReloj)
+        viewModel.situacion = Situacion.PARADO
     }
 
     private fun pausa() {
         habilitarBotonStart(true)
         mochila.chrReloj.stop()
-        tiempoTranscurrido = SystemClock.elapsedRealtime() - base
-        situacion = Situacion.PAUSA
+        viewModel.actualizarTiempoTranscurrido()
+        viewModel.situacion = Situacion.PAUSA
     }
 
-    private fun reiniciar() {
-        base = SystemClock.elapsedRealtime()
-        mochila.chrReloj.base = base
-    }
+
 
     private fun inicializarMochila() {
         mochila = ActivityMainBinding.inflate(layoutInflater)
