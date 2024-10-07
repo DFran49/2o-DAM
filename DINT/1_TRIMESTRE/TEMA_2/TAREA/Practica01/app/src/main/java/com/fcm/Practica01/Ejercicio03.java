@@ -4,16 +4,13 @@
  */
 package com.fcm.Practica01;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -47,9 +44,8 @@ public class Ejercicio03 extends Application {
         vbox.getChildren().add(txtCantidad);
         vbox.getChildren().add(chbOpciones);
         vbox.getChildren().add(btnConvertir);
-        
-        AtomicInteger contador = new AtomicInteger(0);
-        
+        vbox.getChildren().add(lblResultado);
+                
         btnConvertir.setOnAction((event) -> {
             double cantidad = 0;
             switch (chbOpciones.getValue().toString()) {
