@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">T1_Proyecto04</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pregunta_pizza">¿Qué tipo de pizza te dustaría tomar?</string>
+    <string name="cuatro_estaciones">Cuatro estaciones</string>
+    <string name="carbonara">Carbonara</string>
+    <string name="romana">Romana</string>
+    <string name="margarita">Margarita</string>
+    <string name="pregunta_extra">Selecciona los extra que quieras</string>
+    <string name="pregunta_bebida">Elige tu bebida</string>
+</resources>
