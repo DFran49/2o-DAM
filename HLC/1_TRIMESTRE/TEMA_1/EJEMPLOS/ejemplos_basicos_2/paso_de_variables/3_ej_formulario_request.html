@@ -1,0 +1,27 @@
+<html>
+ <head>
+  <title> Prueba de Objetos del Navegador
+  </title>
+</head>
+
+<form name="form1" method="post" action="3_ej_formulario_request.php">
+<fieldset style="width:300"><legend> FORMULARIO REQUEST </legend>
+<label> NOMBRE </label> <input type="text" name="nombre">
+<label> ESTUDIANTE </label> <input type="checkbox" name="estudiante"><BR>
+<fieldset>
+<label> MAYOR DE 18 </label> <input type="radio" name="edad" value="mayor" ><br>
+<label> MENOR DE 18</label> <input type="radio" name="edad" value="menor" >
+</fieldset>
+<label> LOCALIDAD </label><select name="ciudad" onChange="cambio_ciudad()"> 
+    <option value="CAZORLA"> CAZORLA </option>
+  <option value="QUESADA"> QUESADA </option>  
+  <option value="PEAL DE BECERRO"> PEAL DE BECERRO </option>    
+
+</select>
+ </fieldset>
+  <input type="submit"  value="ENVIAR">
+ 
+</form>
+</body>
+
+</html>

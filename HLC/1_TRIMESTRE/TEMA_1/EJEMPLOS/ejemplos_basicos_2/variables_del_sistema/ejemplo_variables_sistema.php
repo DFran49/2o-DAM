@@ -1,0 +1,37 @@
+<?php
+echo '<b>$_SERVER :Variables definidas por el servidor web  directamente relacionadas con el entorno: en don el script se esta ejecutando.';
+echo "<font color=blue>";
+print_r($_SERVER);
+echo "<hr><font color=black>";
+echo "TU NAVEGADOR CLIENTE ES: <font color=blue>".$_SERVER['HTTP_USER_AGENT']." <font color=black><hr>";
+echo "TU IP ES : <font color=blue>".$_SERVER['REMOTE_ADDR']." <font color=black><hr>";
+echo "<hr><font color=black>";
+echo '<b>$_GET :Variables proporcionadas al script por medio de HTTP GET. ' ;
+echo "<font color=blue>";
+print_r($_GET);
+echo "<hr><font color=black>";
+echo '<b>$_POST: Variables proporcionadas al script por medio de HTTP POST.';
+echo "<font color=blue>";
+print_r($_POST);
+echo "<hr><font color=black>";
+echo '<b>$_COOKIE: Variables proporcionadas al script por medio de HTTP cookies.';
+echo "<font color=blue>";
+print_r($_COOKIE);
+echo "<hr><font color=black>";
+echo '<b>$_FILES: Variables proporcionadas al script por medio de la subida de ficheros via HTTP .';
+echo "<font color=blue>";
+print_r($_FILES);
+echo "<hr><font color=black>";
+echo '<b>$_ENV: Variables proporcionadas al script por medio del entorno.';
+echo "<font color=blue>";
+print_r($_ENV);
+echo "<hr><font color=black>";
+echo '<b>$_REQUEST: Variables proporcionadas al script por medio de cualquier mecanismo de entrada del usuario y por lo tanto no se puede confiar en ellas.';
+echo "<font color=blue>";
+print_r($_REQUEST);
+echo "<hr><font color=black>";
+echo '<b>$_SESSION: Variables registradas en la sesión del script.';
+echo "<font color=blue>";
+print_r($_SESSION);
+echo "<hr><font color=black>";
+?> 
