@@ -70,7 +70,7 @@ public class Ejercicio02 extends Application {
             if (contador.get() < 5) {
                 if (!txtUsername.getText().equals("DFran49") || !pwdContraseña.getText().equals("duro")) {
                     contador.incrementAndGet();
-                } else if(txtUsername.getText().equals("DFran49") || pwdContraseña.getText().equals("duro")) {
+                } else if(txtUsername.getText().equals("DFran49") && pwdContraseña.getText().equals("duro")) {
                     alerta.setTitle("Welcome");
                     alerta.setHeaderText("Bienvenido usuario " + txtUsername.getText());
                     alerta.setContentText("Su contraseña es:" + pwdContraseña.getText());
