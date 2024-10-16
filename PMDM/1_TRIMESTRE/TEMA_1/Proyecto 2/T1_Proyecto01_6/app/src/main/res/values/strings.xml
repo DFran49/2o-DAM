@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">T1_Proyecto01_6</string>
+    <string name="saludo" translatable="false">HELLO!</string>
+    <string name="despedida" translatable="false">GOODBYE!</string>
+</resources>
