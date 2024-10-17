@@ -6,35 +6,37 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import dam.moviles.ejercicio1.databinding.ActivityMainBinding
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var controles: ActivityMainBinding
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        controles = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(controles.root)
+        inicializarViewModel()
+        inicializarBinding()
         inicializarTexto()
     }
 
+    fun inicializarViewModel() {
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+    }
+
+    fun inicializarBinding() {
+        controles = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(controles.root)
+    }
+
     fun inicializarTexto() {
-        val (colorName, colorValue) = elegirColor()
-        controles.txtColor.setText("Este texto está escrito en color " + colorName)
-        controles.txtColor.setTextColor(colorValue)
+        if (viewModel.colorName.equals("")) {
+            viewModel.setColores()
+        }
+        controles.txtColor.setText("Este texto está escrito en color " + viewModel.colorName)
+        controles.txtColor.setTextColor(viewModel.colorValue)
     }
 
-    fun elegirColor() : Pair<String, Int> {
-        val colores = mapOf(
-            "Rojo" to Color.RED,
-            "Amarillo" to Color.YELLOW,
-            "Verde" to Color.GREEN,
-            "Azul" to Color.BLUE,
-            "Negro" to Color.BLACK,
-            "Naranja" to Color.parseColor("#FFA500")
-        )
 
-        return colores.entries.random().toPair()
-    }
 }
