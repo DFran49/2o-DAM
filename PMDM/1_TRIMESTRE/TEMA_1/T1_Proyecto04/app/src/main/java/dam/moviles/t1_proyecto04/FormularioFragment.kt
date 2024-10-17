@@ -13,29 +13,36 @@ import dam.moviles.t1_proyecto04.databinding.FragmentFormularioBinding
 
 class FormularioFragment : Fragment() {
 
-    private lateinit var mochilaBinding: FragmentFormularioBinding
+    private var _mochilaBinding: FragmentFormularioBinding? = null
+    private val mochilaBinding : FragmentFormularioBinding
+        get() = checkNotNull(_mochilaBinding)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         inicializarMochilaBinding(inflater,container)
-/*
         inicializarMaterialToolbar()
-*/
         desactivarBotones()
         inicializarEventos()
         inicializarBotonFlotante()
         return mochilaBinding.root
     }
 
-    fun inicializarMochilaBinding(inflater: LayoutInflater, container: ViewGroup?) {
-        mochilaBinding = FragmentFormularioBinding.inflate(inflater,container,false)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _mochilaBinding = null
     }
 
-/*    fun inicializarMaterialToolbar() {
+    fun inicializarMochilaBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        _mochilaBinding = FragmentFormularioBinding.inflate(inflater,container,false)
+    }
+
+    fun inicializarMaterialToolbar() {
+        /*val mainActivity = activity as MainActivity
+        mainActivity.setSupportActionBar(mochilaBinding.materialToolbar)*/
         (activity as MainActivity).setSupportActionBar(mochilaBinding.materialToolbar)
-    }*/
+    }
 
     private fun getListaBotones() : List<ImageView> =
         listOf(
