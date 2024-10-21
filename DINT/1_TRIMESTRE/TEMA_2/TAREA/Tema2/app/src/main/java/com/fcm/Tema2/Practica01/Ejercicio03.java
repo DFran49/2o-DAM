@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fcm.Practica01;
+package com.fcm.Tema2.Practica01;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
