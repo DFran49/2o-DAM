@@ -16,6 +16,7 @@ public class Cerveza {
         private String nombre;
         private String nacionalidad;
         private int grados;
+        private int indice = -1;
         
         public Cerveza(Image imagen, String nombre, String nacionalidad, int grados) {
             this.imagen = imagen;
@@ -38,6 +39,14 @@ public class Cerveza {
 
         public int getGrados() {
             return grados;
+        }
+
+        public int getIndice() {
+            return indice;
+        }
+
+        public void setIndice(int indice) {
+            this.indice = indice;
         }
         
         public String mostrarInfo() {
