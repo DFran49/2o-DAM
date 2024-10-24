@@ -37,41 +37,44 @@ public class Ejercicio04 extends Application {
     public void start(Stage primaryStage) {
         GridPane gridPane=new GridPane();
         ObservableList<Cerveza> listCerveza = FXCollections.observableArrayList();
-        for (int i=0; i<16; i++) {
-            listCerveza.add(new Cerveza(new Image("file:src/main/resources/mono.jpg"),"Alhambra "+i,"Española",70));
+        for (int i=0; i<14; i++) {
+            listCerveza.add(new Cerveza(new Image("file:src/main/resources/alhambra-roja.png"),"Alhambra "+i,"Española",70));
         }
         AtomicInteger cont = new AtomicInteger(0);
         for (int fila=0; fila < 4; fila++) {
             for (int columna=0; columna < 4; columna++) {
-                Pane panel = new Pane();
-                ImageView imageView= new ImageView(listCerveza.get(cont.intValue()).getImagen());
-                imageView.setFitHeight(100);
-                imageView.setFitWidth(100);
-                Label nombre = new Label(listCerveza.get(cont.intValue()).getNombre());
-                panel.getChildren().add(nombre);
-                panel.getChildren().add(imageView);
-                Button boton = new Button("DATOS");
-                boton.setOnAction((event) -> {
-                            alerta(listCerveza.get(cont.intValue()).mostrarInfo()).showAndWait();
-                        });
-                panel.getChildren().add(boton);
-                gridPane.add(panel, columna, fila);
-                cont.getAndIncrement();
+                if (cont.get() < 14) {
+                    Pane panel = panel(listCerveza.get(cont.get()));
+                    gridPane.add(panel, columna, fila);
+                    cont.getAndIncrement();
+                }
             }
         }
+        gridPane.setHgap(10); 
+        gridPane.setVgap(10); 
+        gridPane.setPadding(new Insets(30)); 
 
-        Scene scene=new Scene(gridPane, 500,400);
+        Scene scene=new Scene(gridPane, 600,800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
     
-    private Pane panel(Image imagen, String nombre, String nacionalidad, int grados) {
+    private Pane panel(Cerveza cerveza) {
         Pane panel = new Pane();
-        ImageView imgCerveza = new ImageView(imagen);
-        Cerveza cerveza = new Cerveza(imagen,nombre,nacionalidad,grados);
+        Label label = new Label(cerveza.getNombre());
+        ImageView imgCerveza = new ImageView(cerveza.getImagen());
         Button btnMostrar = new Button("DATOS");
+        btnMostrar.setOnAction((event) -> {
+            alerta(cerveza.mostrarInfo()).showAndWait();
+        });
+        imgCerveza.setFitHeight(100);
+        imgCerveza.setFitWidth(100);
         
-        panel.getChildren().addAll();
+        VBox vbox=new VBox(10);
+        vbox.setPadding(new Insets(20));
+        vbox.getChildren().addAll(label,imgCerveza,btnMostrar);
+        
+        panel.getChildren().add(vbox);
         return panel;
     }
     

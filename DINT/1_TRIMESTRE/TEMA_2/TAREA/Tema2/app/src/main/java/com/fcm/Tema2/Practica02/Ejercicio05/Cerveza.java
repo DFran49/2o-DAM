@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fcm.Tema2.Practica02.Ejercicio04;
+package com.fcm.Tema2.Practica02.Ejercicio05;
 
+import com.fcm.Tema2.Practica02.Ejercicio04.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -16,9 +17,8 @@ public class Cerveza {
         private String nombre;
         private String nacionalidad;
         private int grados;
-        private int indice = -1;
         
-        public Cerveza(Image imagen, String nombre, String nacionalidad, int grados) {
+        public Cerveza(Image imagen, String nombre, String nacionalidad, int grados, int indice) {
             this.imagen = imagen;
             this.nombre = nombre;
             this.nacionalidad = nacionalidad;
@@ -39,14 +39,6 @@ public class Cerveza {
 
         public int getGrados() {
             return grados;
-        }
-
-        public int getIndice() {
-            return indice;
-        }
-
-        public void setIndice(int indice) {
-            this.indice = indice;
         }
         
         public String mostrarInfo() {
