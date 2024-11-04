@@ -1,0 +1,29 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btnAdivinar
+id flow
+id fragment_container_view
+id guideline
+id guideline2
+id guideline3
+id guideline4
+id txtIntentos
+id txtMensaje
+id txtNivel
+id txtNumero
+id txtPuntos
+id txtVidas
+layout activity_main
+layout fragment_formulario
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string hello_blank_fragment
+style Base.Theme.Ejercicio03
+style Theme.Ejercicio03
+xml backup_rules
+xml data_extraction_rules

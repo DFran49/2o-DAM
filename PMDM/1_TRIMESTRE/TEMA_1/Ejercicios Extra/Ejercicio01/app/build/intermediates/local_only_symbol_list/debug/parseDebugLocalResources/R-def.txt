@@ -1,0 +1,28 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id barrera1
+id btnDiv
+id btnMulti
+id btnResta
+id btnSuma
+id flow
+id fragment_container_view
+id guideline
+id guideline2
+id txtDecimal1
+id txtDecimal2
+id txtResultado
+layout activity_main
+layout fragment_formulario
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string hello_blank_fragment
+style Base.Theme.Ejercicio01
+style Theme.Ejercicio01
+xml backup_rules
+xml data_extraction_rules
