@@ -8,6 +8,7 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,11 +21,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class controllerTarjetaPokemon implements Initializable {
-
+    Utilidades util = new Utilidades();
+    
     @FXML
     private ImageView imgPokemon;
 
@@ -52,4 +53,10 @@ public class controllerTarjetaPokemon implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    public void asignarPokemon(String especie, String id, String imagen) {
+        txtEspecie.setText(especie);
+        txtId.setText(id);
+        System.out.println(imagen);
+        util.recuperarImagenBBDD(imagen, imgPokemon);
+    }
 }

@@ -23,7 +23,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="731.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
    <children>
-      <Pane prefHeight="200.0" prefWidth="823.0">
+      <Pane onMouseClicked="#carga" onMouseMoved="#carga" prefHeight="200.0" prefWidth="823.0">
          <children>
             <TabPane layoutX="8.0" layoutY="7.0" prefHeight="716.0" prefWidth="1284.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
@@ -212,7 +212,7 @@
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtNombreEntrenador" editable="false" text="Hilda">
+                                          <TextField fx:id="txtNombreEntrenador" editable="false">
                                              <font>
                                                 <Font size="24.0" />
                                              </font>
@@ -226,7 +226,7 @@
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtGeneroEntrenador" editable="false" text="Mujer">
+                                          <TextField fx:id="txtGeneroEntrenador" editable="false">
                                              <font>
                                                 <Font size="24.0" />
                                              </font>
@@ -265,11 +265,7 @@
                               </VBox>
                               <StackPane layoutX="590.0" layoutY="4.0" prefHeight="680.0" prefWidth="680.0">
                                  <children>
-                                    <ImageView fitHeight="600.0" fitWidth="443.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/rosa.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="imgEntrenador" fitHeight="600.0" fitWidth="443.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </StackPane>
                               <Label layoutX="93.0" layoutY="14.0" text="Perfil de:">

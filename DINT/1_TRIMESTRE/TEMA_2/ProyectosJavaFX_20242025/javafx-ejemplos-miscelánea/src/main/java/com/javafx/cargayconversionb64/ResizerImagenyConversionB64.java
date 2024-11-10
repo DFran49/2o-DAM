@@ -1,6 +1,7 @@
 package com.javafx.cargayconversionb64;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,12 +30,14 @@ public class ResizerImagenyConversionB64 extends Application {
 
     private TextArea textArea;
     private ImageView imageView;
+    private ImageView imageView2;
 
     @Override
     public void start(Stage primaryStage) {
         Button button = new Button("Carga Imagen");
         textArea = new TextArea();
         imageView = new ImageView();
+        imageView2 = new ImageView();
 
         button.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -49,7 +52,7 @@ public class ResizerImagenyConversionB64 extends Application {
                     Image originalImage = new Image(selectedFile.toURI().toString());
                     long originalSize = selectedFile.length();
                     //Redimensionamos a 150x150 por ejemplo
-                    Image resizedImage = new Image(originalImage.getUrl(), 150, 150, true, true);
+                    Image resizedImage = new Image(originalImage.getUrl(), 400, 400, true, true);
                     imageView.setImage(resizedImage);
 
                     //Se realizan conversiones para usar b64:resizedImage->BufferedImage->baos->png
@@ -62,9 +65,13 @@ public class ResizerImagenyConversionB64 extends Application {
 
                     //Mostramos resultados
                     textArea.setWrapText(true);
-                    textArea.setText("Tamaño original: " + originalSize + " bytes\n"
-                            + "Tamaño tras resize+b64: " + base64Image.length() + " bytes\n"
-                            + "Imagen en base64: " + base64Image);
+                    textArea.setText("Imagen en base64: " + base64Image);
+                    
+                    byte[] bytesAnormal = Base64.getDecoder().decode("");
+                    ByteArrayInputStream is = new ByteArrayInputStream(bytesAnormal);
+                    Image nueva = new Image(is);
+                    imageView2.setImage(nueva);
+                    
 
                     //Por último, copiamos al Portapapeles
                     Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -77,8 +84,8 @@ public class ResizerImagenyConversionB64 extends Application {
             }
         });
 
-        VBox root = new VBox(button, imageView, textArea);
-        Scene scene = new Scene(root, 400, 400);
+        VBox root = new VBox(button, imageView, textArea, imageView2);
+        Scene scene = new Scene(root, 800, 800);
         primaryStage.setTitle("Convertidor de Imágenes a Base64");
         primaryStage.setScene(scene);
         primaryStage.show();

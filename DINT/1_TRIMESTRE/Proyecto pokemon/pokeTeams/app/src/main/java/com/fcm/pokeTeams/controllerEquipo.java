@@ -36,7 +36,7 @@ public class controllerEquipo implements Initializable {
                 SplitPane tarjeta = cargar.load();
 
                 int col = i%2;
-                int row = i/2;              
+                int row = i/2;
                 gridMiembros.add(tarjeta, col, row);
             }
         } catch (IOException ex) {
