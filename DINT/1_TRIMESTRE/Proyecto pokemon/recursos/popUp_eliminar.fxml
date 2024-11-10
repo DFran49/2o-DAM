@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefWidth="350.0" text="Confirma que quieres eliminar el x escribiendo &quot;delete&quot; abajo" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtDelete" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Delete">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Button mnemonicParsing="false" onAction="#cambiarEliminar" text="Confirmar" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</VBox>

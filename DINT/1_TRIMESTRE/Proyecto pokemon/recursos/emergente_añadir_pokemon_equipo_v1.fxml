@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="txtEspecie" editable="false" focusTraversable="false" promptText="Seleccione una especie">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <HBox prefWidth="600.0" spacing="20.0">
+         <children>
+            <VBox prefHeight="290.0" prefWidth="400.0" spacing="30.0">
+               <children>
+                  <ComboBox fx:id="cbEspecie" editable="true" focusTraversable="false" prefWidth="150.0" promptText="Especie" />
+                  <TextField fx:id="txtMote" promptText="Mote">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="cbHabilidad" editable="true" focusTraversable="false" prefWidth="150.0" promptText="Habilidad" />
+                  <TextField fx:id="txtObjeto" promptText="Objeto">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="cbGenero" editable="true" focusTraversable="false" prefWidth="150.0" promptText="Género" />
+               </children>
+            </VBox>
+            <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0">
+               <children>
+                  <ImageView fx:id="imgPokemon" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Bulbasaur.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
+         <children>
+            <Label text="Movimientos">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <HBox spacing="10.0">
+               <children>
+                  <TextField fx:id="txtMovimiento1" promptText="Movimiento 1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtMovimiento2" promptText="Movimiento 2">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtMovimiento3" promptText="Movimiento 3">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtMovimiento4" promptText="Movimiento 4">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
+         <children>
+            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="20.0">
+               <children>
+                  <Label text="IVs">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="HP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdIVsHp" max="31.0" onMouseReleased="#actualizarIVs" />
+                        <Label fx:id="txtIVsHp" prefWidth="70.0" text="0/31">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Atk">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdIVsAtk" max="31.0" onMouseReleased="#actualizarIVs" />
+                        <Label fx:id="txtIVsAtk" prefWidth="70.0" text="0/31">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="95.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Def">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdIVsDef" max="31.0" onMouseReleased="#actualizarIVs" />
+                        <Label fx:id="txtIVsDef" prefWidth="70.0" text="0/31">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpA">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdIVsSpA" max="31.0" onMouseReleased="#actualizarIVs" />
+                        <Label fx:id="txtIVsSpA" prefWidth="70.0" text="0/31">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="245.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpD">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdIVsSpD" max="31.0" onMouseReleased="#actualizarIVs" />
+                        <Label fx:id="txtIVsSpD" prefWidth="70.0" text="0/31">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="320.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Spe">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdIVsSpe" max="31.0" onMouseReleased="#actualizarIVs" />
+                        <Label fx:id="txtIVsSpe" prefWidth="70.0" text="0/31">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="20.0">
+               <children>
+                  <Label text="EVs">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="HP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdEVsHp" max="255.0" onMouseReleased="#actualizarEVs" />
+                        <Label fx:id="txtEVsHp" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Atk">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdEVsAtk" max="255.0" onMouseReleased="#actualizarEVs" />
+                        <Label fx:id="txtEVsAtk" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="95.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Def">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdEVsDef" max="255.0" onMouseReleased="#actualizarEVs" />
+                        <Label fx:id="txtEVsDef" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpA">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdEVsSpA" max="255.0" onMouseReleased="#actualizarEVs" />
+                        <Label fx:id="txtEVsSpA" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="245.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpD">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdEVsSpD" max="255.0" onMouseReleased="#actualizarEVs" />
+                        <Label fx:id="txtEVsSpD" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="320.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Spe">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdEVsSpe" max="255.0" onMouseReleased="#actualizarEVs" />
+                        <Label fx:id="txtEVsSpe" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

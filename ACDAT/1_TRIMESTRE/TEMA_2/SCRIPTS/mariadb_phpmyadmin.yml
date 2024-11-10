@@ -1,0 +1,37 @@
+# docker-compose -f mariadb_phpmyadmin.yml -p mariadb_phpmyadmin up
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_spanish_ci
+      - --sql_mode=TRADITIONAL,ONLY_FULL_GROUP_BY
+#     - --bind-address=0.0.0.0
+    container_name: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - ./mariadb_data:/var/lib/mysql
+    networks:
+      - mariadb
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - 80:80
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+    networks:
+      - mariadb
+    depends_on:
+      - mariadb
+
+networks:
+  mariadb:
+    driver: bridge

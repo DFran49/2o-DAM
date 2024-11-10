@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerPokedex">
+   <children>
+      <TextField fx:id="txtEspecie" editable="false" focusTraversable="false" text="Bulbasaur">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <HBox prefWidth="600.0" spacing="20.0">
+         <children>
+            <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0">
+               <children>
+                  <ImageView fx:id="imgPokemon" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/Bulbasaur.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <VBox prefHeight="290.0" prefWidth="400.0" spacing="20.0">
+               <children>
+                  <Label fx:id="txtDenominacion" text="Pokemon semilla">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtDescripcion" minHeight="-Infinity" text="Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pokémon." textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtTamaño" text="0,7 metros">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtPeso" text="6,9 kilogramos">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtTipo1" text="Planta">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtTipo2" text="Veneno">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
+         <children>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="40.0">
+               <children>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="HP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="barHp" prefWidth="200.0" progress="0.62" />
+                        <Label fx:id="txtHp" prefWidth="40.0" text="45">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Atk">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="barAtk" prefWidth="200.0" progress="0.62" />
+                        <Label fx:id="txtAtk" prefWidth="40.0" text="100">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Def">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="barDef" prefWidth="200.0" progress="0.62" />
+                        <Label fx:id="txtDef" prefWidth="40.0" text="45">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpA">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="barSpA" prefWidth="200.0" progress="0.62" />
+                        <Label fx:id="txtSpA" prefWidth="40.0" text="45">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpD">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="BarSpD" prefWidth="200.0" progress="0.62" />
+                        <Label fx:id="txtSpD" prefWidth="40.0" text="45">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Spe">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ProgressBar fx:id="barSpe" prefWidth="200.0" progress="0.62" />
+                        <Label fx:id="txtSpe" prefWidth="40.0" text="45">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefWidth="400.0" spacing="20.0">
+               <children>
+                  <TitledPane fx:id="tpaneHabilidad1" animated="false" expanded="false" text="Espesura" underline="true" wrapText="true">
+                    <content>
+                        <VBox>
+                           <children>
+                              <Label text="Espesura aumenta la potencia de los movimientos de tipo planta del poseedor en un 50% cuando su salud esté igual o por debajo de 1/3 de sus PS máximos." textOverrun="CLIP" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                    </content>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane fx:id="tpaneHabilidad2" animated="false" expanded="false" text="Clorofilia" underline="true" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <content>
+                        <VBox>
+                           <children>
+                              <Label text="Clorofila duplica la velocidad del poseedor en sol o en sol abrasador." textOverrun="CLIP" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+                  <TitledPane fx:id="tpaneHabilidad3" animated="false" expanded="false" text="Espesura" underline="true" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <content>
+                        <VBox>
+                           <children>
+                              <Label text="Espesura aumenta la potencia de los movimientos de tipo planta del poseedor en un 50% cuando su salud esté igual o por debajo de 1/3 de sus PS máximos." textOverrun="CLIP" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

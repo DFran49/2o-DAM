@@ -1,0 +1,38 @@
+# docker-compose -f mysql_phpmyadmin.yml -p mysql_phpmyadmin up
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_spanish_ci",
+#        "--bind-address=0.0.0.0",
+      ]
+    container_name: mysql_servidorBD
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - ./mysql_data:/var/lib/mysql
+    networks:
+      - mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: mysql_phpmyadmin
+    ports:
+      - 80:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+    networks:
+      - mysql
+    depends_on:
+      - mysql
+
+networks:
+  mysql:
+    driver: bridge
