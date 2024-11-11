@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mariadb:3306
--- Tiempo de generación: 11-11-2024 a las 15:12:32
+-- Tiempo de generación: 11-11-2024 a las 21:48:31
 -- Versión del servidor: 11.5.2-MariaDB-ubu2404
 -- Versión de PHP: 8.2.25
 
@@ -84,7 +84,7 @@ CREATE TABLE `pokemon` (
   `Descripcion` text NOT NULL,
   `Sprite` longtext NOT NULL,
   `Tipo_1` enum('Acero','Agua','Bicho','Dragón','Eléctrico','Fantasma','Fuego','Hada','Hielo','Lucha','Normal','Planta','Psíquico','Roca','Siniestro','Tierra','Veneno','Volador') NOT NULL,
-  `Tipo_2` enum('Acero','Agua','Bicho','Dragón','Eléctrico','Fantasma','Fuego','Hada','Hielo','Lucha','Normal','Planta','Psíquico','Roca','Siniestro','Tierra','Veneno','Volador') DEFAULT NULL,
+  `Tipo_2` enum('Ninguno','Acero','Agua','Bicho','Dragón','Eléctrico','Fantasma','Fuego','Hada','Hielo','Lucha','Normal','Planta','Psíquico','Roca','Siniestro','Tierra','Veneno','Volador') DEFAULT NULL,
   `Tamaño` decimal(4,1) UNSIGNED NOT NULL DEFAULT 0.0,
   `Peso` decimal(4,1) UNSIGNED NOT NULL DEFAULT 0.0,
   `Habilidades` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Habilidades`)),
