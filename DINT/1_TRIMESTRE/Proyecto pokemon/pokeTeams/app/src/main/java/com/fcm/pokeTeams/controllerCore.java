@@ -212,13 +212,8 @@ public class controllerCore implements Initializable {
             SplitPane tarjetaPokemon = cargarPokemon.load();
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
-
-
             controlador.asignarPokemon(pokemon.getEspecie(), pokemon.getnPokedex(), pokemon.getSprite());
-
-            
             gridPokemon.add(tarjetaPokemon, col, row);
-            
             if(col == 2) {
                 col = 0;
                 row++;
