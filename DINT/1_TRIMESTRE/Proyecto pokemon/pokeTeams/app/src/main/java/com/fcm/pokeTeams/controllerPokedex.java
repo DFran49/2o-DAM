@@ -8,14 +8,22 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.modelos.Stat;
+import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
+import com.fcm.pokeTeams.modelos.Habilidad;
+import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
@@ -26,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 
 public class controllerPokedex implements Initializable {
     private controllerTarjetaPokemon ctp;
+    Pokemon poke;
     Utilidades util = new Utilidades();
 
     @FXML
@@ -74,6 +83,15 @@ public class controllerPokedex implements Initializable {
     private TextField txtEspecie;
 
     @FXML
+    private TextArea txtHabilidad1;
+
+    @FXML
+    private TextArea txtHabilidad2;
+
+    @FXML
+    private TextArea txtHabilidad3;
+
+    @FXML
     private Label txtHp;
 
     @FXML
@@ -99,10 +117,10 @@ public class controllerPokedex implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
     }
 
     void enviaPokemon(Pokemon p) {
+        poke = p;
         txtEspecie.setText(p.getEspecie());
         txtDenominacion.setText(p.getDenominacion());
         txtDescripcion.setText(p.getDescripcion());
@@ -111,26 +129,88 @@ public class controllerPokedex implements Initializable {
         txtTipo1.setText(p.getTipo1());
         txtTipo2.setText(p.getTipo2());
         util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
-        leerStats(p);
         leerHabilidades(p);
+        leerStats(p);
+    }
+    
+    void leerHabilidades(Pokemon p) {
+        Gson gson = new Gson();
+        HabilidadesEnvoltorio listHabilidades = gson.fromJson(p.getHabilidades(), HabilidadesEnvoltorio.class);
+        List<TitledPane> listPaneles = new ArrayList<>();
+        listPaneles.add(tpaneHabilidad1);
+        listPaneles.add(tpaneHabilidad2);
+        listPaneles.add(tpaneHabilidad3);
+        List<TextArea> listText = new ArrayList<>();
+        listText.add(txtHabilidad1);
+        listText.add(txtHabilidad2);
+        listText.add(txtHabilidad3);
+        Habilidad habilidad = null;
+        try {
+            for (int i = 0; i < 3; i++) {
+                if (listHabilidades.vacia() && !listPaneles.isEmpty()) {
+                    for (TitledPane pane : listPaneles) {
+                        pane.setVisible(false);
+                    }
+                    for (TextArea text : listText) {
+                        text.setVisible(false);
+                    }
+                } else {
+                    habilidad = listHabilidades.siguienteHabilidad();
+                    listPaneles.get(0).setText(habilidad.getNombre());
+                    listPaneles.remove(0);
+                    listText.get(0).setText(habilidad.getDescripcion());
+                    listText.remove(0);
+                }
+            }
+        } catch (JsonSyntaxException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
     
     void leerStats(Pokemon p) {
         Gson gson = new Gson();
-        /*try {
-            Persona persona = gson.fromJson(jsonString, Persona.class);
-            System.out.println("Nombre: " + persona.getNombre());
-            System.out.println("Edad: " + persona.getEdad());
+        EstadisticasEnvoltorio listStats = gson.fromJson(p.getEstadisticas(), EstadisticasEnvoltorio.class);
+        List<ProgressBar> listBarras = new ArrayList<>();
+        listBarras.add(barHp);
+        listBarras.add(barAtk);
+        listBarras.add(barDef);
+        listBarras.add(barSpA);
+        listBarras.add(BarSpD);
+        listBarras.add(barSpe);
+        List<Label> listEtiquetas = new ArrayList<>();
+        listEtiquetas.add(txtHp);
+        listEtiquetas.add(txtAtk);
+        listEtiquetas.add(txtDef);
+        listEtiquetas.add(txtSpA);
+        listEtiquetas.add(txtSpD);
+        listEtiquetas.add(txtSpe);
+        double progreso;
+        
+        try {
+            for (int i = 0; i < 6; i++) {
+                
+                progreso = (listStats.getEstadistica(i).getValor()*100)/255;
+                progreso = progreso/100;
+                System.out.println(progreso);
+                listBarras.get(i).setProgress(progreso);
+                if (progreso < 0.25) {
+                    listBarras.get(i).setStyle("-fx-accent: #ff0000;");
+                } else if (progreso < 0.50) {
+                    listBarras.get(i).setStyle("-fx-accent: #ff8000;");
+                } else if (progreso < 0.75) {
+                    listBarras.get(i).setStyle("-fx-accent: #e5be01;");
+                } else {
+                    listBarras.get(i).setStyle("-fx-accent: #00913f;");
+                }
+                listEtiquetas.get(i).setText(""+listStats.getEstadistica(i).getValor());
+            }
         } catch (JsonSyntaxException e) {
-            System.out.println("Error: " + e.getMessage());
-        }*/
+            System.err.println("Error: " + e.getMessage());
+        }
     }
     
-    void leerHabilidades(Pokemon p) {}
-    
     void setControladorEnlace(controllerTarjetaPokemon c) {
-        System.out.println("Controlador enlace");
-        ctp = c; //Enlace con controlador externo: ENLACE A<-B. Podemos llamar a cualquier variable/método PÚBLICO
+        ctp = c;
     }
 }
 

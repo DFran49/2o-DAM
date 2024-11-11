@@ -261,18 +261,11 @@
                      <panes>
                         <TitledPane fx:id="tpaneHabilidad1" animated="false" expanded="false" underline="true" wrapText="true">
                            <content>
-                              <VBox>
-                                 <children>
-                                    <TextArea fx:id="txtHabilidad1" editable="false" prefHeight="125.0" prefWidth="200.0" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </TextArea>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </VBox>
+                              <TextArea fx:id="txtHabilidad1" editable="false" prefHeight="125.0" prefWidth="200.0" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextArea>
                            </content>
                            <font>
                               <Font name="System Bold" size="24.0" />
@@ -283,21 +276,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <content>
-                              <VBox>
-                                 <children>
-                                    <TextArea fx:id="txtHabilidad2" editable="false" prefHeight="125.0" prefWidth="200.0" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </TextArea>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </VBox>
+                              <TextArea fx:id="txtHabilidad2" editable="false" prefHeight="125.0" prefWidth="200.0" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextArea>
                            </content>
                         </TitledPane>
                         <TitledPane fx:id="tpaneHabilidad3" animated="false" expanded="false" underline="true" wrapText="true">
@@ -305,18 +288,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <content>
-                              <VBox prefWidth="406.0">
-                                 <children>
-                                    <TextArea fx:id="txtHabilidad3" editable="false" prefHeight="125.0" prefWidth="361.0" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </TextArea>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </VBox>
+                              <TextArea fx:id="txtHabilidad3" editable="false" prefHeight="125.0" prefWidth="361.0" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextArea>
                            </content>
                         </TitledPane>
                      </panes>
