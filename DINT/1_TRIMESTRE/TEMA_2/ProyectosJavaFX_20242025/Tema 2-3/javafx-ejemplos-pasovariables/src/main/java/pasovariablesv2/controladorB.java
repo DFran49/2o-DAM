@@ -30,7 +30,6 @@ public class controladorB implements Initializable {
     void setControladorEnlace(controladorA c) {
         System.out.println("Controlador enlace");
         cA = c; //Enlace con controlador externo: ENLACE A<-B. Podemos llamar a cualquier variable/método PÚBLICO
-
     }
 
     //Función que llamamos desde A

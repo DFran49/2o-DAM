@@ -38,6 +38,8 @@ import javafx.stage.Stage;
  * @author DFran49
  */
 public class controllerLogIn implements Initializable {
+    private controllerCore cc;
+    Scene inicio;
     Conexion conexion;
     
     @FXML
@@ -63,12 +65,11 @@ public class controllerLogIn implements Initializable {
             result.getString("Nombre");
             
             Parent root = FXMLLoader.load(getClass().getResource("fxml/core_v1.fxml"));
-            Scene scene=new Scene(root);
-            scene.setUserData(txtNombre.getText());
+            this.cc.enviaLogIn(this.conexion, txtNombre.getText());
+   
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-            miStage.setUserData(conexion);
             
-            miStage.setScene(scene);
+            miStage.setScene(inicio);
         } catch (IOException ex) {
             Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -94,5 +95,17 @@ public class controllerLogIn implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         conexion = new Conexion();
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/core_v1.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        cc = loader.getController();
+        cc.setControladorEnlace(this);
+
+        inicio = new Scene(root);
     }
 }

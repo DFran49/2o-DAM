@@ -33,8 +33,8 @@ import javafx.scene.layout.GridPane;
  * @author DFran49
  */
 public class controllerCore implements Initializable {
+    private controllerLogIn cLi;
     Conexion conexion = null;
-    String user;
     int col = 0;
     int row = 0;
     Utilidades utils = new Utilidades();
@@ -117,7 +117,7 @@ public class controllerCore implements Initializable {
     
     @FXML
     void carga(MouseEvent event) {
-        if (conexion == null) {
+        /*if (conexion == null) {
             conexion = (Conexion) this.txtBusquedaEquipos.getScene().getWindow().getUserData();
             user = this.txtBusquedaEquipos.getScene().getUserData().toString();
             txtNombreEntrenador.setText(user);
@@ -162,7 +162,7 @@ public class controllerCore implements Initializable {
             } catch (SQLException e) {
                 System.out.println("Error al conectar con la BD: " + e.getMessage());
             }
-        }
+        }*/
     }
 
     @FXML
@@ -207,12 +207,12 @@ public class controllerCore implements Initializable {
     
     private void cargarPokemon(Pokemon pokemon) {
         try {
-            
             FXMLLoader cargarPokemon = new FXMLLoader(getClass().getResource("fxml/tarjeta_pokemon_v1.fxml"));
             SplitPane tarjetaPokemon = cargarPokemon.load();
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
-            controlador.asignarPokemon(pokemon.getEspecie(), pokemon.getnPokedex(), pokemon.getSprite());
+            controlador.asignarPokemon(pokemon);
+            tarjetaPokemon.setUserData(pokemon);
             gridPokemon.add(tarjetaPokemon, col, row);
             if(col == 2) {
                 col = 0;
@@ -225,5 +225,53 @@ public class controllerCore implements Initializable {
             e.printStackTrace();
         }
     
+    }
+    
+    void setControladorEnlace(controllerLogIn c) {
+        cLi = c;
+    }
+    
+    void enviaLogIn(Conexion c, String user) {
+        conexion = c;
+        try {
+            String query = "SELECT * FROM entrenador WHERE Nombre = '" + user +"'";
+
+            Statement statement = conexion.getConexion().createStatement();
+            ResultSet result = statement.executeQuery(query);
+            result.next();
+            switch (result.getString("Genero")) {
+                case "F" -> txtGeneroEntrenador.setText("Mujer");
+                case "M" -> txtGeneroEntrenador.setText("Hombre");
+                case "0" -> txtGeneroEntrenador.setText("Otro");
+            }
+
+            query = "SELECT * FROM entrenador WHERE Nombre = '" + user +"'";
+            statement = conexion.getConexion().createStatement();
+            result = statement.executeQuery(query);
+            result.next();
+            utils.recuperarImagenBBDD(result.getString("Sprite"), imgEntrenador);
+
+            query = "SELECT * FROM pokemon";
+            statement = conexion.getConexion().createStatement();
+            result = statement.executeQuery(query);
+            while (result.next()) {                    
+                Pokemon temp = new Pokemon();
+                temp.setnPokedex(result.getString("N_Pokedex"));
+                temp.setEspecie(result.getString("Especie"));
+                temp.setDenominacion(result.getString("Denominacion"));
+                temp.setDescripcion(result.getString("Descripcion"));
+                temp.setSprite(result.getString("Sprite"));
+                temp.setTipo1(result.getString("Tipo_1"));
+                temp.setTipo2(result.getString("Tipo_2"));
+                temp.setTamaño(result.getDouble("Tamaño"));
+                temp.setPeso(result.getDouble("Peso"));
+                temp.setHabilidades(result.getString("Habilidades"));
+                temp.setEstadisticas(result.getString("Estadisticas"));
+                cargarPokemon(temp);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al conectar con la BD: " + e.getMessage());
+        }
     }
 }

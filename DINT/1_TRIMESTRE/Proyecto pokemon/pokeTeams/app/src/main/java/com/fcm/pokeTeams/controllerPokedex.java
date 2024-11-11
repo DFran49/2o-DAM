@@ -8,17 +8,25 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.util.Utilidades;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class controllerPokedex implements Initializable {
+    private controllerTarjetaPokemon ctp;
+    Utilidades util = new Utilidades();
 
     @FXML
     private ProgressBar BarSpD;
@@ -57,10 +65,10 @@ public class controllerPokedex implements Initializable {
     private Label txtDef;
 
     @FXML
-    private Label txtDenominacion;
+    private TextArea txtDenominacion;
 
     @FXML
-    private Label txtDescripcion;
+    private TextArea txtDescripcion;
 
     @FXML
     private TextField txtEspecie;
@@ -69,7 +77,7 @@ public class controllerPokedex implements Initializable {
     private Label txtHp;
 
     @FXML
-    private Label txtPeso;
+    private TextArea txtPeso;
 
     @FXML
     private Label txtSpA;
@@ -81,17 +89,48 @@ public class controllerPokedex implements Initializable {
     private Label txtSpe;
 
     @FXML
-    private Label txtTamaño;
+    private TextArea txtTamaño;
 
     @FXML
-    private Label txtTipo1;
+    private TextArea txtTipo1;
 
     @FXML
-    private Label txtTipo2;
+    private TextArea txtTipo2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
     }
 
+    void enviaPokemon(Pokemon p) {
+        txtEspecie.setText(p.getEspecie());
+        txtDenominacion.setText(p.getDenominacion());
+        txtDescripcion.setText(p.getDescripcion());
+        txtTamaño.setText(p.getTamaño() + " metros");
+        txtPeso.setText(p.getPeso() + " kilogramos");
+        txtTipo1.setText(p.getTipo1());
+        txtTipo2.setText(p.getTipo2());
+        util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
+        leerStats(p);
+        leerHabilidades(p);
+    }
+    
+    void leerStats(Pokemon p) {
+        Gson gson = new Gson();
+        /*try {
+            Persona persona = gson.fromJson(jsonString, Persona.class);
+            System.out.println("Nombre: " + persona.getNombre());
+            System.out.println("Edad: " + persona.getEdad());
+        } catch (JsonSyntaxException e) {
+            System.out.println("Error: " + e.getMessage());
+        }*/
+    }
+    
+    void leerHabilidades(Pokemon p) {}
+    
+    void setControladorEnlace(controllerTarjetaPokemon c) {
+        System.out.println("Controlador enlace");
+        ctp = c; //Enlace con controlador externo: ENLACE A<-B. Podemos llamar a cualquier variable/método PÚBLICO
+    }
 }
 
