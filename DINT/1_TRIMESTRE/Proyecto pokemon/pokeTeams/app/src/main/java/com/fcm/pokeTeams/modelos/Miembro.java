@@ -8,37 +8,19 @@ package com.fcm.pokeTeams.modelos;
  *
  * @author DFran49
  */
-public class Equipo {
-    private int idEquipo;
+public class Miembro {
     private String mote;
     private int nPokedex;
-    private int idEntrenador;
-    private String nombre;
     private char genero;
     private int nivel;
+    private String habilidad;
     private String naturaleza;
     private String objeto;
     private String movimientos;
     private String evs;
     private String ivs;
 
-    public Equipo() {
-    }
-
-    public String getIvs() {
-        return ivs;
-    }
-
-    public void setIvs(String ivs) {
-        this.ivs = ivs;
-    }
-
-    public int getIdEquipo() {
-        return idEquipo;
-    }
-
-    public void setIdEquipo(int idEquipo) {
-        this.idEquipo = idEquipo;
+    public Miembro() {
     }
 
     public String getMote() {
@@ -55,22 +37,6 @@ public class Equipo {
 
     public void setnPokedex(int nPokedex) {
         this.nPokedex = nPokedex;
-    }
-
-    public int getIdEntrenador() {
-        return idEntrenador;
-    }
-
-    public void setIdEntrenador(int idEntrenador) {
-        this.idEntrenador = idEntrenador;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public char getGenero() {
@@ -120,6 +86,22 @@ public class Equipo {
     public void setEvs(String evs) {
         this.evs = evs;
     }
-    
+
+    public String getIvs() {
+        return ivs;
+    }
+
+    public void setIvs(String ivs) {
+        this.ivs = ivs;
+    }
+
+    public String getHabilidad() {
+        return habilidad;
+    }
+
+    public void setHabilidad(String habilidad) {
+        this.habilidad = habilidad;
+    }
+
     
 }

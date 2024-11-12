@@ -4,6 +4,8 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.modelos.Equipo;
+import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
@@ -12,6 +14,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,17 +106,7 @@ public class controllerCore implements Initializable {
 
     @FXML
     void cambiarNombre(ActionEvent event) {
-        try {
-            String query = "SELECT * FROM entrenador";
-            
-            Statement statement = conexion.getConexion().createStatement();
-            ResultSet result = statement.executeQuery(query);
-            while (result.next()) {                
-                System.out.println(result.getString("nombre"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al conectar con la BD: " + e.getMessage());
-        }
+        
     }
     
     @FXML
@@ -146,18 +140,7 @@ public class controllerCore implements Initializable {
     }
 
     private void cargarTarjetas() {
-        try {
-            
-            
-            for (int i = 0; i < 4; i++) {
-                FXMLLoader cargarEquipo = new FXMLLoader(getClass().getResource("fxml/tarjeta_equipo_v1.fxml"));
-                SplitPane tarjetaEquipo = cargarEquipo.load();
-
-                gridEquipos.add(tarjetaEquipo, 0, i);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        
     }
     
     private void cargarPokemon(Pokemon pokemon) {
@@ -175,11 +158,24 @@ public class controllerCore implements Initializable {
             } else {
                 col++;
             }
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
     
+    }
+    
+    private void cargarEquipo(Equipo e, int indice) {
+        try {
+            FXMLLoader cargarEquipo = new FXMLLoader(getClass().getResource("fxml/tarjeta_equipo_v1.fxml"));
+            SplitPane tarjetaEquipo = cargarEquipo.load();
+            controllerEquipos controladorEquipo = cargarEquipo.getController();
+
+            controladorEquipo.asignarEquipo(e, conexion);
+            gridEquipos.add(tarjetaEquipo, 0, row);
+            row++;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
     void setControladorEnlace(controllerLogIn c) {
@@ -225,6 +221,31 @@ public class controllerCore implements Initializable {
                 temp.setEstadisticas(result.getString("Estadisticas"));
                 cargarPokemon(temp);
             }
+            row = 0;
+            col = 0;
+            
+            query = "SELECT DISTINCT ID_Equipo FROM equipo";
+
+            statement = conexion.getConexion().createStatement();
+            result = statement.executeQuery(query);
+            int idEquipo = 0;
+            while (result.next()) {                
+                idEquipo = result.getInt("ID_Equipo");
+                query = "SELECT * FROM equipo WHERE ID_Equipo = " + idEquipo;
+                statement = conexion.getConexion().createStatement();
+                ResultSet resultado = statement.executeQuery(query);
+                resultado.next();
+                Equipo tempEquipo = new Equipo();
+                tempEquipo.setIdEquipo(resultado.getInt("ID_Equipo"));
+                tempEquipo.setFormato(resultado.getString("Formato"));
+                tempEquipo.setNombre(resultado.getString("Nombre_Equipo"));
+                cargarEquipo(tempEquipo, tempEquipo.getIdEquipo());
+                
+            }
+            row = 0;
+            
+            
+            
 
         } catch (SQLException e) {
             System.out.println("Error al conectar con la BD: " + e.getMessage());
