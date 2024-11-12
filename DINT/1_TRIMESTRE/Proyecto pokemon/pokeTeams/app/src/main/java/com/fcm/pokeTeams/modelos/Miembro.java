@@ -10,15 +10,19 @@ package com.fcm.pokeTeams.modelos;
  */
 public class Miembro {
     private String mote;
+    private String especie;
     private int nPokedex;
     private char genero;
     private int nivel;
     private String habilidad;
     private String naturaleza;
     private String objeto;
+    private String tipo1;
+    private String tipo2;
     private String movimientos;
     private String evs;
     private String ivs;
+    private String sprite;
 
     public Miembro() {
     }
@@ -101,6 +105,38 @@ public class Miembro {
 
     public void setHabilidad(String habilidad) {
         this.habilidad = habilidad;
+    }
+
+    public String getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(String sprite) {
+        this.sprite = sprite;
+    }
+
+    public String getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
+    }
+
+    public String getTipo1() {
+        return tipo1;
+    }
+
+    public void setTipo1(String tipo1) {
+        this.tipo1 = tipo1;
+    }
+
+    public String getTipo2() {
+        return tipo2;
+    }
+
+    public void setTipo2(String tipo2) {
+        this.tipo2 = tipo2;
     }
 
     

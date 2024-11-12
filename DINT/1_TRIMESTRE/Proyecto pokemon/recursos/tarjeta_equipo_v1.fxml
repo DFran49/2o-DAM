@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,12 +23,12 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="txtNombreEquipo" layoutX="14.0" layoutY="49.0" text="Monotipo Planta">
+            <Label fx:id="txtNombreEquipo" layoutX="14.0" layoutY="49.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="txtFormatoEquipo" layoutX="16.0" layoutY="119.0" text="7a generación">
+            <Label fx:id="txtFormatoEquipo" layoutX="16.0" layoutY="119.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -42,56 +41,32 @@
                <children>
                   <StackPane maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0">
                      <children>
-                        <ImageView fx:id="imgPokemon1" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/Bulbasaur.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="imgPokemon1" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="456.0" layoutY="10.0" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0">
                      <children>
-                        <ImageView fx:id="imgPokemon2" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/Bulbasaur.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="imgPokemon2" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="541.0" layoutY="10.0" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0">
                      <children>
-                        <ImageView fx:id="imgPokemon3" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/Bulbasaur.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="imgPokemon3" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="626.0" layoutY="10.0" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0">
                      <children>
-                        <ImageView fx:id="imgPokemon4" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/Bulbasaur.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="imgPokemon4" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="711.0" layoutY="10.0" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0">
                      <children>
-                        <ImageView fx:id="imgPokemon5" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/Bulbasaur.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="imgPokemon5" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="796.0" layoutY="10.0" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0">
                      <children>
-                        <ImageView fx:id="imgPokemon6" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/Bulbasaur.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="imgPokemon6" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                </children>

@@ -34,6 +34,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class controllerEquipos implements Initializable {
+    private controllerEquipo ce;
+    Stage emergente;
     Conexion conexion = null;
     Utilidades util = new Utilidades();
     List<Miembro> participantes = new ArrayList<>();
@@ -65,16 +67,8 @@ public class controllerEquipos implements Initializable {
 
     @FXML
     void abrirEquipo(MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/emergente_añadir_equipo_v1.fxml"));
-            Scene scene=new Scene(root);
-            Stage escenaPrincipal = new Stage();
-            escenaPrincipal.setScene(scene);
-            escenaPrincipal.setTitle("Log In");
-            escenaPrincipal.show();
-        } catch (IOException ex) {
-            Logger.getLogger(ex.getMessage());
-        }
+        this.ce.enviaMiembros(participantes, txtNombreEquipo.getText());
+        this.emergente.show();
     }
 
     @FXML
@@ -84,38 +78,66 @@ public class controllerEquipos implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Parent rootEquipo = null;
+        FXMLLoader loaderEquipo = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_equipo_v1.fxml"));
+        try {
+            rootEquipo = loaderEquipo.load();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        ce = loaderEquipo.getController();
+        ce.setControladorEnlace(this);
+
+        Scene sceneB = new Scene(rootEquipo);
+        emergente = new Stage();
+        emergente.setResizable(false);
+        emergente.setScene(sceneB);
+        emergente.setTitle("Ventana Emergente");
     }
 
     public void asignarEquipo(Equipo e, Conexion c) {
         txtNombreEquipo.setText(e.getNombre());
         txtFormatoEquipo.setText(e.getFormato());
         
-
-
         try {
-            String query = "SELECT * FROM equipo WHERE ID_Equipo = " + e.getIdEquipo();
+            String query = "SELECT Especie, N_Pokedex, Mote, Genero, Nivel, Habilidad, Naturaleza, Objeto, Tipo_1, Tipo_2, Movimientos, EVs, IVs, Sprite "
+                    + "FROM equipo JOIN pokemon USING (N_Pokedex) WHERE ID_Equipo = " + e.getIdEquipo();
             Statement statement = conexion.getConexion().createStatement();
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 Miembro tempMiembro = new Miembro();
-                tempMiembro.setMote(result.getString("Mote"));
                 tempMiembro.setnPokedex(result.getInt("N_Pokedex"));
+                tempMiembro.setEspecie(result.getString("Especie"));
+                tempMiembro.setMote(result.getString("Mote"));
                 tempMiembro.setGenero(result.getString("Genero").charAt(0));
                 tempMiembro.setNivel(result.getInt("Nivel"));
                 tempMiembro.setHabilidad(result.getString("Habilidad"));
                 tempMiembro.setNaturaleza(result.getString("Naturaleza"));
                 tempMiembro.setObjeto(result.getString("Objeto"));
+                tempMiembro.setTipo1(result.getString("Tipo_1"));
+                tempMiembro.setTipo2(result.getString("Tipo_2"));
                 tempMiembro.setMovimientos(result.getString("Movimientos"));
                 tempMiembro.setEvs(result.getString("EVs"));
                 tempMiembro.setIvs(result.getString("IVs"));
+                tempMiembro.setSprite(result.getString("Sprite"));
                 participantes.add(tempMiembro);
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(controllerEquipos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        List<ImageView> listImagenes = new ArrayList<>();
+        listImagenes.add(imgPokemon1);
+        listImagenes.add(imgPokemon2);
+        listImagenes.add(imgPokemon3);
+        listImagenes.add(imgPokemon4);
+        listImagenes.add(imgPokemon5);
+        listImagenes.add(imgPokemon6);
         
-        //util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
+        for (int i = 0; i < participantes.size(); i++) {
+            util.recuperarImagenBBDD(participantes.get(i).getSprite(), listImagenes.get(i));
+        }
         equipo = e;
         conexion = c;
     }
