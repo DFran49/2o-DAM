@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class generadorStats {
-    private List<Stat> stats = new ArrayList<>();
-    public List<Stat> getStats() { return stats; }
+    private List<Stat> evs = new ArrayList<>();
+    public List<Stat> getStats() { return evs; }
     public static void generarStats(String pokemon) {
         generadorStats listaStats = new generadorStats();
         int stat = 0;
