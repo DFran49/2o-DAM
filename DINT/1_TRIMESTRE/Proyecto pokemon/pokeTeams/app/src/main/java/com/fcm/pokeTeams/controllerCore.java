@@ -43,6 +43,7 @@ public class controllerCore implements Initializable {
     int row = 0;
     Utilidades utils = new Utilidades();
     ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
+    
     @FXML
     private GridPane gridPokemon;
     
@@ -136,11 +137,6 @@ public class controllerCore implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarTarjetas();
-    }
-
-    private void cargarTarjetas() {
-        
     }
     
     private void cargarPokemon(Pokemon pokemon) {
@@ -150,7 +146,6 @@ public class controllerCore implements Initializable {
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
             controlador.asignarPokemon(pokemon);
-            tarjetaPokemon.setUserData(pokemon);
             gridPokemon.add(tarjetaPokemon, col, row);
             if(col == 2) {
                 col = 0;
@@ -170,6 +165,7 @@ public class controllerCore implements Initializable {
             SplitPane tarjetaEquipo = cargarEquipo.load();
             controllerEquipos controladorEquipo = cargarEquipo.getController();
 
+            System.out.println("o " + e.getIdEquipo());
             controladorEquipo.asignarEquipo(e, conexion);
             gridEquipos.add(tarjetaEquipo, 0, row);
             row++;
@@ -237,16 +233,13 @@ public class controllerCore implements Initializable {
                 resultado.next();
                 Equipo tempEquipo = new Equipo();
                 tempEquipo.setIdEquipo(resultado.getInt("ID_Equipo"));
+                System.out.println(tempEquipo.getIdEquipo());
                 tempEquipo.setFormato(resultado.getString("Formato"));
                 tempEquipo.setNombre(resultado.getString("Nombre_Equipo"));
+                System.out.println(tempEquipo.getNombre());
                 cargarEquipo(tempEquipo, tempEquipo.getIdEquipo());
-                
             }
             row = 0;
-            
-            
-            
-
         } catch (SQLException e) {
             System.out.println("Error al conectar con la BD: " + e.getMessage());
         }

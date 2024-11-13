@@ -23,9 +23,9 @@
       </TextField>
       <HBox prefWidth="600.0" spacing="20.0">
          <children>
-            <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0">
+            <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="360.0" minWidth="400.0">
                <children>
-                  <ImageView fx:id="imgPokemon" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgPokemon" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/Bulbasaur.png" />
                      </image>

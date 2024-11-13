@@ -43,7 +43,6 @@ public class controllerTarjetaPokemon implements Initializable {
     @FXML
     void abrirPokemon() {
         this.cp.enviaPokemon(pokemon);
-        Stage primaryStage = (Stage) this.txtEspecie.getScene().getWindow();
         this.emergente.show();
     }
 

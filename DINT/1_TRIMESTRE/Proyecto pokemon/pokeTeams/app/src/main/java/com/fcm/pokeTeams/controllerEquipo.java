@@ -4,14 +4,17 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.modelos.Miembro;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -21,26 +24,44 @@ import javafx.scene.layout.GridPane;
  * @author DFran49
  */
 public class controllerEquipo implements Initializable {
+    private controllerEquipos ces;
+    private controllerTarjetaMiembro ctm;
+    private List<Miembro> listaMiembros;
 
     @FXML
     private GridPane gridMiembros;
 
     @FXML
-    private TextField txtEspecie;
+    private TextField txtNombreEquipo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
+    
+    void enviaMiembros(List<Miembro> lm, String nombre) {
+        listaMiembros = lm;
+        txtNombreEquipo.setText(nombre);
         try {
-            for (int i = 0; i < 5; i++) {
-                FXMLLoader cargar = new FXMLLoader(getClass().getResource("fxml/tarjeta_miembro_equipo_v1.fxml"));
-                SplitPane tarjeta = cargar.load();
+            for (int i = 0; i < lm.size(); i++) {
+                FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_miembro_equipo_v1.fxml"));
+                SplitPane tarjeta = cargarTarjeta.load();
+                controllerTarjetaMiembro controladorTarjeta = cargarTarjeta.getController();
+                
+                controladorTarjeta.asignarMiembro(listaMiembros.get(i));
+                ctm = cargarTarjeta.getController();
+                ctm.setControladorEnlace(this);
 
-                int col = i%2;
-                int row = i/2;
-                gridMiembros.add(tarjeta, col, row);
+
+                int col = i%3;
+                
+                gridMiembros.add(tarjeta, col, 0);
             }
         } catch (IOException ex) {
             Logger.getLogger(controllerEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    void setControladorEnlace(controllerEquipos c) {
+        ces = c;
     }
 }
