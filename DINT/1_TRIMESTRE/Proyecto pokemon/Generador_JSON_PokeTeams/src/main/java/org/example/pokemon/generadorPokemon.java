@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class generadorPokemon {
     public static void main(String[] args) {
-        generadorHabilidades listaHabilidades = new generadorHabilidades();
         System.out.println("Introduzca el pokemon que tendrá las habilidades");
         String pokemon = new Scanner(System.in).nextLine();
         System.out.println("Introduzca el número de habilidades");

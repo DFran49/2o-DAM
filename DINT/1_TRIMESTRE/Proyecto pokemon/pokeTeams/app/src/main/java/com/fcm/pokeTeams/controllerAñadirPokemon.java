@@ -175,7 +175,7 @@ public class controllerAñadirPokemon implements Initializable{
         Habilidad habilidad = null;
         try {
             for (int i = 0; i < 3; i++) {
-                if (!listHabilidades.vacia() && listPaneles.isEmpty()) {
+                if (!listHabilidades.vacia() && !listPaneles.isEmpty()) {
                     habilidad = listHabilidades.siguienteHabilidad();
                     listPaneles.get(0).setText(habilidad.getNombre());
                     listPaneles.remove(0);

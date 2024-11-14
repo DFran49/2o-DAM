@@ -89,6 +89,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Añadir equipo");
+            miStage.getIcons().add(new Image("Plusle.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,6 +125,7 @@ public class controllerCore implements Initializable {
                 cc.enviaStage(miStage);
                 confirmar.showAndWait();
             });
+            miStage.getIcons().add(new Image("Plusle.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,6 +163,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Cambiar contraseña");
+            miStage.getIcons().add(new Image("Klink.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -178,6 +181,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Cambiar genero");
+            miStage.getIcons().add(new Image("Klink.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -195,6 +199,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Cambiar nombre");
+            miStage.getIcons().add(new Image("Klink.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -215,6 +220,7 @@ public class controllerCore implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + txtNombreEntrenador.getText());
+        miStage.getIcons().add(new Image("Trubbish.png"));
         miStage.showAndWait();
         
         try {
@@ -283,13 +289,13 @@ public class controllerCore implements Initializable {
         );
     }
     
-    private void cargarPokemon(Pokemon pokemon) {
+    private void cargarPokemon(Pokemon pokemon, boolean a) {
         try {
             FXMLLoader cargarPokemon = new FXMLLoader(getClass().getResource("fxml/tarjeta_pokemon_v1.fxml"));
             SplitPane tarjetaPokemon = cargarPokemon.load();
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
-            controlador.asignarPokemon(pokemon);
+            controlador.asignarPokemon(pokemon, a);
             gridPokemon.add(tarjetaPokemon, col, row);
             if(col == 2) {
                 col = 0;
@@ -337,7 +343,8 @@ public class controllerCore implements Initializable {
             }
             int idEntrenador = result.getInt("ID_Entrenador");
             utils.recuperarImagenBBDD(result.getString("Sprite"), imgEntrenador);
-            btnAddPokemon.setVisible(result.getBoolean("esAdmin"));            
+            btnAddPokemon.setVisible(result.getBoolean("esAdmin"));
+            boolean admin = result.getBoolean("esAdmin");
 
             query = "SELECT * FROM pokemon";
             statement = conexion.getConexion().createStatement();
@@ -355,7 +362,7 @@ public class controllerCore implements Initializable {
                 temp.setPeso(result.getDouble("Peso"));
                 temp.setHabilidades(result.getString("Habilidades"));
                 temp.setEstadisticas(result.getString("Estadisticas"));
-                cargarPokemon(temp);
+                cargarPokemon(temp, admin);
             }
             row = 0;
             col = 0;

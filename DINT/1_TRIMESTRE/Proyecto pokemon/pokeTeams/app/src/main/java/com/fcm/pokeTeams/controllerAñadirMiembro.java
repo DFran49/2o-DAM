@@ -10,7 +10,10 @@ package com.fcm.pokeTeams;
  */
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
+import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.modelos.Movimiento;
+import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
@@ -176,7 +179,13 @@ public class controllerAñadirMiembro implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        cbTipo1.getItems().addAll("Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
+                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
+                "Roca","Siniestro","Tierra","Veneno","Volador");
+        cbTipo2.getItems().addAll("Ninguno","Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
+                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
+                "Roca","Siniestro","Tierra","Veneno","Volador");
+        cbGenero.getItems().addAll('M','F','N');
     }
 
     void setControladorEnlace(controllerTarjetaMiembro c) {
@@ -185,7 +194,7 @@ public class controllerAñadirMiembro implements Initializable {
     
     void enviaMiembro(Miembro m) {
         miembro = m;
-        txtEspecie.setText(m.getEspecie());
+        txtEspecie.setText(m.getEspecie() + " - Nivel: " + m.getNivel());
         cbEspecie.getItems().clear();
         cbEspecie.getItems().add(m.getEspecie());
         cbEspecie.getSelectionModel().select(0);
@@ -194,24 +203,64 @@ public class controllerAñadirMiembro implements Initializable {
         cbHabilidad.getItems().add(m.getHabilidad());
         cbHabilidad.getSelectionModel().select(0);
         txtObjeto.setText(m.getObjeto());
-        cbGenero.getItems().clear();
-        cbGenero.getItems().add(m.getGenero());
-        cbGenero.getSelectionModel().select(0);
-        cbTipo1.getItems().clear();
-        cbTipo1.getItems().add(m.getTipo1());
-        cbTipo1.getSelectionModel().select(0);
-        cbTipo2.getItems().clear();
-        cbTipo2.getItems().add(m.getTipo2());
-        cbTipo2.getSelectionModel().select(0);
+        cbGenero.getSelectionModel().select(Character.valueOf(m.getGenero()));
+        cbTipo1.getSelectionModel().select(m.getTipo1());
+        cbTipo2.getSelectionModel().select(m.getTipo2());
         
-        //movimientos
-        //evis, ivs
         util.recuperarImagenBBDD(m.getSprite(), imgPokemon);
-        //leerHabilidades(p);
-        //leerStats(p);
+        leerMovimientos(m);
+        leerEVs(m);
+        leerIVs(m);
     }
     
-    void leerStats(Miembro m) {
+    void leerMovimientos(Miembro m) {
+        Gson gson = new Gson();
+        MovimientoEnvoltorio listMovimientos = gson.fromJson(m.getMovimientos(), MovimientoEnvoltorio.class);
+        List<TextField> listText = new ArrayList<>();
+        listText.add(txtMovimiento1);
+        listText.add(txtMovimiento2);
+        listText.add(txtMovimiento3);
+        listText.add(txtMovimiento4);
+        Movimiento movimiento = null;
+        try {
+            for (int i = 0; i < listMovimientos.getSize(); i++) {
+                movimiento = listMovimientos.getMovimiento(i);
+                listText.get(i).setText(movimiento.getMovimiento());
+            }
+        } catch (JsonSyntaxException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+    
+    void leerIVs(Miembro m) {
+        Gson gson = new Gson();
+        IVsEnvoltorio listIVs = gson.fromJson(m.getIvs(), IVsEnvoltorio.class);
+        List<Slider> listBarras = new ArrayList<>();
+        listBarras.add(sdIVsHp);
+        listBarras.add(sdIVsAtk);
+        listBarras.add(sdIVsDef);
+        listBarras.add(sdIVsSpA);
+        listBarras.add(sdIVsSpD);
+        listBarras.add(sdIVsSpe);
+        List<Label> listEtiquetas = new ArrayList<>();
+        listEtiquetas.add(txtIVsHp);
+        listEtiquetas.add(txtIVsAtk);
+        listEtiquetas.add(txtIVsDef);
+        listEtiquetas.add(txtIVsSpA);
+        listEtiquetas.add(txtIVsSpD);
+        listEtiquetas.add(txtIVsSpe);
+        
+        try {
+            for (int i = 0; i < 6; i++) {
+                listBarras.get(i).setValue(listIVs.getEV(i).getValor());
+                listEtiquetas.get(i).setText(listIVs.getEV(i).getValor()+"/31");
+            }
+        } catch (JsonSyntaxException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+    
+    void leerEVs(Miembro m) {
         Gson gson = new Gson();
         EVsEnvoltorio listEVs = gson.fromJson(m.getEvs(), EVsEnvoltorio.class);
         List<Slider> listBarras = new ArrayList<>();
@@ -232,7 +281,7 @@ public class controllerAñadirMiembro implements Initializable {
         try {
             for (int i = 0; i < 6; i++) {
                 listBarras.get(i).setValue(listEVs.getEV(i).getValor());
-                listEtiquetas.get(i).setText(listEVs.getEV(i).getValor()+"/31");
+                listEtiquetas.get(i).setText(listEVs.getEV(i).getValor()+"/255");
             }
         } catch (JsonSyntaxException e) {
             System.err.println("Error: " + e.getMessage());

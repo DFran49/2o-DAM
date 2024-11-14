@@ -62,7 +62,7 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
                 cc.enviaStage(miStage);
                 confirmar.showAndWait();
             });
-            miStage.getIcons().add(new Image("add.png"));
+            miStage.getIcons().add(new Image("Plusle.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);

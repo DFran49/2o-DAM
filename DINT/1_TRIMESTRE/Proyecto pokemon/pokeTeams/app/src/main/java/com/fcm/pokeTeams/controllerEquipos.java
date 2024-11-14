@@ -29,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
@@ -72,6 +73,7 @@ public class controllerEquipos implements Initializable {
         if (event.getButton() == MouseButton.PRIMARY) {
             this.ce.enviaMiembros(participantes, txtNombreEquipo.getText());
             this.emergente.setTitle(txtNombreEquipo.getText());
+            this.emergente.getIcons().add(new Image("Maushold.png"));
             this.emergente.show();
         }
         
@@ -91,6 +93,7 @@ public class controllerEquipos implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Editar " + equipo.getNombre());
+        miStage.getIcons().add(new Image("Smeargle.png"));
         miStage.showAndWait();
     }
 
@@ -108,6 +111,7 @@ public class controllerEquipos implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + equipo.getNombre());
+        miStage.getIcons().add(new Image("Trubbish.png"));
         miStage.showAndWait();
     }
 

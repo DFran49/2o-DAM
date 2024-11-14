@@ -27,12 +27,12 @@ public class generadorHabilidades {
         }
 
         Gson gson = new Gson();
-        try (FileWriter writer = new FileWriter("habilidades" + pokemon + ".json")) {
+        try (FileWriter writer = new FileWriter("Pokemon/habilidades" + pokemon + ".json")) {
             gson.toJson(listaHabilidades, writer);
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        try (FileReader reader = new FileReader("habilidades" + pokemon + ".json")) {
+        try (FileReader reader = new FileReader("Pokemon/habilidades" + pokemon + ".json")) {
             generadorHabilidades listaPersonasLeido = gson.fromJson(reader, generadorHabilidades.class);
             listaPersonasLeido.getHabilidades().forEach(p -> System.out.println(p.getNombre() +
                     " - " + p.getDescripcion()));

@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -63,6 +64,7 @@ public class controllerTarjetaMiembro implements Initializable{
             cc.enviaStage(emergente);
             confirmar.showAndWait();
         });
+        emergente.getIcons().add(util.getImage(miembro.getSprite()));
         this.emergente.show();
     }
 
@@ -71,8 +73,26 @@ public class controllerTarjetaMiembro implements Initializable{
         if (event.getButton() == MouseButton.PRIMARY) {
             this.cam.enviaMiembro(miembro);
             this.emergente.setTitle(miembro.getMote());
+            emergente.setOnCloseRequest(evento -> {
+                evento.consume();
+                Parent raiz = null;
+                FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+                try {
+                    raiz = cargador.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                cc = cargador.getController();
+
+                Stage confirmar = new Stage();
+                Scene scene = new Scene(raiz);
+                confirmar.setScene(scene);
+                confirmar.setTitle("Confirmar");
+                cc.enviaStage(emergente);
+                confirmar.showAndWait();
+            });
             emergente.getIcons().add(util.getImage(miembro.getSprite()));
-            this.emergente.show();
+            emergente.show();
         }
     }
     
@@ -90,6 +110,7 @@ public class controllerTarjetaMiembro implements Initializable{
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + miembro.getMote());
+        miStage.getIcons().add(new Image("Trubbish.png"));
         miStage.showAndWait();
     }
 

@@ -35,7 +35,6 @@ public class DbConnection {
             fileIn = new FileInputStream("src/main/resources/bbdd.properties");
             properties.load(fileIn);
             // Mostrar propiedades recuperadas
-            URL = "jdbc:mariadb://localhost:3306/pokeTeams";
             URL = "jdbc:mariadb://" + properties.getProperty("SERVER") + ":" + properties.getProperty("PORT") + "/" + properties.getProperty("BBDD");
             USER = properties.getProperty("USER");
             PASSWORD = properties.getProperty("PWD");

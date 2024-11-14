@@ -13,7 +13,7 @@
 
 <SplitPane dividerPositions="0.1682615629984051" maxHeight="164.0" minHeight="164.0" onMouseClicked="#abrirEquipo" prefHeight="164.0" prefWidth="1256.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerEquipos">
    <items>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+      <AnchorPane maxHeight="162.0" maxWidth="208.0" minHeight="162.0" minWidth="208.0" prefHeight="162.0" prefWidth="100.0">
          <children>
             <Label layoutX="16.0" layoutY="84.0" text="Formato:">
                <font>
@@ -39,7 +39,7 @@
       </AnchorPane>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1040.0">
          <children>
-            <HBox alignment="CENTER" layoutX="-1.0" layoutY="2.0" prefHeight="133.0" prefWidth="1042.0" spacing="10.0">
+            <HBox alignment="CENTER" layoutX="-1.0" layoutY="2.0" maxHeight="160.0" maxWidth="1042.0" minHeight="160.0" minWidth="1042.0" prefHeight="160.0" prefWidth="1042.0" spacing="10.0">
                <children>
                   <StackPane maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0">
                      <children>

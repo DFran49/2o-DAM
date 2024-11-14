@@ -41,7 +41,10 @@ public class controllerEquipo implements Initializable {
     void enviaMiembros(List<Miembro> lm, String nombre) {
         listaMiembros = lm;
         txtNombreEquipo.setText(nombre);
+        
         try {
+            int col = 0;
+            int row = 0;
             for (int i = 0; i < lm.size(); i++) {
                 FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_miembro_equipo_v1.fxml"));
                 SplitPane tarjeta = cargarTarjeta.load();
@@ -50,18 +53,16 @@ public class controllerEquipo implements Initializable {
                 controladorTarjeta.asignarMiembro(listaMiembros.get(i));
                 ctm = cargarTarjeta.getController();
                 ctm.setControladorEnlace(this);
-
-
-                int col = i%3;
-                int row = i >= 3? 1:0;
-                
                 gridMiembros.add(tarjeta, col, row);
+                col++;
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
             }
             if (lm.size() < 6) {
                 FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_añadir_miembro_v1.fxml"));
                 SplitPane tarjeta = cargarTarjeta.load();
-                int col = lm.size()%3;
-                int row = lm.size()/2 >= 1.5? 1:0;
                 gridMiembros.add(tarjeta, col, row);
             }
         } catch (IOException ex) {

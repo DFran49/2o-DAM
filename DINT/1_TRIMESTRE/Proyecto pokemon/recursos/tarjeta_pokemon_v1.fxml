@@ -11,7 +11,7 @@
 
 <SplitPane dividerPositions="0.18181818181818182" maxHeight="350.0" maxWidth="410.0" minHeight="350.0" minWidth="410.0" onContextMenuRequested="#abrirMenu" onMouseClicked="#abrirPokemon" orientation="VERTICAL" prefHeight="350.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerTarjetaPokemon">
    <items>
-      <AnchorPane maxWidth="410.0" minHeight="50.0" minWidth="410.0" prefHeight="50.0" prefWidth="410.0">
+      <AnchorPane maxHeight="50.0" maxWidth="410.0" minHeight="50.0" minWidth="410.0" prefHeight="50.0" prefWidth="410.0">
          <children>
             <Label fx:id="txtId" layoutX="352.0" layoutY="13.0" text="001">
                <font>

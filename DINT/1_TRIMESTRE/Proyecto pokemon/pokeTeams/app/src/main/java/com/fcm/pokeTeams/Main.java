@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -31,6 +32,7 @@ public class Main extends Application {
         Stage escenaPrincipal = primaryStage;
         escenaPrincipal.setScene(scene);
         escenaPrincipal.setTitle("Log In");
+        escenaPrincipal.getIcons().add(new Image("Pokeball.png"));
         escenaPrincipal.show();
     }
 

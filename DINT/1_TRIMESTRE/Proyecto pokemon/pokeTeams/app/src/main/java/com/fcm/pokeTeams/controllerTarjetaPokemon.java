@@ -23,6 +23,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
@@ -106,6 +108,7 @@ public class controllerTarjetaPokemon implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + pokemon.getEspecie());
+        miStage.getIcons().add(new Image("Trubbish.png"));
         miStage.showAndWait();
     }
 
@@ -142,10 +145,14 @@ public class controllerTarjetaPokemon implements Initializable {
         editar.setScene(sceneB);
     }
 
-    public void asignarPokemon(Pokemon p) {
+    public void asignarPokemon(Pokemon p, boolean admin) {
         txtEspecie.setText(p.getEspecie());
+        
         txtId.setText(p.getnPokedex());
         util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
         pokemon = p;
+        if (!admin) {
+            menu.getItems().clear();
+        }
     }
 }
