@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +31,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -67,13 +69,46 @@ public class controllerEquipos implements Initializable {
 
     @FXML
     void abrirEquipo(MouseEvent event) {
-        this.ce.enviaMiembros(participantes, txtNombreEquipo.getText());
-        this.emergente.show();
+        if (event.getButton() == MouseButton.PRIMARY) {
+            this.ce.enviaMiembros(participantes, txtNombreEquipo.getText());
+            this.emergente.setTitle(txtNombreEquipo.getText());
+            this.emergente.show();
+        }
+        
+    }
+    
+    @FXML
+    void editar(ActionEvent event) {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_editar_equipo.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Stage miStage = new Stage();
+        Scene inicio = new Scene(root);
+        miStage.setScene(inicio);
+        miStage.setTitle("Editar " + equipo.getNombre());
+        miStage.showAndWait();
     }
 
     @FXML
-    void abrirMenu(ContextMenuEvent event) {
-        
+    void eliminar(ActionEvent event) {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_eliminar.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Stage miStage = new Stage();
+        Scene inicio = new Scene(root);
+        miStage.setScene(inicio);
+        miStage.setTitle("Eliminar " + equipo.getNombre());
+        miStage.showAndWait();
     }
 
     @Override

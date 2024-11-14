@@ -53,8 +53,16 @@ public class controllerEquipo implements Initializable {
 
 
                 int col = i%3;
+                int row = i >= 3? 1:0;
                 
-                gridMiembros.add(tarjeta, col, 0);
+                gridMiembros.add(tarjeta, col, row);
+            }
+            if (lm.size() < 6) {
+                FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_añadir_miembro_v1.fxml"));
+                SplitPane tarjeta = cargarTarjeta.load();
+                int col = lm.size()%3;
+                int row = lm.size()/2 >= 1.5? 1:0;
+                gridMiembros.add(tarjeta, col, row);
             }
         } catch (IOException ex) {
             Logger.getLogger(controllerEquipo.class.getName()).log(Level.SEVERE, null, ex);

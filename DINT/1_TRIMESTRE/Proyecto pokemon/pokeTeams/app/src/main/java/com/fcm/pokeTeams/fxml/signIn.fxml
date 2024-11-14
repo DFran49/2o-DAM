@@ -67,11 +67,15 @@
             </Label>
             <StackPane maxHeight="200.0" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="imgRegistro" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/add.png" />
-                     </image>
-                  </ImageView>
+                  <StackPane minHeight="200.0" minWidth="300.0">
+                     <children>
+                        <ImageView fx:id="imgRegistro" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/add.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                </children>
             </StackPane>
             <Label layoutX="337.0" layoutY="29.0" text="Introduce tu contraseña">

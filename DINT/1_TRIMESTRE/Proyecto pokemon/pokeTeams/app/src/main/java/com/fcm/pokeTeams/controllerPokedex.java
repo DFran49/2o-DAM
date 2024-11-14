@@ -37,7 +37,7 @@ public class controllerPokedex implements Initializable {
     Pokemon poke;
     Utilidades util = new Utilidades();
 
-    @FXML
+     @FXML
     private ProgressBar BarSpD;
 
     @FXML
@@ -191,7 +191,6 @@ public class controllerPokedex implements Initializable {
                 
                 progreso = (listStats.getEstadistica(i).getValor()*100)/255;
                 progreso = progreso/100;
-                System.out.println(progreso);
                 listBarras.get(i).setProgress(progreso);
                 if (progreso < 0.25) {
                     listBarras.get(i).setStyle("-fx-accent: #ff0000;");

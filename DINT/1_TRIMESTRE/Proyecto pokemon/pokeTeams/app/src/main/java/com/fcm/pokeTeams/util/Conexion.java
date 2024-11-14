@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams.util;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,10 +18,13 @@ public class Conexion extends Object {
     static Connection conexion;
 
     public Conexion() {
+        DbConnection bbdd = new DbConnection();
         try {
-            this.conexion = DbConnection.getConnection();
+            this.conexion = bbdd.getConnection();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

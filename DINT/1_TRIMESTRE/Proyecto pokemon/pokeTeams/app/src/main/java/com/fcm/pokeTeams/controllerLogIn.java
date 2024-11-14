@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -68,7 +70,10 @@ public class controllerLogIn implements Initializable {
             this.cc.enviaLogIn(this.conexion, txtNombre.getText());
    
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-            
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2 - miStage.getWidth() / 4);
+            miStage.setY((screenBounds.getHeight() - miStage.getHeight()) / 2 - miStage.getHeight() / 2);
+            miStage.setTitle("PokeTeams");
             miStage.setScene(inicio);
         } catch (IOException ex) {
             Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,6 +90,9 @@ public class controllerLogIn implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/signIn.fxml"));
             Scene scene=new Scene(root);
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2);
+            miStage.setY((screenBounds.getHeight() - miStage.getHeight()) / 2 - miStage.getHeight() / 1.6);
             miStage.setScene(scene);
         } catch (IOException ex) {
             Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);

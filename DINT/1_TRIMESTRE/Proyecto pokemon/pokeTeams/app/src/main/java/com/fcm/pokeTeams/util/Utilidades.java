@@ -18,10 +18,13 @@ public class Utilidades {
     public Utilidades() {
     }
     
-    public void recuperarImagenBBDD(String b64, ImageView imagen) {
+    public Image getImage(String b64) {
         byte[] bytesAnormal = Base64.getDecoder().decode(b64);
         ByteArrayInputStream is = new ByteArrayInputStream(bytesAnormal);
-        Image nueva = new Image(is);
-        imagen.setImage(nueva);
+        return new Image(is);
+    }
+    
+    public void recuperarImagenBBDD(String b64, ImageView imagen) {
+        imagen.setImage(getImage(b64));
     }
 }

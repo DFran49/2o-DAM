@@ -23,7 +23,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="731.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
    <children>
-      <Pane onMouseClicked="#carga" onMouseMoved="#carga" prefHeight="200.0" prefWidth="823.0">
+      <Pane prefHeight="200.0" prefWidth="823.0">
          <children>
             <TabPane layoutX="8.0" layoutY="7.0" prefHeight="716.0" prefWidth="1284.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
@@ -127,7 +127,7 @@
                                           <Image url="@/funnel.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirPokemon" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="btnAddPokemon" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirPokemon" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@/add.png" />
                                        </image>

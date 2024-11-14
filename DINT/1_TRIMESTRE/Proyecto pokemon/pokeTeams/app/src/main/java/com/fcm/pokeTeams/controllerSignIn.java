@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,8 +23,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -34,10 +39,28 @@ public class controllerSignIn implements Initializable {
     private Button btnConfirmar;
 
     @FXML
-    private Button btnRegistro;
+    private Button btnInicio;
+
+    @FXML
+    private ToggleGroup genero;
+
+    @FXML
+    private ImageView imgRegistro;
+
+    @FXML
+    private PasswordField pwConfContraseña;
 
     @FXML
     private PasswordField pwContraseña;
+
+    @FXML
+    private RadioButton rbFemenino;
+
+    @FXML
+    private RadioButton rbMasculino;
+
+    @FXML
+    private RadioButton rbOtro;
 
     @FXML
     private TextField txtNombre;
@@ -48,6 +71,7 @@ public class controllerSignIn implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/core_v1.fxml"));
             Scene scene=new Scene(root);
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
+            
             miStage.setScene(scene);
         } catch (IOException ex) {
             Logger.getLogger(controllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,19 +81,33 @@ public class controllerSignIn implements Initializable {
     @FXML
     void inicio() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/signIn.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/logIn.fxml"));
             Scene scene=new Scene(root);
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2);
+            miStage.setY((screenBounds.getHeight() - miStage.getHeight()) * 3);
             miStage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(controllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
     
     @FXML
     void subirImagen() {
+        FileChooser fileChooser = new FileChooser();
 
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imagen jpg", "*.jpg"),
+                new FileChooser.ExtensionFilter("Imagen png", "*.png")
+        );
+        File archivoSeleccionado = fileChooser.showOpenDialog(null);
+            if (archivoSeleccionado != null) {
+                String rutaArchivo = archivoSeleccionado.toURI().toString();
+                Image imagen = new Image(rutaArchivo);
+                imgRegistro.setImage(imagen);
+            }
     }
 
     @Override

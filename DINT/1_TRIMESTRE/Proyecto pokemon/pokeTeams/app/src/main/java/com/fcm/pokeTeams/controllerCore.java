@@ -9,6 +9,7 @@ import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -25,12 +26,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  *
@@ -38,11 +46,16 @@ import javafx.scene.layout.GridPane;
  */
 public class controllerCore implements Initializable {
     private controllerLogIn cLi;
+    private ContextMenu contextMenu;
     Conexion conexion = null;
     int col = 0;
     int row = 0;
     Utilidades utils = new Utilidades();
     ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
+    private controllerConfirmar cc;
+    
+    @FXML
+    private ImageView btnAddPokemon;
     
     @FXML
     private GridPane gridPokemon;
@@ -67,12 +80,54 @@ public class controllerCore implements Initializable {
 
     @FXML
     void añadirEquipo(MouseEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_añadir_equipo_v1.fxml"));
+            root = loader.load();
 
+            Stage miStage = new Stage();
+            Scene inicio = new Scene(root);
+            miStage.setScene(inicio);
+            miStage.setTitle("Añadir equipo");
+            miStage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     void añadirPokemon(MouseEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_v1.fxml"));
+            root = loader.load();
 
+            Stage miStage = new Stage();
+            Scene inicio = new Scene(root);
+            miStage.setScene(inicio);
+            miStage.setTitle("Añadir pokemon");
+            miStage.setOnCloseRequest(evento -> {
+                evento.consume();
+                Parent raiz = null;
+                FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+                try {
+                    raiz = cargador.load();
+                } catch (IOException ex) {
+                    Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                cc = cargador.getController();
+
+                Stage confirmar = new Stage();
+                Scene scene = new Scene(raiz);
+                confirmar.setScene(scene);
+                confirmar.setTitle("Confirmar");
+                cc.enviaStage(miStage);
+                confirmar.showAndWait();
+            });
+            miStage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -97,27 +152,83 @@ public class controllerCore implements Initializable {
 
     @FXML
     void cambiarContraseña(ActionEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_contraseña.fxml"));
+            root = loader.load();
 
+            Stage miStage = new Stage();
+            Scene inicio = new Scene(root);
+            miStage.setScene(inicio);
+            miStage.setTitle("Cambiar contraseña");
+            miStage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     void cambiarGenero(ActionEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_genero.fxml"));
+            root = loader.load();
 
+            Stage miStage = new Stage();
+            Scene inicio = new Scene(root);
+            miStage.setScene(inicio);
+            miStage.setTitle("Cambiar genero");
+            miStage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     void cambiarNombre(ActionEvent event) {
-        
-    }
-    
-    @FXML
-    void carga(MouseEvent event) {
-        //ELIMINAR
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_nombre.fxml"));
+            root = loader.load();
+
+            Stage miStage = new Stage();
+            Scene inicio = new Scene(root);
+            miStage.setScene(inicio);
+            miStage.setTitle("Cambiar nombre");
+            miStage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     void eliminarCuenta(ActionEvent event) {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_eliminar.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        Stage miStage = new Stage();
+        Scene inicio = new Scene(root);
+        miStage.setScene(inicio);
+        miStage.setTitle("Eliminar " + txtNombreEntrenador.getText());
+        miStage.showAndWait();
+        
+        try {
+            root = null;
+            loader = new FXMLLoader(getClass().getResource("fxml/logIn.fxml"));
+            root = loader.load();
+
+            miStage = (Stage) this.txtBusquedaEquipos.getScene().getWindow();
+            inicio = new Scene(root);
+            miStage.setScene(inicio);
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
@@ -132,11 +243,44 @@ public class controllerCore implements Initializable {
 
     @FXML
     void logOut(ActionEvent event) {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/logIn.fxml"));
+            root = loader.load();
 
+            Stage miStage = (Stage) this.txtBusquedaEquipos.getScene().getWindow();
+            Scene inicio = new Scene(root);
+            miStage.setScene(inicio);
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        contextMenu = new ContextMenu();
+
+        MenuItem item1 = new MenuItem("Cambiar imagen");
+        item1.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+
+                fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Imagen jpg", "*.jpg"),
+                        new FileChooser.ExtensionFilter("Imagen png", "*.png")
+                );
+                File archivoSeleccionado = fileChooser.showOpenDialog(null);
+                    if (archivoSeleccionado != null) {
+                        String rutaArchivo = archivoSeleccionado.toURI().toString();
+                        Image imagen = new Image(rutaArchivo);
+                        imgEntrenador.setImage(imagen);
+                    }
+        });
+        
+        contextMenu.getItems().add(item1);
+        
+        imgEntrenador.setOnContextMenuRequested(event -> 
+            contextMenu.show(imgEntrenador, event.getScreenX(), event.getScreenY())
+        );
     }
     
     private void cargarPokemon(Pokemon pokemon) {
@@ -159,13 +303,12 @@ public class controllerCore implements Initializable {
     
     }
     
-    private void cargarEquipo(Equipo e, int indice) {
+    private void cargarEquipo(Equipo e) {
         try {
             FXMLLoader cargarEquipo = new FXMLLoader(getClass().getResource("fxml/tarjeta_equipo_v1.fxml"));
             SplitPane tarjetaEquipo = cargarEquipo.load();
             controllerEquipos controladorEquipo = cargarEquipo.getController();
 
-            System.out.println("o " + e.getIdEquipo());
             controladorEquipo.asignarEquipo(e, conexion);
             gridEquipos.add(tarjetaEquipo, 0, row);
             row++;
@@ -192,12 +335,9 @@ public class controllerCore implements Initializable {
                 case "M" -> txtGeneroEntrenador.setText("Hombre");
                 case "0" -> txtGeneroEntrenador.setText("Otro");
             }
-
-            query = "SELECT * FROM entrenador WHERE Nombre = '" + user +"'";
-            statement = conexion.getConexion().createStatement();
-            result = statement.executeQuery(query);
-            result.next();
+            int idEntrenador = result.getInt("ID_Entrenador");
             utils.recuperarImagenBBDD(result.getString("Sprite"), imgEntrenador);
+            btnAddPokemon.setVisible(result.getBoolean("esAdmin"));            
 
             query = "SELECT * FROM pokemon";
             statement = conexion.getConexion().createStatement();
@@ -220,7 +360,7 @@ public class controllerCore implements Initializable {
             row = 0;
             col = 0;
             
-            query = "SELECT DISTINCT ID_Equipo FROM equipo";
+            query = "SELECT DISTINCT ID_Equipo FROM equipo WHERE ID_Entrenador = " + idEntrenador;
 
             statement = conexion.getConexion().createStatement();
             result = statement.executeQuery(query);
@@ -233,11 +373,9 @@ public class controllerCore implements Initializable {
                 resultado.next();
                 Equipo tempEquipo = new Equipo();
                 tempEquipo.setIdEquipo(resultado.getInt("ID_Equipo"));
-                System.out.println(tempEquipo.getIdEquipo());
                 tempEquipo.setFormato(resultado.getString("Formato"));
                 tempEquipo.setNombre(resultado.getString("Nombre_Equipo"));
-                System.out.println(tempEquipo.getNombre());
-                cargarEquipo(tempEquipo, tempEquipo.getIdEquipo());
+                cargarEquipo(tempEquipo);
             }
             row = 0;
         } catch (SQLException e) {

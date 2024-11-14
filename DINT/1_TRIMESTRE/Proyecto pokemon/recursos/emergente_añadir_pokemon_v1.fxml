@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -12,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerAñadirPokemon">
    <children>
       <TextField fx:id="txtEspecie" focusTraversable="false" promptText="Especie">
          <font>
@@ -23,52 +26,132 @@
          <children>
             <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0">
                <children>
-                  <ImageView fx:id="imgPokemon" fitHeight="400.0" fitWidth="400.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgPokemon" fitHeight="300.0" fitWidth="300.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@AddCircle-icon.png" />
+                        <Image url="@/add.png" />
                      </image>
                   </ImageView>
                </children>
             </StackPane>
             <VBox prefHeight="290.0" prefWidth="400.0" spacing="20.0">
                <children>
-                  <TextField fx:id="txtDenominacion" focusTraversable="false" promptText="Denominación">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtDescripcion" focusTraversable="false" promptText="Descripción">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtTamaño" focusTraversable="false" layoutX="10.0" layoutY="81.0" promptText="Tamaño">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtPeso" focusTraversable="false" layoutX="10.0" layoutY="372.0" promptText="Peso">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtTipo1" focusTraversable="false" layoutX="10.0" layoutY="443.0" promptText="Tipo 1">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtTipo2" focusTraversable="false" layoutX="10.0" layoutY="514.0" promptText="Tipo 2">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
+                  <Accordion>
+                     <panes>
+                        <TitledPane animated="false" expanded="false" text="Denominación" underline="true" wrapText="true">
+                           <content>
+                              <VBox>
+                                 <children>
+                                    <TextArea fx:id="txtDenominacion" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </TextArea>
+                                 </children>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </TitledPane>
+                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="10.0" text="Descripción" underline="true" wrapText="true">
+                           <content>
+                              <VBox>
+                                 <children>
+                                    <TextArea fx:id="txtDescripcion" prefHeight="125.0" prefWidth="200.0" wrapText="true">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </TextArea>
+                                 </children>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </TitledPane>
+                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="61.0" text="Tamaño" underline="true" wrapText="true">
+                           <content>
+                              <VBox>
+                                 <children>
+                                    <TextArea fx:id="txtTamaño" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </TextArea>
+                                 </children>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </TitledPane>
+                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="112.0" text="Peso" underline="true" wrapText="true">
+                           <content>
+                              <VBox>
+                                 <children>
+                                    <TextArea fx:id="txtPeso" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </TextArea>
+                                 </children>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </TitledPane>
+                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="164.0" text="Tipo 1" underline="true" wrapText="true">
+                           <content>
+                              <VBox>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                                 <children>
+                                    <ComboBox fx:id="cbTipo1" editable="true" prefWidth="350.0" />
+                                 </children>
+                              </VBox>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </TitledPane>
+                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="215.0" text="Tipo 2" underline="true" wrapText="true">
+                           <content>
+                              <VBox>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                                 <children>
+                                    <ComboBox fx:id="cbTipo2" editable="true" prefWidth="350.0" />
+                                 </children>
+                              </VBox>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
                </children>
             </VBox>
          </children>
       </HBox>
       <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
          <children>
-            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="40.0">
+            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Estadísticas">
                      <font>
@@ -170,77 +253,69 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <VBox prefWidth="400.0" spacing="20.0">
+            <VBox prefWidth="400.0" spacing="10.0">
                <children>
-                  <TitledPane fx:id="tpaneHabilidad1" animated="false" expanded="false" focusTraversable="false" underline="true" wrapText="true">
-                     <content>
-                        <VBox>
-                           <children>
-                              <TextField fx:id="txtDescripcionHabilidad1" focusTraversable="false" promptText="Descripción">
+                  <Accordion>
+                     <panes>
+                        <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
+                           <content>
+                              <TextArea fx:id="txtHabilidad1" prefHeight="125.0" prefWidth="200.0" promptText="Descripción 1" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextArea>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <TextField fx:id="txtNombreHabilidad1" promptText="Habilidad 1">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </TextField>
-                           </children>
-                        </VBox>
-                     </content>
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <TextField fx:id="txtHabilidad1" focusTraversable="false" promptText="Nombre Habilidad 1">
+                           </graphic>
+                        </TitledPane>
+                        <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
                            <font>
-                              <Font size="24.0" />
+                              <Font name="System Bold" size="24.0" />
                            </font>
-                        </TextField>
-                     </graphic>
-                  </TitledPane>
-                  <TitledPane fx:id="tpaneHabilidad11" animated="false" expanded="false" focusTraversable="false" layoutX="10.0" layoutY="10.0" underline="true" wrapText="true">
-                     <content>
-                        <VBox>
-                           <children>
-                              <TextField fx:id="txtDescripcionHabilidad2" focusTraversable="false" promptText="Descripción">
+                           <content>
+                              <TextArea fx:id="txtHabilidad2" prefHeight="125.0" prefWidth="200.0" promptText="Descripción 2" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextArea>
+                           </content>
+                           <graphic>
+                              <TextField fx:id="txtNombreHabilidad2" promptText="Habilidad 2">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </TextField>
-                           </children>
-                        </VBox>
-                     </content>
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <TextField fx:id="txtHabilidad2" focusTraversable="false" promptText="Nombre Habilidad 2">
+                           </graphic>
+                        </TitledPane>
+                        <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
                            <font>
-                              <Font size="24.0" />
+                              <Font name="System Bold" size="24.0" />
                            </font>
-                        </TextField>
-                     </graphic>
-                  </TitledPane>
-                  <TitledPane fx:id="tpaneHabilidad111" animated="false" expanded="false" focusTraversable="false" layoutX="10.0" layoutY="187.0" underline="true" wrapText="true">
-                     <content>
-                        <VBox>
-                           <children>
-                              <TextField fx:id="txtDescripcionHabilidad3" focusTraversable="false" promptText="Descripción">
+                           <content>
+                              <TextArea fx:id="txtHabilidad3" prefHeight="125.0" prefWidth="361.0" promptText="Descripción 3" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextArea>
+                           </content>
+                           <graphic>
+                              <TextField fx:id="txtNombreHabilidad3" promptText="Habilidad 3">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </TextField>
-                           </children>
-                        </VBox>
-                     </content>
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <TextField fx:id="txtHabilidad3" focusTraversable="false" promptText="Nombre Habilidad 3">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </TextField>
-                     </graphic>
-                  </TitledPane>
+                           </graphic>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
                </children>
             </VBox>
          </children>

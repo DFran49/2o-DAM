@@ -15,6 +15,7 @@ import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
 public class controllerAñadirMiembro implements Initializable {
     private controllerTarjetaMiembro ctm;
@@ -157,7 +160,18 @@ public class controllerAñadirMiembro implements Initializable {
 
     @FXML
     void subirImagen(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
 
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imagen jpg", "*.jpg"),
+                new FileChooser.ExtensionFilter("Imagen png", "*.png")
+        );
+        File archivoSeleccionado = fileChooser.showOpenDialog(null);
+            if (archivoSeleccionado != null) {
+                String rutaArchivo = archivoSeleccionado.toURI().toString();
+                Image imagen = new Image(rutaArchivo);
+                imgPokemon.setImage(imagen);
+            }
     }
 
     @Override
@@ -172,16 +186,24 @@ public class controllerAñadirMiembro implements Initializable {
     void enviaMiembro(Miembro m) {
         miembro = m;
         txtEspecie.setText(m.getEspecie());
+        cbEspecie.getItems().clear();
+        cbEspecie.getItems().add(m.getEspecie());
+        cbEspecie.getSelectionModel().select(0);
         txtMote.setText(m.getMote());
+        cbHabilidad.getItems().clear();
         cbHabilidad.getItems().add(m.getHabilidad());
         cbHabilidad.getSelectionModel().select(0);
         txtObjeto.setText(m.getObjeto());
+        cbGenero.getItems().clear();
         cbGenero.getItems().add(m.getGenero());
         cbGenero.getSelectionModel().select(0);
+        cbTipo1.getItems().clear();
         cbTipo1.getItems().add(m.getTipo1());
         cbTipo1.getSelectionModel().select(0);
+        cbTipo2.getItems().clear();
         cbTipo2.getItems().add(m.getTipo2());
         cbTipo2.getSelectionModel().select(0);
+        
         //movimientos
         //evis, ivs
         util.recuperarImagenBBDD(m.getSprite(), imgPokemon);

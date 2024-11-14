@@ -13,7 +13,9 @@ import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,11 +23,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class controllerTarjetaMiembro implements Initializable{
     controllerEquipo ce;
+    private controllerConfirmar cc;
     controllerAñadirMiembro cam;
     Stage emergente;
     Miembro miembro;
@@ -36,11 +40,57 @@ public class controllerTarjetaMiembro implements Initializable{
 
     @FXML
     private Label txtNombreMiembro;
+    
+    @FXML
+    void editar(ActionEvent event) {
+        this.cam.enviaMiembro(miembro);
+        this.emergente.setTitle(miembro.getMote());
+        emergente.setOnCloseRequest(evento -> {
+            evento.consume();
+            Parent raiz = null;
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+            try {
+                raiz = cargador.load();
+            } catch (IOException ex) {
+                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cc = cargador.getController();
+
+            Stage confirmar = new Stage();
+            Scene scene = new Scene(raiz);
+            confirmar.setScene(scene);
+            confirmar.setTitle("Confirmar");
+            cc.enviaStage(emergente);
+            confirmar.showAndWait();
+        });
+        this.emergente.show();
+    }
 
     @FXML
     void editarMiembro(MouseEvent event) {
-        this.cam.enviaMiembro(miembro);
-        this.emergente.show();
+        if (event.getButton() == MouseButton.PRIMARY) {
+            this.cam.enviaMiembro(miembro);
+            this.emergente.setTitle(miembro.getMote());
+            emergente.getIcons().add(util.getImage(miembro.getSprite()));
+            this.emergente.show();
+        }
+    }
+    
+    @FXML
+    void eliminar(ActionEvent event) {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_eliminar.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Stage miStage = new Stage();
+        Scene inicio = new Scene(root);
+        miStage.setScene(inicio);
+        miStage.setTitle("Eliminar " + miembro.getMote());
+        miStage.showAndWait();
     }
 
     @Override
@@ -60,7 +110,7 @@ public class controllerTarjetaMiembro implements Initializable{
         emergente = new Stage();
         emergente.setResizable(false);
         emergente.setScene(sceneB);
-        emergente.setTitle("Ventana Emergente");
+        emergente.setTitle("Añadir/Editar miembro");
     }
     
     public void asignarMiembro(Miembro m) {

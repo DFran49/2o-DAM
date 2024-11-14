@@ -15,24 +15,35 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class controllerTarjetaPokemon implements Initializable {
     private controllerPokedex cp;
+    private controllerAñadirPokemon cap;
+    private controllerConfirmar cc;
     Stage emergente;
+    Stage editar;
     Pokemon pokemon;
     Utilidades util = new Utilidades();
     
     @FXML
     private ImageView imgPokemon;
+
+    @FXML
+    private ContextMenu menu;
 
     @FXML
     private Label txtEspecie;
@@ -41,9 +52,61 @@ public class controllerTarjetaPokemon implements Initializable {
     private Label txtId;
 
     @FXML
-    void abrirPokemon() {
-        this.cp.enviaPokemon(pokemon);
-        this.emergente.show();
+    void abrirMenu(ContextMenuEvent event) {
+        menu.show(imgPokemon.getParent().getParent(), event.getScreenX(), event.getScreenY());
+    }
+
+    @FXML
+    void abrirPokemon(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            this.cp.enviaPokemon(pokemon);
+            emergente.setTitle(pokemon.getEspecie());
+            emergente.getIcons().add(util.getImage(pokemon.getSprite()));
+            this.emergente.show();
+        }
+    }
+    
+    @FXML
+    void editar(ActionEvent event) {
+        this.cap.enviaPokemon(pokemon);
+        editar.setTitle("Editar " + pokemon.getEspecie());
+        editar.getIcons().add(util.getImage(pokemon.getSprite()));
+        editar.setOnCloseRequest(evento -> {
+            evento.consume();
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+            try {
+                root = loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cc = loader.getController();
+
+            Stage miStage = new Stage();
+            Scene inicio = new Scene(root);
+            miStage.setScene(inicio);
+            miStage.setTitle("Confirmar");
+            cc.enviaStage(editar);
+            miStage.showAndWait();
+        });
+        this.editar.show();
+    }
+
+    @FXML
+    void eliminar(ActionEvent event) {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_eliminar.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Stage miStage = new Stage();
+        Scene inicio = new Scene(root);
+        miStage.setScene(inicio);
+        miStage.setTitle("Eliminar " + pokemon.getEspecie());
+        miStage.showAndWait();
     }
 
     @Override
@@ -63,7 +126,20 @@ public class controllerTarjetaPokemon implements Initializable {
         emergente = new Stage();
         emergente.setResizable(false);
         emergente.setScene(sceneB);
-        emergente.setTitle("Ventana Emergente");
+        
+        loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_v1.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        cap = loader.getController();
+
+        sceneB = new Scene(root);
+        editar = new Stage();
+        editar.setResizable(false);
+        editar.setScene(sceneB);
     }
 
     public void asignarPokemon(Pokemon p) {
