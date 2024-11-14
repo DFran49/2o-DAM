@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="txtEspecie" focusTraversable="false" promptText="Especie">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <HBox prefWidth="600.0" spacing="20.0">
+         <children>
+            <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0">
+               <children>
+                  <ImageView fx:id="imgPokemon" fitHeight="400.0" fitWidth="400.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@AddCircle-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <VBox prefHeight="290.0" prefWidth="400.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="txtDenominacion" focusTraversable="false" promptText="Denominación">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtDescripcion" focusTraversable="false" promptText="Descripción">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtTamaño" focusTraversable="false" layoutX="10.0" layoutY="81.0" promptText="Tamaño">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtPeso" focusTraversable="false" layoutX="10.0" layoutY="372.0" promptText="Peso">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtTipo1" focusTraversable="false" layoutX="10.0" layoutY="443.0" promptText="Tipo 1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtTipo2" focusTraversable="false" layoutX="10.0" layoutY="514.0" promptText="Tipo 2">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
+         <children>
+            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="40.0">
+               <children>
+                  <Label text="Estadísticas">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="HP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdHp" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats" />
+                        <Label fx:id="txtHp" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Atk">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdAtk" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats" />
+                        <Label fx:id="txtAtk" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="95.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Def">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdDef" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats" />
+                        <Label fx:id="txtDef" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpA">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdSpA" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats" />
+                        <Label fx:id="txtSpA" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="245.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="SpD">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdSpD" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats" />
+                        <Label fx:id="txtSpD" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="20.0" layoutY="320.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                     <children>
+                        <Label prefWidth="50.0" text="Spe">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="sdSpe" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats" />
+                        <Label fx:id="txtSpe" prefWidth="90.0" text="0/255">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefWidth="400.0" spacing="20.0">
+               <children>
+                  <TitledPane fx:id="tpaneHabilidad1" animated="false" expanded="false" focusTraversable="false" underline="true" wrapText="true">
+                     <content>
+                        <VBox>
+                           <children>
+                              <TextField fx:id="txtDescripcionHabilidad1" focusTraversable="false" promptText="Descripción">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </content>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="txtHabilidad1" focusTraversable="false" promptText="Nombre Habilidad 1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane fx:id="tpaneHabilidad11" animated="false" expanded="false" focusTraversable="false" layoutX="10.0" layoutY="10.0" underline="true" wrapText="true">
+                     <content>
+                        <VBox>
+                           <children>
+                              <TextField fx:id="txtDescripcionHabilidad2" focusTraversable="false" promptText="Descripción">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </content>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="txtHabilidad2" focusTraversable="false" promptText="Nombre Habilidad 2">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane fx:id="tpaneHabilidad111" animated="false" expanded="false" focusTraversable="false" layoutX="10.0" layoutY="187.0" underline="true" wrapText="true">
+                     <content>
+                        <VBox>
+                           <children>
+                              <TextField fx:id="txtDescripcionHabilidad3" focusTraversable="false" promptText="Descripción">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </content>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <TextField fx:id="txtHabilidad3" focusTraversable="false" promptText="Nombre Habilidad 3">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                     </graphic>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>
