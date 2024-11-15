@@ -44,55 +44,13 @@ public class controllerTarjetaMiembro implements Initializable{
     
     @FXML
     void editar(ActionEvent event) {
-        this.cam.enviaMiembro(miembro);
-        this.emergente.setTitle(miembro.getMote());
-        emergente.setOnCloseRequest(evento -> {
-            evento.consume();
-            Parent raiz = null;
-            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
-            try {
-                raiz = cargador.load();
-            } catch (IOException ex) {
-                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            cc = cargador.getController();
-
-            Stage confirmar = new Stage();
-            Scene scene = new Scene(raiz);
-            confirmar.setScene(scene);
-            confirmar.setTitle("Confirmar");
-            cc.enviaStage(emergente);
-            confirmar.showAndWait();
-        });
-        emergente.getIcons().add(util.getImage(miembro.getSprite()));
-        this.emergente.show();
+        editarGeneral();
     }
 
     @FXML
     void editarMiembro(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            this.cam.enviaMiembro(miembro);
-            this.emergente.setTitle(miembro.getMote());
-            emergente.setOnCloseRequest(evento -> {
-                evento.consume();
-                Parent raiz = null;
-                FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
-                try {
-                    raiz = cargador.load();
-                } catch (IOException ex) {
-                    Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                cc = cargador.getController();
-
-                Stage confirmar = new Stage();
-                Scene scene = new Scene(raiz);
-                confirmar.setScene(scene);
-                confirmar.setTitle("Confirmar");
-                cc.enviaStage(emergente);
-                confirmar.showAndWait();
-            });
-            emergente.getIcons().add(util.getImage(miembro.getSprite()));
-            emergente.show();
+            editarGeneral();
         }
     }
     
@@ -142,5 +100,31 @@ public class controllerTarjetaMiembro implements Initializable{
     
     void setControladorEnlace(controllerEquipo c) {
         ce = c;
+    }
+    
+    void editarGeneral() {
+        this.cam.enviaMiembro(miembro);
+        this.emergente.setTitle(miembro.getMote());
+        emergente.setOnCloseRequest(evento -> {
+            evento.consume();
+            Parent raiz = null;
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+            try {
+                raiz = cargador.load();
+            } catch (IOException ex) {
+                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cc = cargador.getController();
+
+            Stage confirmar = new Stage();
+            Scene scene = new Scene(raiz);
+            confirmar.setScene(scene);
+            confirmar.setTitle("Confirmar");
+            cc.enviaStage(emergente);
+            confirmar.getIcons().add(new Image("Victini.png"));
+            confirmar.showAndWait();
+        });
+        emergente.getIcons().add(util.getImage(miembro.getSprite()));
+        emergente.show();
     }
 }

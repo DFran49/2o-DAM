@@ -71,7 +71,9 @@ public class controllerSignIn implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/core_v1.fxml"));
             Scene scene=new Scene(root);
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-            
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2 - miStage.getWidth() / 4);
+            miStage.setY((screenBounds.getHeight() - miStage.getHeight()) / 2);
             miStage.setScene(scene);
         } catch (IOException ex) {
             Logger.getLogger(controllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,7 +88,7 @@ public class controllerSignIn implements Initializable {
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
             miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2);
-            miStage.setY((screenBounds.getHeight() - miStage.getHeight()) * 3);
+            miStage.setY((screenBounds.getHeight() - miStage.getHeight() /1.3));
             miStage.setScene(scene);
         } catch (IOException ex) {
             Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);

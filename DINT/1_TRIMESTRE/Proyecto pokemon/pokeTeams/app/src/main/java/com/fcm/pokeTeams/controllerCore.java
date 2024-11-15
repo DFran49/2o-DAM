@@ -26,18 +26,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -53,30 +61,81 @@ public class controllerCore implements Initializable {
     Utilidades utils = new Utilidades();
     ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
     private controllerConfirmar cc;
-    
+
     @FXML
     private ImageView btnAddPokemon;
-    
+
     @FXML
-    private GridPane gridPokemon;
-    
+    private ComboBox<?> cbEstadistica;
+
+    @FXML
+    private ComboBox<?> cbEstadisticaOrden;
+
+    @FXML
+    private ComboBox<?> cbTipo1;
+
+    @FXML
+    private ComboBox<?> cbTipo2;
+
+    @FXML
+    private ToggleGroup especie;
+
+    @FXML
+    private ToggleGroup estadistica;
+
     @FXML
     private GridPane gridEquipos;
-    
+
+    @FXML
+    private GridPane gridPokemon;
+
     @FXML
     private ImageView imgEntrenador;
+
+    @FXML
+    private ToggleGroup peso;
+
+    @FXML
+    private Spinner<?> spEstadistica;
+
+    @FXML
+    private Spinner<?> spPesoMax;
+
+    @FXML
+    private Spinner<?> spPesoMin;
+
+    @FXML
+    private Spinner<?> spTamañoMax;
+
+    @FXML
+    private Spinner<?> spTamañoMin;
+
+    @FXML
+    private ToggleGroup tamaño;
+
+    @FXML
+    private TitledPane tpFiltro;
+
+    @FXML
+    private TitledPane tpOrdenar;
 
     @FXML
     private TextField txtBusquedaEquipos;
 
     @FXML
-    private TextField txtBusquedaEquipos1;
+    private TextField txtBusquedaPokemon;
 
     @FXML
     private TextField txtGeneroEntrenador;
 
     @FXML
+    private TextField txtHabilidad;
+
+    @FXML
     private TextField txtNombreEntrenador;
+    
+    @FXML
+    private VBox vbFiltro;
 
     @FXML
     void añadirEquipo(MouseEvent event) {
@@ -123,6 +182,7 @@ public class controllerCore implements Initializable {
                 confirmar.setScene(scene);
                 confirmar.setTitle("Confirmar");
                 cc.enviaStage(miStage);
+                confirmar.getIcons().add(new Image("Victini.png"));
                 confirmar.showAndWait();
             });
             miStage.getIcons().add(new Image("Plusle.png"));
@@ -139,7 +199,9 @@ public class controllerCore implements Initializable {
 
     @FXML
     void buscarPokemon(MouseEvent event) {
-
+        vbFiltro.setVisible(false);
+        tpFiltro.expandedProperty().set(false);
+        tpOrdenar.expandedProperty().set(false);
     }
 
     @FXML
@@ -219,47 +281,25 @@ public class controllerCore implements Initializable {
         Stage miStage = new Stage();
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
-        miStage.setTitle("Eliminar " + txtNombreEntrenador.getText());
+        miStage.setTitle("Eliminar cuenta: " + txtNombreEntrenador.getText());
         miStage.getIcons().add(new Image("Trubbish.png"));
         miStage.showAndWait();
         
-        try {
-            root = null;
-            loader = new FXMLLoader(getClass().getResource("fxml/logIn.fxml"));
-            root = loader.load();
-
-            miStage = (Stage) this.txtBusquedaEquipos.getScene().getWindow();
-            inicio = new Scene(root);
-            miStage.setScene(inicio);
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        if ((boolean) miStage.getUserData()) {
+            cerrar();
         }
         
-    }
-
-    @FXML
-    void filtrarEquipo(MouseEvent event) {
-
+        
     }
 
     @FXML
     void filtrarPokemon(MouseEvent event) {
-
+        vbFiltro.setVisible(true);
     }
 
     @FXML
     void logOut(ActionEvent event) {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/logIn.fxml"));
-            root = loader.load();
-
-            Stage miStage = (Stage) this.txtBusquedaEquipos.getScene().getWindow();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        cerrar();
     }
 
     @Override
@@ -287,6 +327,15 @@ public class controllerCore implements Initializable {
         imgEntrenador.setOnContextMenuRequested(event -> 
             contextMenu.show(imgEntrenador, event.getScreenX(), event.getScreenY())
         );
+        tpFiltro.setOnMouseClicked(event -> {
+            tpOrdenar.expandedProperty().set(false);
+            tpFiltro.expandedProperty().set(true);
+        });
+        
+        tpOrdenar.setOnMouseClicked(event -> {
+            tpFiltro.expandedProperty().set(false);
+            tpOrdenar.expandedProperty().set(true);
+        });
     }
     
     private void cargarPokemon(Pokemon pokemon, boolean a) {
@@ -388,5 +437,23 @@ public class controllerCore implements Initializable {
         } catch (SQLException e) {
             System.out.println("Error al conectar con la BD: " + e.getMessage());
         }
+    }
+    
+    private void cerrar() {
+        try {
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/logIn.fxml"));
+            root = loader.load();
+
+            Stage miStage = (Stage) this.txtBusquedaEquipos.getScene().getWindow();
+            Scene inicio = new Scene(root);
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            miStage.setX((screenBounds.getWidth() - miStage.getWidth() / 1.1));
+            miStage.setY((screenBounds.getHeight() - miStage.getHeight() / 1.3));
+            miStage.setScene(inicio);
+        } catch (IOException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

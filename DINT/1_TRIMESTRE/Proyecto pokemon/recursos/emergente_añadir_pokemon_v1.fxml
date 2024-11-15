@@ -151,7 +151,7 @@
       </HBox>
       <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
          <children>
-            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="10.0">
+            <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.2" prefWidth="400.0" spacing="5.0">
                <children>
                   <Label text="Estadísticas">
                      <font>
@@ -259,7 +259,7 @@
                      <panes>
                         <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
                            <content>
-                              <TextArea fx:id="txtHabilidad1" prefHeight="125.0" prefWidth="200.0" promptText="Descripción 1" wrapText="true">
+                              <TextArea fx:id="txtHabilidad1" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" promptText="Descripción 1" wrapText="true">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -281,7 +281,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <content>
-                              <TextArea fx:id="txtHabilidad2" prefHeight="125.0" prefWidth="200.0" promptText="Descripción 2" wrapText="true">
+                              <TextArea fx:id="txtHabilidad2" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" promptText="Descripción 2" wrapText="true">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -300,7 +300,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <content>
-                              <TextArea fx:id="txtHabilidad3" prefHeight="125.0" prefWidth="361.0" promptText="Descripción 3" wrapText="true">
+                              <TextArea fx:id="txtHabilidad3" maxHeight="-Infinity" prefHeight="100.0" prefWidth="361.0" promptText="Descripción 3" wrapText="true">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

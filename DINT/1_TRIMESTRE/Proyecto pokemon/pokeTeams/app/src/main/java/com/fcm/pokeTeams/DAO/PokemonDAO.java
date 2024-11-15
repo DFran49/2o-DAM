@@ -18,6 +18,10 @@ import java.util.List;
  */
 public class PokemonDAO extends BaseDAO implements crudInt<Pokemon>{
     public PokemonDAO() {}
+    
+    /*private select() {
+        
+    }*/
 
     private Pokemon getPokemon(ResultSet rs) throws SQLException {
         Pokemon p = new Pokemon();

@@ -8,8 +8,10 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.util.Alertas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,8 +22,22 @@ public class controllerPopUpCambioNombre {
 
     @FXML
     void cambiarNombre(ActionEvent event) {
+        if (txtNuevoNombre.getText().isEmpty()) {
+            Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "NOMBRE EN BLANCO", 
+                        "No ha introducido un nombre.", "Intentelo de nuevo.");
+                credencialesIncorrectas.mostrarAlerta();
+        } else {
+            cerrar();
+        }
+    }
+
+    @FXML
+    void cancelar(ActionEvent event) {
+        cerrar();
+    }
+
+    private void cerrar() {
         Stage ventana = (Stage) txtNuevoNombre.getScene().getWindow();
         ventana.close();
     }
-
 }

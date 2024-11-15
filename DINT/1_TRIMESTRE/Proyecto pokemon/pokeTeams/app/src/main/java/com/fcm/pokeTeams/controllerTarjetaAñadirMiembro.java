@@ -58,6 +58,7 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
                 Stage confirmar = new Stage();
                 Scene scene = new Scene(raiz);
                 confirmar.setScene(scene);
+                confirmar.getIcons().add(new Image("Victini.png"));
                 confirmar.setTitle("Confirmar");
                 cc.enviaStage(miStage);
                 confirmar.showAndWait();
