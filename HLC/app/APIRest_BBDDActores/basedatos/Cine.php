@@ -3,7 +3,7 @@ class Cine
 {
 	private $host = 'localhost';
 	private $user = 'admin';
-	private $password = "oRf8eAlVJBky";
+	private $password = "SXH6obmADJAM";
 	private $database = "cine";
 
 	//oRf8eAlVJBky
