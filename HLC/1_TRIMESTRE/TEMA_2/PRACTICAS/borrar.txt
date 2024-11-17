@@ -1,0 +1,7 @@
+{
+    "N_Pokedex" : 14
+}
+
+
+
+N_Pokedex debe ser un entero que exista en la bbdd.

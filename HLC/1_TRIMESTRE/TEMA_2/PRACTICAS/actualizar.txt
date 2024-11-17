@@ -1,0 +1,22 @@
+{
+    "N_Pokedex": X,
+    "Especie": "Pikachu",
+    "Denominacion": "El ratóncito eléctrico",
+    "Descripcion": "Pikachu es un Pokémon de tipo eléctrico, conocido por su agilidad y su habilidad para generar electricidad. Es uno de los Pokémon más emblemáticos de la franquicia.",
+    "Sprite": "pikachu_sprite.png",
+    "Tipo_1": "Eléctrico",
+    "Tipo_2": "Ninguno",
+    "Tamaño": 0.4,
+    "Peso": 6.0,
+    "Habilidades": ["Estática", "Absorción eléctrica"],
+    "Estadisticas": {
+        "HP": 35,
+        "Ataque": 55,
+        "Defensa": 40,
+        "Velocidad": 90
+    }
+}
+
+
+
+N_Pokedex debe ser un int que exista en la bbdd.
