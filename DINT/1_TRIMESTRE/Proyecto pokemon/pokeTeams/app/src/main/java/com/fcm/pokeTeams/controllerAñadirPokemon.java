@@ -29,6 +29,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -145,6 +146,20 @@ public class controllerAñadirPokemon implements Initializable{
         cbTipo2.getItems().addAll("Ninguno","Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
                 "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
                 "Roca","Siniestro","Tierra","Veneno","Volador");
+        utils.crearTooltip("Seleccionar imagen", imgPokemon);
+        cbTipo1.setStyle("-fx-font-size: 24px;");
+        cbTipo2.setStyle("-fx-font-size: 24px;");
+        List<Tooltip> tooltips = new ArrayList<>();
+        tooltips.add(sdHp.getTooltip());
+        tooltips.add(sdAtk.getTooltip());
+        tooltips.add(sdDef.getTooltip());
+        tooltips.add(sdSpA.getTooltip());
+        tooltips.add(sdSpD.getTooltip());
+        tooltips.add(sdSpe.getTooltip());
+        
+        for (Tooltip t : tooltips) {
+            t.setStyle("-fx-font-size: 24px;");
+        }
     }
 
     void enviaPokemon(Pokemon p) {

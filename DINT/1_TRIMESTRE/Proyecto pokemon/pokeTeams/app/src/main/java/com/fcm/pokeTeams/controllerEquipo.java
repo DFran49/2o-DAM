@@ -5,6 +5,7 @@
 package com.fcm.pokeTeams;
 
 import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -27,6 +28,7 @@ public class controllerEquipo implements Initializable {
     private controllerEquipos ces;
     private controllerTarjetaMiembro ctm;
     private List<Miembro> listaMiembros;
+    private Utilidades utils = new Utilidades();
 
     @FXML
     private GridPane gridMiembros;
@@ -41,6 +43,7 @@ public class controllerEquipo implements Initializable {
     void enviaMiembros(List<Miembro> lm, String nombre) {
         listaMiembros = lm;
         txtNombreEquipo.setText(nombre);
+        utils.crearTooltip("Equipo: " + nombre, txtNombreEquipo);
         
         try {
             int col = 0;
@@ -53,6 +56,7 @@ public class controllerEquipo implements Initializable {
                 controladorTarjeta.asignarMiembro(listaMiembros.get(i));
                 ctm = cargarTarjeta.getController();
                 ctm.setControladorEnlace(this);
+                utils.crearTooltip(listaMiembros.get(i).getMote(), tarjeta);
                 gridMiembros.add(tarjeta, col, row);
                 col++;
                 if (col == 3) {
@@ -63,6 +67,7 @@ public class controllerEquipo implements Initializable {
             if (lm.size() < 6) {
                 FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_añadir_miembro_v1.fxml"));
                 SplitPane tarjeta = cargarTarjeta.load();
+                utils.crearTooltip("Añadir miembro", tarjeta);
                 gridMiembros.add(tarjeta, col, row);
             }
         } catch (IOException ex) {

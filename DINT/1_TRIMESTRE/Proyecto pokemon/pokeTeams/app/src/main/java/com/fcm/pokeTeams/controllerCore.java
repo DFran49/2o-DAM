@@ -385,11 +385,11 @@ public class controllerCore implements Initializable {
         cbEstadisticaOrden.getItems().addAll(cbEstadistica.getItems());
         inicializarSpinners();
         
-        crearTooltip("Añadir equipo", btnAddEquipo);
-        crearTooltip("Añadir pokemon", btnAddPokemon);
-        crearTooltip("Buscar equipo", btnBuscarEquipo);
-        crearTooltip("Buscar pokemon", btnBuscarPokemon);
-        crearTooltip("Filtrar pokemon", btnFiltrarPokemon);
+        utils.crearTooltip("Añadir equipo", btnAddEquipo);
+        utils.crearTooltip("Añadir pokemon", btnAddPokemon);
+        utils.crearTooltip("Buscar equipo", btnBuscarEquipo);
+        utils.crearTooltip("Buscar pokemon", btnBuscarPokemon);
+        utils.crearTooltip("Filtrar pokemon", btnFiltrarPokemon);
     }
     
     private void inicializarSpinners() {
@@ -403,17 +403,6 @@ public class controllerCore implements Initializable {
         spPesoMax.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, peso, 0.0, 0.1));
     }
     
-    private void crearTooltip(String msg, Node n) {
-        Tooltip tooltip = new Tooltip(msg);
-        tooltip.setShowDelay(Duration.millis(500));
-        tooltip.autoFixProperty().set(true);
-        tooltip.consumeAutoHidingEventsProperty().set(true);
-        tooltip.hideOnEscapeProperty().set(true);
-
-        // Asignar el Tooltip al ImageView
-        Tooltip.install(n, tooltip);
-    }
-    
     private void cargarPokemon(Pokemon pokemon, boolean a) {
         try {
             FXMLLoader cargarPokemon = new FXMLLoader(getClass().getResource("fxml/tarjeta_pokemon_v1.fxml"));
@@ -421,7 +410,7 @@ public class controllerCore implements Initializable {
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
             controlador.asignarPokemon(pokemon, a);
-            crearTooltip(pokemon.getEspecie(), tarjetaPokemon);
+            utils.crearTooltip(pokemon.getEspecie(), tarjetaPokemon);
             gridPokemon.add(tarjetaPokemon, col, row);
             if(col == 2) {
                 col = 0;
@@ -441,6 +430,7 @@ public class controllerCore implements Initializable {
             controllerEquipos controladorEquipo = cargarEquipo.getController();
 
             controladorEquipo.asignarEquipo(e, conexion);
+            utils.crearTooltip(e.getNombre(), tarjetaEquipo);
             gridEquipos.add(tarjetaEquipo, 0, row);
             row++;
         } catch (IOException ex) {
@@ -455,7 +445,7 @@ public class controllerCore implements Initializable {
     void enviaLogIn(Conexion c, String user) {
         conexion = c;
         txtNombreEntrenador.setText(user);
-        crearTooltip("Entrenador " + user, txtNombreEntrenador);
+        utils.crearTooltip("Entrenador " + user, txtNombreEntrenador);
         try {
             String query = "SELECT * FROM entrenador WHERE Nombre = '" + user +"'";
 
@@ -465,20 +455,20 @@ public class controllerCore implements Initializable {
             switch (result.getString("Genero")) {
                 case "F" -> {
                     txtGeneroEntrenador.setText("Mujer");
-                    crearTooltip("Género: Mujer", txtGeneroEntrenador);
+                    utils.crearTooltip("Género: Mujer", txtGeneroEntrenador);
                 }
                 case "M" -> {
                     txtGeneroEntrenador.setText("Hombre");
-                    crearTooltip("Género: Hombre", txtGeneroEntrenador);
+                    utils.crearTooltip("Género: Hombre", txtGeneroEntrenador);
                 }
                 case "0" -> {
                     txtGeneroEntrenador.setText("Otro");
-                    crearTooltip("Género: Otro", txtGeneroEntrenador);
+                    utils.crearTooltip("Género: Otro", txtGeneroEntrenador);
                 }
             }
             int idEntrenador = result.getInt("ID_Entrenador");
             utils.recuperarImagenBBDD(result.getString("Sprite"), imgEntrenador);
-            crearTooltip("Entrenador: " + user, imgEntrenador);
+            utils.crearTooltip("Entrenador: " + user, imgEntrenador);
             btnAddPokemon.setVisible(result.getBoolean("esAdmin"));
             boolean admin = result.getBoolean("esAdmin");
 

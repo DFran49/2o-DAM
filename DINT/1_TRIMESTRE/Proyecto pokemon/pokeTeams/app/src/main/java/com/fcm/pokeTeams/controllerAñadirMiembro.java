@@ -29,10 +29,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
 public class controllerAñadirMiembro implements Initializable {
@@ -93,6 +96,9 @@ public class controllerAñadirMiembro implements Initializable {
 
     @FXML
     private Slider sdIVsSpe;
+    
+    @FXML
+    private Spinner<Integer> spNivel;
 
     @FXML
     private Label txtEVsAtk;
@@ -161,11 +167,6 @@ public class controllerAñadirMiembro implements Initializable {
 
     }
 
-    @FXML
-    void subirImagen(MouseEvent event) {
-        //Eliminar
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cbTipo1.getItems().addAll("Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
@@ -175,6 +176,33 @@ public class controllerAñadirMiembro implements Initializable {
                 "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
                 "Roca","Siniestro","Tierra","Veneno","Volador");
         cbGenero.getItems().addAll('M','F','N');
+        spNivel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
+        spNivel.setStyle("-fx-font-size: 24px;");
+        cbEspecie.setStyle("-fx-font-size: 24px;");
+        cbGenero.setStyle("-fx-font-size: 24px;");
+        cbHabilidad.setStyle("-fx-font-size: 24px;");
+        cbTipo1.setStyle("-fx-font-size: 24px;");
+        cbTipo2.setStyle("-fx-font-size: 24px;");
+        List<Slider> barras = new ArrayList<>();
+        this.sdEVsAtk.getParent().getParent().getChildrenUnmodifiable().forEach(elemento -> {
+            if (elemento instanceof HBox) {
+                ((HBox) elemento).getChildrenUnmodifiable().forEach(campo -> {
+                    if (campo instanceof Slider) {
+                        ((Slider) campo).getTooltip().setStyle("-fx-font-size: 24px;");
+                    }
+                });
+            }
+        });
+        this.sdIVsAtk.getParent().getParent().getChildrenUnmodifiable().forEach(elemento -> {
+            if (elemento instanceof HBox) {
+                ((HBox) elemento).getChildrenUnmodifiable().forEach(campo -> {
+                    if (campo instanceof Slider) {
+                        ((Slider) campo).getTooltip().setStyle("-fx-font-size: 24px;");
+                    }
+                });
+            }
+        });
+        util.crearTooltip("Imagen del pokemon", imgPokemon);
     }
 
     void setControladorEnlace(controllerTarjetaMiembro c) {
@@ -183,10 +211,11 @@ public class controllerAñadirMiembro implements Initializable {
     
     void enviaMiembro(Miembro m) {
         miembro = m;
-        txtEspecie.setText(m.getEspecie() + " - Nivel: " + m.getNivel());
+        txtEspecie.setText(m.getEspecie());
         cbEspecie.getItems().clear();
         cbEspecie.getItems().add(m.getEspecie());
         cbEspecie.getSelectionModel().select(0);
+        spNivel.getValueFactory().setValue(m.getNivel());
         txtMote.setText(m.getMote());
         cbHabilidad.getItems().clear();
         cbHabilidad.getItems().add(m.getHabilidad());
