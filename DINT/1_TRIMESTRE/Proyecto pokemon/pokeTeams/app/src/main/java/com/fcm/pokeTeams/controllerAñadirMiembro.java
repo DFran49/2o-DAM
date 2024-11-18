@@ -163,18 +163,7 @@ public class controllerAñadirMiembro implements Initializable {
 
     @FXML
     void subirImagen(MouseEvent event) {
-        FileChooser fileChooser = new FileChooser();
-
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Imagen jpg", "*.jpg"),
-                new FileChooser.ExtensionFilter("Imagen png", "*.png")
-        );
-        File archivoSeleccionado = fileChooser.showOpenDialog(null);
-            if (archivoSeleccionado != null) {
-                String rutaArchivo = archivoSeleccionado.toURI().toString();
-                Image imagen = new Image(rutaArchivo);
-                imgPokemon.setImage(imagen);
-            }
+        //Eliminar
     }
 
     @Override

@@ -48,5 +48,7 @@ public class controllerConfirmar implements Initializable{
 
     public void enviaStage(Stage s) {
         entrada = s;
+        Stage ventana = (Stage) this.btnCancelar.getScene().getWindow();
+        ventana.setOnCloseRequest(event -> event.consume());
     }
 }

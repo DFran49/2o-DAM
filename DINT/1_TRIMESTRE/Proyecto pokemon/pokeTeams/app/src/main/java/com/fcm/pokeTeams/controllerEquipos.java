@@ -112,7 +112,13 @@ public class controllerEquipos implements Initializable {
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + equipo.getNombre());
         miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.setOnCloseRequest(evento -> {
+            miStage.setUserData(false);
+        });
         miStage.showAndWait();
+        if ((boolean) miStage.getUserData()) {
+            System.out.println(equipo.getNombre() + " eliminado.");
+        }
     }
 
     @Override

@@ -110,7 +110,13 @@ public class controllerTarjetaPokemon implements Initializable {
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + pokemon.getEspecie());
         miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.setOnCloseRequest(evento -> {
+            miStage.setUserData(false);
+        });
         miStage.showAndWait();
+        if ((boolean) miStage.getUserData()) {
+            System.out.println(pokemon.getEspecie() + " eliminado.");
+        }
     }
 
     @Override

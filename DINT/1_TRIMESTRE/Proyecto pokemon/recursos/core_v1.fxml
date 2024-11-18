@@ -16,6 +16,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -113,6 +114,9 @@
                               </SplitPane>
                            </children></AnchorPane>
                      </content>
+                     <tooltip>
+                        <Tooltip text="Inicio" />
+                     </tooltip>
                   </Tab>
                   <Tab text="POKEMON">
                      <content>
@@ -120,7 +124,7 @@
                            <children>
                               <HBox layoutX="304.0" layoutY="14.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="btnBuscarPokemon" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@/lupa.png" />
                                        </image>
@@ -129,13 +133,16 @@
                                        <font>
                                           <Font size="24.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="Buscar Pokemon" />
+                                       </tooltip>
                                     </TextField>
-                                    <ImageView fitHeight="53.0" fitWidth="53.0" onMouseClicked="#filtrarPokemon" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="btnFiltrarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#filtrarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@/Leafeon.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fx:id="btnAddPokemon" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirPokemon" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="btnAddPokemon" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@/Plusle.png" />
                                        </image>
@@ -163,119 +170,6 @@
                                  <children>
                                     <Accordion>
                                        <panes>
-                                          <TitledPane fx:id="tpOrdenar" animated="false" expanded="false" layoutX="10.0" layoutY="10.0" maxHeight="240.0" text="Ordenar por:">
-                                             <content>
-                                                <AnchorPane maxHeight="190.0" minHeight="0.0" minWidth="0.0">
-                                                   <children>
-                                                      <VBox prefHeight="150.0" prefWidth="527.0" spacing="10.0">
-                                                         <children>
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
-                                                               <children>
-                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Especie">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="especie" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$especie">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                            <Separator prefWidth="200.0" />
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
-                                                               <children>
-                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Tamaño">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="tamaño" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$tamaño">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="61.0" minWidth="-Infinity" spacing="20.0">
-                                                               <children>
-                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Peso">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="peso" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$peso">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                            <Separator prefWidth="200.0" />
-                                                            <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Estadística:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <ComboBox fx:id="cbEstadisticaOrden" editable="true" prefWidth="150.0" />
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="estadistica" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton mnemonicParsing="false" text="Descendente" toggleGroup="$estadistica">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets top="10.0" />
-                                                         </padding>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </TitledPane>
                                           <TitledPane fx:id="tpFiltro" animated="false" expanded="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="590.0" text="Filtrar por:">
                                              <content>
                                                 <AnchorPane maxHeight="259.0" minHeight="0.0" minWidth="0.0">
@@ -404,6 +298,119 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </TitledPane>
+                                          <TitledPane fx:id="tpOrdenar" animated="false" expanded="false" layoutX="10.0" layoutY="10.0" maxHeight="240.0" text="Ordenar por:">
+                                             <content>
+                                                <AnchorPane maxHeight="190.0" minHeight="0.0" minWidth="0.0">
+                                                   <children>
+                                                      <VBox prefHeight="150.0" prefWidth="527.0" spacing="10.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
+                                                               <children>
+                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Especie">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </CheckBox>
+                                                                  <Separator orientation="VERTICAL" />
+                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                     <toggleGroup>
+                                                                        <ToggleGroup fx:id="especie" />
+                                                                     </toggleGroup>
+                                                                  </RadioButton>
+                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$especie">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </RadioButton>
+                                                               </children>
+                                                            </HBox>
+                                                            <Separator prefWidth="200.0" />
+                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
+                                                               <children>
+                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Tamaño">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </CheckBox>
+                                                                  <Separator orientation="VERTICAL" />
+                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                     <toggleGroup>
+                                                                        <ToggleGroup fx:id="tamaño" />
+                                                                     </toggleGroup>
+                                                                  </RadioButton>
+                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$tamaño">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </RadioButton>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="61.0" minWidth="-Infinity" spacing="20.0">
+                                                               <children>
+                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Peso">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </CheckBox>
+                                                                  <Separator orientation="VERTICAL" />
+                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                     <toggleGroup>
+                                                                        <ToggleGroup fx:id="peso" />
+                                                                     </toggleGroup>
+                                                                  </RadioButton>
+                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$peso">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </RadioButton>
+                                                               </children>
+                                                            </HBox>
+                                                            <Separator prefWidth="200.0" />
+                                                            <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
+                                                               <children>
+                                                                  <Label text="Estadística:">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <ComboBox fx:id="cbEstadisticaOrden" editable="true" prefWidth="150.0" />
+                                                                  <Separator orientation="VERTICAL" />
+                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                     <toggleGroup>
+                                                                        <ToggleGroup fx:id="estadistica" />
+                                                                     </toggleGroup>
+                                                                  </RadioButton>
+                                                                  <RadioButton mnemonicParsing="false" text="Descendente" toggleGroup="$estadistica">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </RadioButton>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="10.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </TitledPane>
                                        </panes>
                                     </Accordion>
                                  </children>
@@ -411,6 +418,9 @@
                            </children>
                         </AnchorPane>
                      </content>
+                     <tooltip>
+                        <Tooltip text="Pokemon" />
+                     </tooltip>
                   </Tab>
                   <Tab text="EQUIPOS">
                      <content>
@@ -418,7 +428,7 @@
                            <children>
                               <HBox layoutX="304.0" layoutY="14.0">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="btnBuscarEquipo" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@/lupa.png" />
                                        </image>
@@ -427,8 +437,11 @@
                                        <font>
                                           <Font size="24.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="Buscar Equipo" />
+                                       </tooltip>
                                     </TextField>
-                                    <ImageView fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirEquipo" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="btnAddEquipo" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@/Plusle.png" />
                                        </image>
@@ -450,6 +463,9 @@
                            </children>
                         </AnchorPane>
                      </content>
+                     <tooltip>
+                        <Tooltip text="Equipos" />
+                     </tooltip>
                   </Tab>
                   <Tab text="PERFIL">
                      <content>
@@ -488,30 +504,45 @@
                                           <Insets />
                                        </opaqueInsets>
                                     </VBox>
-                                    <Button mnemonicParsing="false" onAction="#cambiarNombre" prefHeight="51.0" prefWidth="298.4" text="CAMBIAR NOMBRE">
+                                    <Button mnemonicParsing="false" onAction="#cambiarNombre" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="298.4" text="CAMBIAR NOMBRE">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="Cambiar Nombre" />
+                                       </tooltip>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#cambiarGenero" prefWidth="298.4" text="CAMBIAR GÉNERO">
+                                    <Button mnemonicParsing="false" onAction="#cambiarGenero" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR GÉNERO">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="Cambiar Género" />
+                                       </tooltip>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#cambiarContraseña" prefWidth="298.4" text="CAMBIAR CONTRASEÑA">
+                                    <Button mnemonicParsing="false" onAction="#cambiarContraseña" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR CONTRASEÑA">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="Cambiar Contraseña" />
+                                       </tooltip>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#logOut" prefWidth="298.4" text="CERRAR SESIÓN">
+                                    <Button mnemonicParsing="false" onAction="#logOut" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CERRAR SESIÓN">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="Cerrar Sesión" />
+                                       </tooltip>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#eliminarCuenta" prefWidth="298.4" text="ELIMINAR CUENTA" textFill="RED">
+                                    <Button mnemonicParsing="false" onAction="#eliminarCuenta" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="ELIMINAR CUENTA" textFill="RED">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="Eliminar Cuenta" />
+                                       </tooltip>
                                     </Button>
                                  </children>
                               </VBox>
@@ -527,6 +558,9 @@
                               </Label>
                            </children></AnchorPane>
                      </content>
+                     <tooltip>
+                        <Tooltip text="Perfil" />
+                     </tooltip>
                   </Tab>
                </tabs>
             </TabPane>

@@ -26,27 +26,36 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -63,19 +72,31 @@ public class controllerCore implements Initializable {
     private controllerConfirmar cc;
 
     @FXML
+    private ImageView btnAddEquipo;
+
+    @FXML
     private ImageView btnAddPokemon;
 
     @FXML
-    private ComboBox<?> cbEstadistica;
+    private ImageView btnBuscarEquipo;
 
     @FXML
-    private ComboBox<?> cbEstadisticaOrden;
+    private ImageView btnBuscarPokemon;
 
     @FXML
-    private ComboBox<?> cbTipo1;
+    private ImageView btnFiltrarPokemon;
 
     @FXML
-    private ComboBox<?> cbTipo2;
+    private ComboBox<String> cbEstadistica;
+
+    @FXML
+    private ComboBox<String> cbEstadisticaOrden;
+
+    @FXML
+    private ComboBox<String> cbTipo1;
+
+    @FXML
+    private ComboBox<String> cbTipo2;
 
     @FXML
     private ToggleGroup especie;
@@ -96,19 +117,19 @@ public class controllerCore implements Initializable {
     private ToggleGroup peso;
 
     @FXML
-    private Spinner<?> spEstadistica;
+    private Spinner<Integer> spEstadistica;
 
     @FXML
-    private Spinner<?> spPesoMax;
+    private Spinner<Double> spPesoMax;
 
     @FXML
-    private Spinner<?> spPesoMin;
+    private Spinner<Double> spPesoMin;
 
     @FXML
-    private Spinner<?> spTamañoMax;
+    private Spinner<Double> spTamañoMax;
 
     @FXML
-    private Spinner<?> spTamañoMin;
+    private Spinner<Double> spTamañoMin;
 
     @FXML
     private ToggleGroup tamaño;
@@ -267,6 +288,28 @@ public class controllerCore implements Initializable {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @FXML
+    void cursorEntra(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView imagen = (ImageView) event.getSource();
+            imagen.setOpacity(0.6);
+        } else {
+            Button boton = (Button) event.getSource();
+            boton.setOpacity(0.6);
+        }
+    }
+
+    @FXML
+    void cursorSale(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView imagen = (ImageView) event.getSource();
+            imagen.setOpacity(1);
+        } else {
+            Button boton = (Button) event.getSource();
+            boton.setOpacity(1);
+        }
+    }
 
     @FXML
     void eliminarCuenta(ActionEvent event) {
@@ -283,18 +326,22 @@ public class controllerCore implements Initializable {
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar cuenta: " + txtNombreEntrenador.getText());
         miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.setOnCloseRequest(evento -> {
+            miStage.setUserData(false);
+        });
         miStage.showAndWait();
-        
         if ((boolean) miStage.getUserData()) {
             cerrar();
         }
-        
-        
     }
 
     @FXML
     void filtrarPokemon(MouseEvent event) {
-        vbFiltro.setVisible(true);
+        if (vbFiltro.isVisible()) {
+            vbFiltro.setVisible(false);
+        } else {
+            vbFiltro.setVisible(true);
+        }
     }
 
     @FXML
@@ -327,15 +374,44 @@ public class controllerCore implements Initializable {
         imgEntrenador.setOnContextMenuRequested(event -> 
             contextMenu.show(imgEntrenador, event.getScreenX(), event.getScreenY())
         );
-        tpFiltro.setOnMouseClicked(event -> {
-            tpOrdenar.expandedProperty().set(false);
-            tpFiltro.expandedProperty().set(true);
-        });
         
-        tpOrdenar.setOnMouseClicked(event -> {
-            tpFiltro.expandedProperty().set(false);
-            tpOrdenar.expandedProperty().set(true);
-        });
+        cbTipo1.getItems().addAll("Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
+                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
+                "Roca","Siniestro","Tierra","Veneno","Volador");
+        cbTipo2.getItems().addAll("Ninguno","Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
+                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
+                "Roca","Siniestro","Tierra","Veneno","Volador");
+        cbEstadistica.getItems().addAll("HP","Atk","Def","SpA","SpD","SpE");
+        cbEstadisticaOrden.getItems().addAll(cbEstadistica.getItems());
+        inicializarSpinners();
+        
+        crearTooltip("Añadir equipo", btnAddEquipo);
+        crearTooltip("Añadir pokemon", btnAddPokemon);
+        crearTooltip("Buscar equipo", btnBuscarEquipo);
+        crearTooltip("Buscar pokemon", btnBuscarPokemon);
+        crearTooltip("Filtrar pokemon", btnFiltrarPokemon);
+    }
+    
+    private void inicializarSpinners() {
+        int stat = 255;
+        spEstadistica.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, stat, 0));
+        double tamaño = 999.99;
+        spTamañoMin.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, tamaño, 0.0, 0.1));
+        spTamañoMax.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, tamaño, 0.0, 0.1));
+        double peso = 999.99;
+        spPesoMin.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, peso, 0.0, 0.1));
+        spPesoMax.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, peso, 0.0, 0.1));
+    }
+    
+    private void crearTooltip(String msg, Node n) {
+        Tooltip tooltip = new Tooltip(msg);
+        tooltip.setShowDelay(Duration.millis(500));
+        tooltip.autoFixProperty().set(true);
+        tooltip.consumeAutoHidingEventsProperty().set(true);
+        tooltip.hideOnEscapeProperty().set(true);
+
+        // Asignar el Tooltip al ImageView
+        Tooltip.install(n, tooltip);
     }
     
     private void cargarPokemon(Pokemon pokemon, boolean a) {
@@ -345,6 +421,7 @@ public class controllerCore implements Initializable {
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
             controlador.asignarPokemon(pokemon, a);
+            crearTooltip(pokemon.getEspecie(), tarjetaPokemon);
             gridPokemon.add(tarjetaPokemon, col, row);
             if(col == 2) {
                 col = 0;
@@ -355,7 +432,6 @@ public class controllerCore implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    
     }
     
     private void cargarEquipo(Equipo e) {
@@ -379,6 +455,7 @@ public class controllerCore implements Initializable {
     void enviaLogIn(Conexion c, String user) {
         conexion = c;
         txtNombreEntrenador.setText(user);
+        crearTooltip("Entrenador " + user, txtNombreEntrenador);
         try {
             String query = "SELECT * FROM entrenador WHERE Nombre = '" + user +"'";
 
@@ -386,12 +463,22 @@ public class controllerCore implements Initializable {
             ResultSet result = statement.executeQuery(query);
             result.next();
             switch (result.getString("Genero")) {
-                case "F" -> txtGeneroEntrenador.setText("Mujer");
-                case "M" -> txtGeneroEntrenador.setText("Hombre");
-                case "0" -> txtGeneroEntrenador.setText("Otro");
+                case "F" -> {
+                    txtGeneroEntrenador.setText("Mujer");
+                    crearTooltip("Género: Mujer", txtGeneroEntrenador);
+                }
+                case "M" -> {
+                    txtGeneroEntrenador.setText("Hombre");
+                    crearTooltip("Género: Hombre", txtGeneroEntrenador);
+                }
+                case "0" -> {
+                    txtGeneroEntrenador.setText("Otro");
+                    crearTooltip("Género: Otro", txtGeneroEntrenador);
+                }
             }
             int idEntrenador = result.getInt("ID_Entrenador");
             utils.recuperarImagenBBDD(result.getString("Sprite"), imgEntrenador);
+            crearTooltip("Entrenador: " + user, imgEntrenador);
             btnAddPokemon.setVisible(result.getBoolean("esAdmin"));
             boolean admin = result.getBoolean("esAdmin");
 

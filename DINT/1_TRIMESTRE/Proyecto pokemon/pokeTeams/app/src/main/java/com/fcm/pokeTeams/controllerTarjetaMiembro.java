@@ -69,7 +69,13 @@ public class controllerTarjetaMiembro implements Initializable{
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + miembro.getMote());
         miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.setOnCloseRequest(evento -> {
+            miStage.setUserData(false);
+        });
         miStage.showAndWait();
+        if ((boolean) miStage.getUserData()) {
+            System.out.println(miembro.getEspecie() + " eliminado.");
+        }
     }
 
     @Override

@@ -3,7 +3,7 @@ class PokeTeams
 {
 	private $host = 'localhost';
 	private $user = 'admin';
-	private $password = "SXH6obmADJAM";
+	private $password = "oRf8eAlVJBky";
 	private $database = "pokeTeams";
 
 	//SXH6obmADJAM
