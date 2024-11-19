@@ -226,33 +226,17 @@ public class controllerAñadirMiembro implements Initializable {
         cbTipo2.getSelectionModel().select(m.getTipo2());
         
         util.recuperarImagenBBDD(m.getSprite(), imgPokemon);
-        leerMovimientos(m);
-        leerEVs(m);
-        leerIVs(m);
-    }
-    
-    void leerMovimientos(Miembro m) {
-        Gson gson = new Gson();
-        MovimientoEnvoltorio listMovimientos = gson.fromJson(m.getMovimientos(), MovimientoEnvoltorio.class);
         List<TextField> listText = new ArrayList<>();
         listText.add(txtMovimiento1);
         listText.add(txtMovimiento2);
         listText.add(txtMovimiento3);
         listText.add(txtMovimiento4);
-        Movimiento movimiento = null;
-        try {
-            for (int i = 0; i < listMovimientos.getSize(); i++) {
-                movimiento = listMovimientos.getMovimiento(i);
-                listText.get(i).setText(movimiento.getMovimiento());
-            }
-        } catch (JsonSyntaxException e) {
-            System.err.println("Error: " + e.getMessage());
-        }
+        util.leerMovimientos(m, listText);
+        cargarEVs();
+        cargarIVs();
     }
     
-    void leerIVs(Miembro m) {
-        Gson gson = new Gson();
-        IVsEnvoltorio listIVs = gson.fromJson(m.getIvs(), IVsEnvoltorio.class);
+    void cargarIVs() {
         List<Slider> listBarras = new ArrayList<>();
         listBarras.add(sdIVsHp);
         listBarras.add(sdIVsAtk);
@@ -267,20 +251,14 @@ public class controllerAñadirMiembro implements Initializable {
         listEtiquetas.add(txtIVsSpA);
         listEtiquetas.add(txtIVsSpD);
         listEtiquetas.add(txtIVsSpe);
-        
-        try {
-            for (int i = 0; i < 6; i++) {
-                listBarras.get(i).setValue(listIVs.getEV(i).getValor());
-                listEtiquetas.get(i).setText(listIVs.getEV(i).getValor()+"/31");
-            }
-        } catch (JsonSyntaxException e) {
-            System.err.println("Error: " + e.getMessage());
+        IVsEnvoltorio ivs = util.leerIVs(miembro);
+        for (int i = 0; i < 6; i++) {
+            listBarras.get(i).setValue(ivs.getEV(i).getValor());
+            listEtiquetas.get(i).setText(ivs.getEV(i).getValor()+"/31");
         }
     }
     
-    void leerEVs(Miembro m) {
-        Gson gson = new Gson();
-        EVsEnvoltorio listEVs = gson.fromJson(m.getEvs(), EVsEnvoltorio.class);
+    void cargarEVs() {
         List<Slider> listBarras = new ArrayList<>();
         listBarras.add(sdEVsHp);
         listBarras.add(sdEVsAtk);
@@ -295,14 +273,10 @@ public class controllerAñadirMiembro implements Initializable {
         listEtiquetas.add(txtEVsSpA);
         listEtiquetas.add(txtEVsSpD);
         listEtiquetas.add(txtEVsSpe);
-        
-        try {
-            for (int i = 0; i < 6; i++) {
-                listBarras.get(i).setValue(listEVs.getEV(i).getValor());
-                listEtiquetas.get(i).setText(listEVs.getEV(i).getValor()+"/255");
-            }
-        } catch (JsonSyntaxException e) {
-            System.err.println("Error: " + e.getMessage());
+        EVsEnvoltorio evs = util.leerEVs(miembro);
+        for (int i = 0; i < 6; i++) {
+            listBarras.get(i).setValue(evs.getEV(i).getValor());
+            listEtiquetas.get(i).setText(evs.getEV(i).getValor()+"/255");
         }
     }
 }

@@ -19,7 +19,9 @@ public class Miembro {
     private String objeto;
     private String tipo1;
     private String tipo2;
+    private String habilidades;
     private String movimientos;
+    private String stats;
     private String evs;
     private String ivs;
     private String sprite;
@@ -139,5 +141,19 @@ public class Miembro {
         this.tipo2 = tipo2;
     }
 
-    
+    public String getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(String habilidades) {
+        this.habilidades = habilidades;
+    }
+
+    public String getStats() {
+        return stats;
+    }
+
+    public void setStats(String stats) {
+        this.stats = stats;
+    }
 }

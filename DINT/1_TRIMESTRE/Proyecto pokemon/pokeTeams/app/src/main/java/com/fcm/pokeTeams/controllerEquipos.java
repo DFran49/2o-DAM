@@ -146,7 +146,8 @@ public class controllerEquipos implements Initializable {
         txtFormatoEquipo.setText(e.getFormato());
         
         try {
-            String query = "SELECT Especie, N_Pokedex, Mote, Genero, Nivel, Habilidad, Naturaleza, Objeto, Tipo_1, Tipo_2, Movimientos, EVs, IVs, Sprite "
+            String query = "SELECT Especie, N_Pokedex, Mote, Genero, Nivel, Habilidad, Naturaleza, Objeto, "
+                    + "Tipo_1, Tipo_2, Habilidades, Movimientos, Estadisticas, EVs, IVs, Sprite "
                     + "FROM equipo JOIN pokemon USING (N_Pokedex) WHERE ID_Equipo = " + e.getIdEquipo();
             Statement statement = conexion.getConexion().createStatement();
             ResultSet result = statement.executeQuery(query);
@@ -162,7 +163,9 @@ public class controllerEquipos implements Initializable {
                 tempMiembro.setObjeto(result.getString("Objeto"));
                 tempMiembro.setTipo1(result.getString("Tipo_1"));
                 tempMiembro.setTipo2(result.getString("Tipo_2"));
+                tempMiembro.setHabilidades(result.getString("Habilidades"));
                 tempMiembro.setMovimientos(result.getString("Movimientos"));
+                tempMiembro.setStats(result.getString("Estadisticas"));
                 tempMiembro.setEvs(result.getString("EVs"));
                 tempMiembro.setIvs(result.getString("IVs"));
                 tempMiembro.setSprite(result.getString("Sprite"));

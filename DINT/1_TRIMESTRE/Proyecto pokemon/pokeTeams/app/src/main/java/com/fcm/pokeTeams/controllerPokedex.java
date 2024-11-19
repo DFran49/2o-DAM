@@ -129,6 +129,7 @@ public class controllerPokedex implements Initializable {
         txtTipo1.setText(p.getTipo1());
         txtTipo2.setText(p.getTipo2());
         util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
+        util.crearTooltip("Imagen " + p.getEspecie(), imgPokemon);
         leerHabilidades(p);
         leerStats(p);
     }
@@ -157,8 +158,10 @@ public class controllerPokedex implements Initializable {
                 } else {
                     habilidad = listHabilidades.siguienteHabilidad();
                     listPaneles.get(0).setText(habilidad.getNombre());
+                    util.crearTooltip("Desplegable " + habilidad.getNombre(), listPaneles.get(0));
                     listPaneles.remove(0);
                     listText.get(0).setText(habilidad.getDescripcion());
+                    util.crearTooltip("Descripción " + habilidad.getNombre(), listPaneles.get(0));
                     listText.remove(0);
                 }
             }
@@ -192,6 +195,7 @@ public class controllerPokedex implements Initializable {
                 progreso = (listStats.getEstadistica(i).getValor()*100)/255;
                 progreso = progreso/100;
                 listBarras.get(i).setProgress(progreso);
+                listBarras.get(i).getTooltip().setStyle("-fx-font-size: 24px;");
                 if (progreso < 0.25) {
                     listBarras.get(i).setStyle("-fx-accent: #ff0000;");
                 } else if (progreso < 0.50) {

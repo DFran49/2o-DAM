@@ -4,9 +4,21 @@
  */
 package com.fcm.pokeTeams.util;
 
+import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
+import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
+import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.modelos.Movimiento;
+import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,5 +51,32 @@ public class Utilidades {
         tooltip.consumeAutoHidingEventsProperty().set(true);
         tooltip.hideOnEscapeProperty().set(true);
         Tooltip.install(n, tooltip);
+    }
+    
+    public void leerMovimientos(Miembro m, List<TextField> lt) {
+        Gson gson = new Gson();
+        MovimientoEnvoltorio listMovimientos = gson.fromJson(m.getMovimientos(), MovimientoEnvoltorio.class);
+        List<TextField> listText = new ArrayList<>(lt);
+        Movimiento movimiento = null;
+        try {
+            for (int i = 0; i < listMovimientos.getSize(); i++) {
+                movimiento = listMovimientos.getMovimiento(i);
+                listText.get(i).setText(movimiento.getMovimiento());
+            }
+        } catch (JsonSyntaxException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+    
+    public IVsEnvoltorio leerIVs(Miembro m) {
+        Gson gson = new Gson();
+        IVsEnvoltorio listIVs = gson.fromJson(m.getIvs(), IVsEnvoltorio.class);
+        return listIVs;
+    }
+    
+    public EVsEnvoltorio leerEVs(Miembro m) {
+        Gson gson = new Gson();
+        EVsEnvoltorio listEVs = gson.fromJson(m.getEvs(), EVsEnvoltorio.class);
+        return listEVs;
     }
 }

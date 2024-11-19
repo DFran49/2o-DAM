@@ -30,9 +30,11 @@ import javafx.stage.Stage;
 
 public class controllerTarjetaMiembro implements Initializable{
     controllerEquipo ce;
+    controllerMiembro cm;
     private controllerConfirmar cc;
     controllerAñadirMiembro cam;
-    Stage emergente;
+    Stage emergenteEditar;
+    Stage emergenteVer;
     Miembro miembro;
     Utilidades util = new Utilidades();
 
@@ -44,13 +46,38 @@ public class controllerTarjetaMiembro implements Initializable{
     
     @FXML
     void editar(ActionEvent event) {
-        editarGeneral();
+        this.cam.enviaMiembro(miembro);
+        this.emergenteEditar.setTitle(miembro.getMote());
+        emergenteEditar.setOnCloseRequest(evento -> {
+            evento.consume();
+            Parent raiz = null;
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+            try {
+                raiz = cargador.load();
+            } catch (IOException ex) {
+                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cc = cargador.getController();
+
+            Stage confirmar = new Stage();
+            Scene scene = new Scene(raiz);
+            confirmar.setScene(scene);
+            confirmar.setTitle("Confirmar");
+            cc.enviaStage(emergenteEditar);
+            confirmar.getIcons().add(new Image("Victini.png"));
+            confirmar.showAndWait();
+        });
+        emergenteEditar.getIcons().add(util.getImage(miembro.getSprite()));
+        emergenteEditar.show();
     }
 
     @FXML
-    void editarMiembro(MouseEvent event) {
+    void verMiembro(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            editarGeneral();
+            this.cm.enviaMiembro(miembro);
+            this.emergenteVer.setTitle(miembro.getMote());
+            emergenteVer.getIcons().add(util.getImage(miembro.getSprite()));
+            emergenteVer.show();
         }
     }
     
@@ -92,10 +119,25 @@ public class controllerTarjetaMiembro implements Initializable{
         cam.setControladorEnlace(this);
 
         Scene sceneB = new Scene(root);
-        emergente = new Stage();
-        emergente.setResizable(false);
-        emergente.setScene(sceneB);
-        emergente.setTitle("Añadir/Editar miembro");
+        emergenteEditar = new Stage();
+        emergenteEditar.setResizable(false);
+        emergenteEditar.setScene(sceneB);
+        emergenteEditar.setTitle("Añadir/Editar miembro");
+        
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/emergente_miembro.fxml"));
+        Parent origen = null;
+        try {
+            origen = cargador.load();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+        
+        cm = cargador.getController();
+        Scene sceneC = new Scene(origen);
+        emergenteVer = new Stage();
+        emergenteVer.setResizable(false);
+        emergenteVer.setScene(sceneC);
+        emergenteVer.setTitle("Añadir/Editar miembro");
     }
     
     public void asignarMiembro(Miembro m) {
@@ -106,31 +148,5 @@ public class controllerTarjetaMiembro implements Initializable{
     
     void setControladorEnlace(controllerEquipo c) {
         ce = c;
-    }
-    
-    void editarGeneral() {
-        this.cam.enviaMiembro(miembro);
-        this.emergente.setTitle(miembro.getMote());
-        emergente.setOnCloseRequest(evento -> {
-            evento.consume();
-            Parent raiz = null;
-            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
-            try {
-                raiz = cargador.load();
-            } catch (IOException ex) {
-                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            cc = cargador.getController();
-
-            Stage confirmar = new Stage();
-            Scene scene = new Scene(raiz);
-            confirmar.setScene(scene);
-            confirmar.setTitle("Confirmar");
-            cc.enviaStage(emergente);
-            confirmar.getIcons().add(new Image("Victini.png"));
-            confirmar.showAndWait();
-        });
-        emergente.getIcons().add(util.getImage(miembro.getSprite()));
-        emergente.show();
     }
 }
