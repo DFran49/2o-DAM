@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.util.Utilidades;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +36,8 @@ import javafx.stage.Stage;
  * @author DFran49
  */
 public class controllerSignIn implements Initializable {
+    Utilidades utils = new Utilidades();
+    
     @FXML
     private Button btnConfirmar;
 
@@ -113,5 +116,7 @@ public class controllerSignIn implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {}
+    public void initialize(URL url, ResourceBundle rb) {
+        utils.crearTooltip("Selecciona tu imagen", imgRegistro);
+    }
 }

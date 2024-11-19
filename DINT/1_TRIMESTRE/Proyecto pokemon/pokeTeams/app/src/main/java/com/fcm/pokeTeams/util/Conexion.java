@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -22,7 +23,7 @@ public class Conexion extends Object {
         try {
             this.conexion = bbdd.getConnection();
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            new Alertas(Alert.AlertType.WARNING, "COnectate mi rey", "La base de datos de virus no ha sido actualizada", "Enciende Docker mi rey").mostrarAlerta();
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
