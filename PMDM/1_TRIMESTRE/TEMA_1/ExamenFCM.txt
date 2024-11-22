@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.fragment.app.FragmentContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="dam.moviles.examen.FormularioFragment"/>
+
+----------------------------------------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FormularioFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <TextView
+        android:id="@+id/txtPartidasTotales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Partidas totales: 0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/txtVictorias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Partidas ganadas: 0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txtPartidasTotales" />
+
+    <TextView
+        android:id="@+id/txtDerrotas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Partidas perdidas: 0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txtVictorias" />
+
+    <TextView
+        android:id="@+id/txtJugador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Jugador"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txtDerrotas" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/imgJugador1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/reverso"
+        app:layout_constraintBottom_toBottomOf="@+id/imgJugador2"
+        app:layout_constraintEnd_toStartOf="@+id/imgJugador2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgJugador2" />
+
+    <ImageView
+        android:id="@+id/imgJugador2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/reverso"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgJugador1"
+        app:layout_constraintTop_toBottomOf="@+id/txtJugador" />
+
+    <Button
+        android:id="@+id/btnJugarJugador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Jugar"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/imgJugador2" />
+
+    <TextView
+        android:id="@+id/txtAndroid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Android"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/btnJugarJugador" />
+
+    <ImageView
+        android:id="@+id/imgAndroid1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/reverso"
+        app:layout_constraintBottom_toBottomOf="@+id/imgAndroid2"
+        app:layout_constraintEnd_toStartOf="@+id/imgAndroid2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgAndroid2" />
+
+    <ImageView
+        android:id="@+id/imgAndroid2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/reverso"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgAndroid1"
+        app:layout_constraintTop_toBottomOf="@+id/txtAndroid" />
+
+    <Button
+        android:id="@+id/btnJugarAndroid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:text="Jugar"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/imgAndroid2" />
+
+    <Button
+        android:id="@+id/btnOtra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:text="Otra partida"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/btnJugarAndroid" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+---------------------------------------
+
+package dam.moviles.examen
+
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+
+----------------------------------------
+
+package dam.moviles.examen
+
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import dam.moviles.examen.databinding.FragmentFormularioBinding
+
+
+class FormularioFragment : Fragment() {
+    private lateinit var binding: FragmentFormularioBinding
+    private lateinit var viewModel: FormularioFragmentViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        inicializarBinding(inflater, container)
+        inicializarViewModel()
+        inicializarBotones()
+        if (viewModel.partidas != 0) {
+            escribirVictorias()
+        }
+
+        if (viewModel.cartaJ1 != 0) {
+            asignarImagen(viewModel.cartaJ1, binding.imgJugador1)
+            asignarImagen(viewModel.cartaJ2, binding.imgJugador2)
+            binding.btnJugarJugador.isEnabled = false
+            binding.btnJugarAndroid.isEnabled = true
+            binding.btnOtra.isEnabled = false
+        }
+
+        if (viewModel.cartaA1 != 0) {
+            asignarImagen(viewModel.cartaA1, binding.imgAndroid1)
+            asignarImagen(viewModel.cartaA2, binding.imgAndroid2)
+            escribirPuntos()
+            binding.btnJugarJugador.isEnabled = false
+            binding.btnJugarAndroid.isEnabled = false
+            binding.btnOtra.isEnabled = true
+        }
+
+        return binding.root
+    }
+
+    private fun inicializarBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        binding = FragmentFormularioBinding.inflate(inflater, container, false)
+    }
+
+    private fun inicializarViewModel() {
+        viewModel = ViewModelProvider(this).get(FormularioFragmentViewModel::class.java)
+    }
+
+    private fun inicializarBotones() {
+        inicializarJugador()
+        inicializarAndroid()
+        inicializarOtra()
+    }
+
+    private fun inicializarJugador() {
+        binding.btnJugarJugador.setOnClickListener {
+            viewModel.generarCartasJugador()
+            binding.btnJugarJugador.isEnabled = false
+            binding.btnJugarAndroid.isEnabled = true
+            asignarImagen(viewModel.cartaJ1, binding.imgJugador1)
+            asignarImagen(viewModel.cartaJ2, binding.imgJugador2)
+        }
+    }
+
+    private fun inicializarAndroid() {
+        binding.btnJugarAndroid.setOnClickListener {
+            viewModel.generarCartasAndroid()
+            asignarImagen(viewModel.cartaA1, binding.imgAndroid1)
+            asignarImagen(viewModel.cartaA2, binding.imgAndroid2)
+            viewModel.calcularPuntos()
+            escribirPuntos()
+            binding.btnJugarAndroid.isEnabled = false
+            binding.btnOtra.isEnabled = true
+        }
+    }
+
+    private fun inicializarOtra() {
+        binding.btnOtra.setOnClickListener {
+            mostrarMensaje()
+            reiniciar()
+            viewModel.reiniciarCartas()
+            binding.btnJugarJugador.isEnabled = true
+            binding.btnJugarAndroid.isEnabled = false
+            binding.btnOtra.isEnabled = false
+        }
+    }
+
+    private fun escribirPuntos() {
+        binding.txtJugador.setText("Jugador: " + viewModel.puntosJ)
+        binding.txtAndroid.setText("Android: " + viewModel.puntosA)
+    }
+
+    private fun reiniciar() {
+        asignarImagen(0,binding.imgJugador1)
+        asignarImagen(0,binding.imgJugador2)
+        asignarImagen(0,binding.imgAndroid1)
+        asignarImagen(0,binding.imgAndroid2)
+        escribirVictorias()
+    }
+
+    private fun escribirVictorias() {
+        binding.txtPartidasTotales.setText("Partidas totales: " + viewModel.partidas)
+        binding.txtVictorias.setText("Partidas ganadas: " + viewModel.victorias)
+        binding.txtDerrotas.setText("Partidas totales: " + viewModel.derrotas)
+        binding.txtJugador.setText("Jugador")
+        binding.txtAndroid.setText("Android")
+    }
+
+    private fun mostrarMensaje() {
+        var mensaje: String = ""
+        var victoria: Boolean? = viewModel.calcularVictorias()
+        if (victoria == null) {
+            mensaje = "Empate"
+        } else if (victoria == true) {
+            mensaje = "Gana el jugador"
+        } else {
+            mensaje = "Gana el móvil"
+        }
+        Toast.makeText(binding.root.context,
+            mensaje,
+            Toast.LENGTH_SHORT).show()
+    }
+
+    private fun asignarImagen(carta: Int, imagen:ImageView) {
+        when(carta) {
+            0 -> imagen.setImageResource(R.drawable.reverso)
+            1 -> imagen.setImageResource(R.drawable.carta_1)
+            2 -> imagen.setImageResource(R.drawable.carta_2)
+            3 -> imagen.setImageResource(R.drawable.carta_3)
+            4 -> imagen.setImageResource(R.drawable.carta_4)
+            5 -> imagen.setImageResource(R.drawable.carta_5)
+            6 -> imagen.setImageResource(R.drawable.carta_6)
+            7 -> imagen.setImageResource(R.drawable.carta_7)
+            10 -> imagen.setImageResource(R.drawable.carta_10)
+            11 -> imagen.setImageResource(R.drawable.carta_11)
+            12 -> imagen.setImageResource(R.drawable.carta_12)
+        }
+    }
+}
+
+---------------------------------------------------------
+
+package dam.moviles.examen
+
+import androidx.lifecycle.ViewModel
+
+class FormularioFragmentViewModel : ViewModel() {
+    var partidas: Int = 0;
+    var victorias: Int = 0;
+    var derrotas: Int = 0;
+    var puntosJ: Int = 0;
+    var puntosA: Int = 0;
+    var cartaJ1: Int = 0;
+    var cartaJ2: Int = 0;
+    var cartaA1: Int = 0;
+    var cartaA2: Int = 0;
+    var numeros: List<Int> = listOf(1,2,3,4,5,6,7,10,11,12)
+
+    fun generarCartasJugador() {
+        cartaJ1 = numeros.random()
+        cartaJ2 = numeros.random()
+    }
+
+    fun generarCartasAndroid() {
+        cartaA1 = numeros.random()
+        cartaA2 = numeros.random()
+    }
+
+    fun calcularPuntos() {
+        puntosJ = cartaJ1 + cartaJ2
+        puntosA = cartaA1 + cartaA2
+    }
+
+    fun calcularVictorias() : Boolean? {
+        partidas++
+        if (puntosA < puntosJ) {
+            victorias++
+            return true
+        } else if (puntosA > puntosJ) {
+            derrotas++
+            return false
+        } else {
+            return null
+        }
+    }
+
+    fun reiniciarCartas() {
+        cartaA1 = 0
+        cartaA2 = 0
+        cartaJ1 = 0
+        cartaJ2 = 0
+    }
+}

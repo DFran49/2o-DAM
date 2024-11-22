@@ -1,0 +1,154 @@
+{
+  "productos": [
+    {
+      "id":1,
+      "nombre" : "Camiseta",
+      "precio": 19.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Rojo",
+        "tallas": ["M","L","XL","XXL"]
+      }
+    },
+    {
+      "id":2,
+      "nombre": "Pantalón",
+      "precio": 29.99,
+      "disponible": false,
+      "detalles": {
+        "color": "Azul",
+        "tallas": ["L"]
+      }
+    },
+    {
+      "id":3,
+      "nombre": "Calcetines",
+      "precio": 4.99,
+      "disponible": false,
+      "detalles": {
+        "color": "Blanco",
+        "tallas": ["L","S"]
+      }
+    },
+    {
+      "id":4,
+      "nombre": "Jersey",
+      "precio": 44.49,
+      "disponible": true,
+      "detalles": {
+        "color": "azul",
+        "tallas": ["M","L"]
+      }
+    },
+    {
+      "id":5,
+      "nombre": "Gorra",
+      "precio": 4.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Negro",
+        "tallas": ["S"]
+      }
+    },
+    {
+      "id":6,
+      "nombre": "Cinturón",
+      "precio": 20.0,
+      "disponible": true,
+      "detalles": {
+        "color": "Negro",
+        "tallas": ["L"]
+      }
+    },
+    {
+      "id":7,
+      "nombre": "Corbata",
+      "precio": 25.49,
+      "disponible": true,
+      "detalles": {
+        "color": "Verde",
+        "tallas": []
+      }
+    },
+    {
+      "id":8,
+      "nombre": "Guantes",
+      "precio": 19.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Azul",
+        "tallas": ["S","L"]
+      }
+    },
+    {
+      "id":9,
+      "nombre": "Guantes",
+      "precio": 19.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Azul",
+        "tallas": ["S","L"]
+      }
+    },
+    {
+      "id":10,
+      "nombre": "Camisa",
+      "precio": 39.99,
+      "disponible": false,
+      "detalles": {
+        "color": "Rojo",
+        "tallas": ["L","XL","XXL"]
+      }
+    },
+    {
+      "id":11,
+      "nombre": "Camisa",
+      "precio": 26.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Azul",
+        "tallas": ["L","XL","XXL"]
+      }
+    },
+    {
+      "id":12,
+      "nombre": "Vaqueros",
+      "precio": 49.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Azul",
+        "tallas": ["L","XL"]
+      }
+    },
+    {
+      "id":13,
+      "nombre": "Pañuelo",
+      "precio": 4.50,
+      "disponible": false,
+      "detalles": {
+        "color": "Blanco",
+        "tallas": []
+      }
+    },
+    {
+      "id":14,
+      "nombre": "Zapatos",
+      "precio": 59.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Negro",
+        "tallas": ["40","41","42"]
+      }
+    },
+    {
+      "id":15,
+      "nombre": "Camiseta",
+      "precio": 9.99,
+      "disponible": true,
+      "detalles": {
+        "color": "Blanco",
+        "tallas": ["L","XL","XXL"]
+      }
+    }
+  ]
+}

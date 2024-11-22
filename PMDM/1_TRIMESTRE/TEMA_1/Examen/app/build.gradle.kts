@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "dam.moviles.examen"
-    compileSdk = 34
+    compileSdk = 35
 
     buildFeatures {
         viewBinding = true
@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId = "dam.moviles.examen"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
