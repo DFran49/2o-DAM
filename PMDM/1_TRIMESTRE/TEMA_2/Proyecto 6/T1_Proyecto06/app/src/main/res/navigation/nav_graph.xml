@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/bienvenidaFragment">
+
+    <fragment
+        android:id="@+id/bienvenidaFragment"
+        android:name="dam.moviles.t1_proyecto06.vista.BienvenidaFragment"
+        android:label="fragment_bienvenida"
+        tools:layout="@layout/fragment_bienvenida" >
+        <action
+            android:id="@+id/action_bienvenidaFragment_to_mensajeFragment"
+            app:destination="@id/mensajeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mensajeFragment"
+        android:name="dam.moviles.t1_proyecto06.vista.MensajeFragment"
+        android:label="fragment_mensaje"
+        tools:layout="@layout/fragment_mensaje" >
+        <action
+            android:id="@+id/action_mensajeFragment_to_resultadoFragment"
+            app:destination="@id/resultadoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultadoFragment"
+        android:name="dam.moviles.t1_proyecto06.vista.ResultadoFragment"
+        android:label="ResultadoFragment"
+        tools:layout="@layout/fragment_resultado" >
+        <argument
+            android:name="mensaje"
+            app:argType="string" />
+        <argument
+            android:name="cifrados"
+            app:argType="integer[]" />
+    </fragment>
+</navigation>

@@ -1,0 +1,31 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable p_1
+drawable p_10
+drawable p_11
+drawable p_12
+drawable p_13
+drawable p_14
+drawable p_15
+drawable p_2
+drawable p_3
+drawable p_4
+drawable p_5
+drawable p_6
+drawable p_7
+drawable p_8
+drawable p_9
+id main
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+raw datos
+string app_name
+style Base.Theme.T2_P5
+style Theme.T2_P5
+xml backup_rules
+xml data_extraction_rules
