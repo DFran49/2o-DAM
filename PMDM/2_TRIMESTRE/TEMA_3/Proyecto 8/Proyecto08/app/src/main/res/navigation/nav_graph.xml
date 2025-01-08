@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/actoresFragment">
+
+    <fragment
+        android:id="@+id/actoresFragment"
+        android:name="dam.moviles.proyecto08.vista.ActoresFragment"
+        android:label="fragment_actores"
+        tools:layout="@layout/fragment_actores" >
+        <action
+            android:id="@+id/action_actoresFragment_to_detalleActorFragment2"
+            app:destination="@id/detalleActorFragment" />
+        <action
+            android:id="@+id/action_actoresFragment_to_errorFragment2"
+            app:destination="@id/errorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleActorFragment"
+        android:name="dam.moviles.proyecto08.vista.DetalleActorFragment"
+        android:label="fragment_detalle_actor"
+        tools:layout="@layout/fragment_detalle_actor" >
+        <action
+            android:id="@+id/action_detalleActorFragment2_to_errorFragment2"
+            app:destination="@id/errorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="dam.moviles.proyecto08.vista.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error" >
+        <argument
+            android:name="mensajeError"
+            app:argType="string" />
+    </fragment>
+</navigation>
