@@ -11,10 +11,10 @@
         android:label="fragment_actores"
         tools:layout="@layout/fragment_actores" >
         <action
-            android:id="@+id/action_actoresFragment_to_detalleActorFragment2"
+            android:id="@+id/action_actoresFragment_to_detalleActorFragment"
             app:destination="@id/detalleActorFragment" />
         <action
-            android:id="@+id/action_actoresFragment_to_errorFragment2"
+            android:id="@+id/action_actoresFragment_to_errorFragment"
             app:destination="@id/errorFragment" />
     </fragment>
     <fragment
@@ -23,7 +23,7 @@
         android:label="fragment_detalle_actor"
         tools:layout="@layout/fragment_detalle_actor" >
         <action
-            android:id="@+id/action_detalleActorFragment2_to_errorFragment2"
+            android:id="@+id/action_detalleActorFragment_to_errorFragment"
             app:destination="@id/errorFragment" />
     </fragment>
     <fragment

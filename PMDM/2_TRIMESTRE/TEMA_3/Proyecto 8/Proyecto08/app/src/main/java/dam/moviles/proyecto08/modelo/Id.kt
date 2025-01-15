@@ -1,9 +1,9 @@
 package dam.moviles.proyecto08.modelo
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.io.Serializable
 
 @JsonClass(generateAdapter = true)
-data class RespuestaServidor(
-    @Json(name="info") val mensaje:String
+data class Id(
+    val id:Int
 )

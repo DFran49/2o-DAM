@@ -18,4 +18,14 @@ interface ActoresApi {
     suspend fun insertarActor(
         @Body actor:Actor
     ):RespuestaServidor
+
+    @POST("http://192.168.40.197/APIRest_BBDDActoresV9/crud/actualizar.php")
+    suspend fun actualizarActor(
+        @Body actor:Actor
+    ):RespuestaServidor
+
+    @POST("http://192.168.40.197/APIRest_BBDDActoresV9/crud/borrar.php")
+    suspend fun borrarActor(
+        @Body i:Id
+    ):RespuestaServidor
 }

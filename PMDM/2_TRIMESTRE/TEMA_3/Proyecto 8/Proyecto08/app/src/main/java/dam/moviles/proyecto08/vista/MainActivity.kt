@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         inicializarBinding()
         inicializarToolbar()
-        test3()
+        //test3()
+        //test4()
+        //test5()
         setContentView(binding.root)
     }
 
@@ -47,6 +49,20 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val funciona = ActoresRepository().insertarActor("Guillermo",78,1,"","")
             Log.d("actores",funciona.toString())
+        }
+    }
+
+    fun test4() {
+        lifecycleScope.launch {
+            val funciona = ActoresRepository().actualizarActor(2,"Angelina",100,0,"","")
+            Log.d("actoresActu",funciona.toString())
+        }
+    }
+
+    fun test5() {
+        lifecycleScope.launch {
+            val funciona = ActoresRepository().borrarActor(3)
+            Log.d("actoresBorr",funciona.toString())
         }
     }
 

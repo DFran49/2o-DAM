@@ -46,6 +46,27 @@ class ActoresRepository {
             nombre,edad,vivo,fotoUrl,fotoCodificada
         )
         val respuesta = actoresApi.insertarActor(actor)
-        return respuesta.info.contains("Creado!")
+        return respuesta.mensaje.contains("Creado!")
+    }
+
+    suspend fun actualizarActor(
+        id:Int,
+        nombre:String,
+        edad:Int,
+        vivo:Int,
+        fotoUrl:String,
+        fotoCodificada:String
+    ): Boolean {
+        val actor = Actor(id,nombre,edad,vivo,fotoUrl,fotoCodificada)
+        val respuesta = actoresApi.actualizarActor(actor)
+        return respuesta.mensaje.contains("actualizado")
+    }
+
+    suspend fun borrarActor(
+        id:Int,
+    ): Boolean {
+        val I = Id(id)
+        val respuesta = actoresApi.borrarActor(I)
+        return respuesta.mensaje.contains("borrado con éxito")
     }
 }
