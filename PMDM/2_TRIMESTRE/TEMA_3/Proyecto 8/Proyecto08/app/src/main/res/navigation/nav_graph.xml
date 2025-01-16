@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/actoresFragment">
-
     <fragment
         android:id="@+id/actoresFragment"
         android:name="dam.moviles.proyecto08.vista.ActoresFragment"
@@ -25,11 +24,15 @@
         <action
             android:id="@+id/action_detalleActorFragment_to_errorFragment"
             app:destination="@id/errorFragment" />
+        <argument
+            android:name="actor"
+            app:argType="dam.moviles.proyecto08.modelo.Actor"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/errorFragment"
         android:name="dam.moviles.proyecto08.vista.ErrorFragment"
-        android:label="fragment_error"
+        android:label="ErrorFragment"
         tools:layout="@layout/fragment_error" >
         <argument
             android:name="mensajeError"

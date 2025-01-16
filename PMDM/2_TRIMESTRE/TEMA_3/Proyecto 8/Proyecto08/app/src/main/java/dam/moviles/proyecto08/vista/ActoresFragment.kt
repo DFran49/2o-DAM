@@ -67,7 +67,16 @@ class ActoresFragment : Fragment() {
         val mainActivity = activity as MainActivity
         mainActivity
             .binding.materialToolbar.visibility = View.GONE
+        inicializarRecycerView()
         viewModel.mostrarPantallaCarga = false
+    }
+
+    fun inicializarRecycerView() {
+        binding.lstActores.adapter = ActorAdapter(viewModel.listaActores) { holder ->
+            val nc = findNavController()
+            val flecha = ActoresFragmentDirections.actionActoresFragmentToDetalleActorFragment(holder.actor)
+            nc.navigate(flecha)
+        }
     }
 
     private fun inicializarBinding(inflater: LayoutInflater, container: ViewGroup?) {
