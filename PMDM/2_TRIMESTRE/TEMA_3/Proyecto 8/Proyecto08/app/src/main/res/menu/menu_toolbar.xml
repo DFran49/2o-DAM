@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/txtBuscador"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btnRefrescar"
+        android:icon="@android:drawable/stat_notify_sync"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btnInsertarActor"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Item"
+        app:showAsAction="always" />
+</menu>

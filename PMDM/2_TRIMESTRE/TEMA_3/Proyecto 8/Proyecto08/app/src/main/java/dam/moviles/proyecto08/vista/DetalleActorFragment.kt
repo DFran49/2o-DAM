@@ -25,8 +25,30 @@ class DetalleActorFragment : Fragment() {
     ): View? {
         inicializarBinding(inflater,container)
         inicializarInterfaz()
+        ponerBotonAtrasToolbar()
         inicializarBotones()
         return binding.root
+    }
+
+    fun ponerBotonAtrasToolbar() {
+        val mainActivity = activity as MainActivity
+        mainActivity.binding.materialToolbar.apply {
+            setNavigationIconTint(android.R.drawable.ic_menu_revert)
+            setNavigationOnClickListener {
+                val nc = findNavController()
+                nc.popBackStack()
+            }
+        }
+    }
+
+    fun quitarBotonAtrasToolbar() {
+        val mainActivity = activity as MainActivity
+        mainActivity.binding.materialToolbar.navigationIcon = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        quitarBotonAtrasToolbar()
     }
 
     fun inicializarBotones() {
@@ -34,6 +56,15 @@ class DetalleActorFragment : Fragment() {
         inicializarBotonBorrar()
         inicializarBotonInsertar()
         inicializarBotonActualizarInterfaz()
+        inicializarBotonActualizarFoto()
+    }
+
+    private fun inicializarBotonActualizarFoto() {
+        binding.btnActualizarFoto.setOnClickListener {
+            val actorMentira = Actor(-1,"",0,0,
+                binding.txtUrlFoto.toString(),"")
+            binding.imgFoto.ponerFotoActor(actorMentira)
+        }
     }
 
     private fun inicializarBotonActualizarInterfaz() {
@@ -41,7 +72,25 @@ class DetalleActorFragment : Fragment() {
     }
 
     private fun inicializarBotonInsertar() {
-        TODO("Not yet implemented")
+        binding.btnAAdirActor.setOnClickListener {
+            val nc = findNavController()
+            lifecycleScope.launch {
+                if (ActoresRepository().insertarActor(
+                        binding.txtNombre.text.toString(),
+                        binding.txtEdad.text.toString().toInt(),
+                        if (binding.chkVivo.isChecked) 1 else 0,
+                        binding.txtUrlFoto.toString(),
+                        ""
+                    )) {
+                    // navegamos a la pantalla previa
+                    nc.popBackStack()
+                } else {
+                    // navegamos a la pantalla de error
+                    val flecha = DetalleActorFragmentDirections.actionDetalleActorFragmentToErrorFragment("no se pudo borrar el actor")
+                    nc.navigate(flecha)
+                }
+            }
+        }
     }
 
     private fun inicializarBotonBorrar() {
@@ -61,7 +110,26 @@ class DetalleActorFragment : Fragment() {
     }
 
     private fun inicializarBotonActualizar() {
-        TODO("Not yet implemented")
+        binding.btnActualizarActor.setOnClickListener {
+            val nc = findNavController()
+            lifecycleScope.launch {
+                if (ActoresRepository().actualizarActor(
+                    checkNotNull(idActor),
+                    binding.txtNombre.text.toString(),
+                    binding.txtEdad.text.toString().toInt(),
+                    if (binding.chkVivo.isChecked) 1 else 0,
+                    binding.txtUrlFoto.toString(),
+                    ""
+                )) {
+                    // navegamos a la pantalla previa
+                    nc.popBackStack()
+                } else {
+                    // navegamos a la pantalla de error
+                    val flecha = DetalleActorFragmentDirections.actionDetalleActorFragmentToErrorFragment("no se pudo borrar el actor")
+                    nc.navigate(flecha)
+                }
+            }
+        }
     }
 
     fun inicializarInterfaz() {
@@ -69,7 +137,10 @@ class DetalleActorFragment : Fragment() {
         if (actor != null) {
             rellenarActor(actor)
         } else {
-
+            binding.apply {
+                btnEliminarActor.visibility = View.GONE
+                btnActualizarActor.visibility = View.GONE
+            }
         }
     }
 

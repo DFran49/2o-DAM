@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-const val API ="http://192.168.40.197/APIRest_BBDDActoresV9/crud/"
+const val API ="http://192.168.40.62/APIRest_BBDDActoresV9/crud/"
 
 interface ActoresApi {
     @GET("${API}leer.php")
