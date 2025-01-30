@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Proyecto07</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ayuda">
+        <![CDATA[
+            <html>
+                <body>
+                    <h1>Ayuda</h1><br>
+                    <p>La HLANZ APP esta disefada para navegar cdémodamente
+                    con la barra de tareas (Toolbar) y el menu inferior
+                    de la pantalla (Bottom Navitagion Bar)</p><br>
+                    <p>También esta a disposicién del usuario un
+                    Navigation Drawer en el que aparecen las mismas opciones, por
+                    si prefieres acceder a ellas de esa forma</p><br>
+                    <ul>
+                        <li><b>Inicio</b>: Aqui veras la web del instituto</li>
+                        <li><b>Bandeja de entrada</b>: Aqui accederads a tus mensajes</li>
+                        <li><b>Ayuda</b>: Aqui encontraras cémo usar la app</li>
+                    </ul>
+                </body>
+            </html>
+        ]]>
+    </string>
+
+    <string name="sin_mensajes">No hay mensajes en la bandeja de entrada</string>
+
+    <string name="sin_spam">No hay mensajes en la bandeja de entrada</string>
+
+    <string name="sin_papelera">No hay mensajes en la papelera</string>
+</resources>
