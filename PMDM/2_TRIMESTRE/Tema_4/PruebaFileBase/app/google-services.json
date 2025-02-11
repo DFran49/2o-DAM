@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719461729982",
+    "project_id": "pruebafbbil1234567890987654321",
+    "storage_bucket": "pruebafbbil1234567890987654321.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719461729982:android:4b466d040b259b3f9c40ef",
+        "android_client_info": {
+          "package_name": "dam.moviles.pruebafilebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAMM65vhlyx4lXEu4Ob59-S5ao03nnN3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

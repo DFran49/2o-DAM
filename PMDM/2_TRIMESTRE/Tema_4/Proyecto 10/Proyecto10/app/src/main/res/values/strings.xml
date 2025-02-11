@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Proyecto10</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nuevo_usuario"><u>¿Eres nuevo? Registrate aquí</u></string>
+    <string name="correo_electronico">Correo electrónico:</string>
+    <string name="clave">Contraseña:</string>
+    <string name="nombre_completo">Nombre completo:</string>
+    <string name="direccion">Dirección:</string>
+    <string name="ciudad">Ciudad:</string>
+    <string name="alta_usuario">Alta usuario</string>
+    <string name="usuario_creado_correctamente">Usuario creado correctamente</string>
+    <string name="correo_enviado">Se ha enviado un correo para verificar su cuenta. Una vez verificada, podrá utilizar la app con normalidad.</string>
+    <string name="atras">Atrás</string>
+</resources>

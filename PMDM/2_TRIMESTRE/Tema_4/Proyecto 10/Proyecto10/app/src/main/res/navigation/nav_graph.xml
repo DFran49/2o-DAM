@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="dam.moviles.proyecto10.vista.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_principalFragment"
+            app:destination="@id/principalFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_nuevoUsuarioFragment"
+            app:destination="@id/nuevoUsuarioFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nuevoUsuarioFragment"
+        android:name="dam.moviles.proyecto10.vista.NuevoUsuarioFragment"
+        android:label="NuevoUsuarioFragment"
+        tools:layout="@layout/fragment_nuevo_usuario">
+        <action
+            android:id="@+id/action_nuevoUsuarioFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
+        <action
+            android:id="@+id/action_nuevoUsuarioFragment_to_correoEnviadoFragment"
+            app:destination="@id/correoEnviadoFragment"
+            app:popUpTo="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/principalFragment"
+        android:name="dam.moviles.proyecto10.vista.PrincipalFragment"
+        android:label="PrincipalFragment"
+        tools:layout="@layout/fragment_principal">
+        <action
+            android:id="@+id/action_principalFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_principalFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="dam.moviles.proyecto10.vista.ErrorFragment"
+        android:label="ErrorFragment"
+        tools:layout="@layout/fragment_error">
+        <argument
+            android:name="mensajeError"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/correoEnviadoFragment"
+        android:name="dam.moviles.proyecto10.vista.CorreoEnviadoFragment"
+        android:label="CorreoEnviadoFragment"
+        tools:layout="@layout/fragment_correo_enviado"/>
+</navigation>

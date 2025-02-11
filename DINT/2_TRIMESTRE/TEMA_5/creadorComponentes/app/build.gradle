@@ -32,9 +32,13 @@ java {
     }
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = 'com.fcm.creadorComponentes.App'
+mainClassName = 'com.fcm.creadorComponentes.Main'
+
+jar {
+   duplicatesStrategy 'exclude' //excluye duplicados en ficheros de configuracion
+    manifest{ //Genera el fichero MANIFEST.MF que hay dentro del jar
+        attributes 'Main-Class': mainClassName //Clase principal del proyecto
+    }
 }
 
 tasks.named('test') {
