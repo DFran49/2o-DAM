@@ -19,9 +19,10 @@ public class Lanzador8 {
         System.out.println("Introduzca lel id del cliente:");
         short id = new Scanner(System.in).nextShort();
 
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresa_persistence");
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresa_persistence");
-            EntityManager em = emf.createEntityManager();
+            
 
             Cliente c = new Cliente();
             c.setId(id);
@@ -29,17 +30,16 @@ public class Lanzador8 {
                     .setParameter("cliente", c).getResultList();
 
             System.out.println("--------------------------------------\n");
-            
             for (Pedido p : pedidos) {
                 System.out.println(p.getTotal() + " : " + p.getFecha());
             }
-           
             System.out.println("\n--------------------------------------");
-
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.err.println(e.getMessage());
+        } finally {
             em.close();
             emf.close();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
         }
     }
 }
