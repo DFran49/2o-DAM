@@ -1,5 +1,0 @@
-recycler view
-btn para añadir columnas
-btn para reducir columnas
-btn para aumentar tamaño de tarjetas
-tarjeta recycler

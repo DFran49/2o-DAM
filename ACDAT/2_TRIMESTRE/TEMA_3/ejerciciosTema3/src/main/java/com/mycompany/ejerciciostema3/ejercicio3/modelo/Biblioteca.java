@@ -31,7 +31,7 @@ public class Biblioteca {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private short id;
     
-    @Column(name = "nombre", length = 100, nullable = false)
+    @Column(name = "nombre", length = 100, nullable = false, unique = true)
     private String nombre;
     
     @ManyToMany

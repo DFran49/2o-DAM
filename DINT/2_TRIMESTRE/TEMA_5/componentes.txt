@@ -1,0 +1,10 @@
+recycler view
+tarjeta recycler
+
+textfield para escribir
+listview para recibir el texto
+progress indicator
+
+Textfield escribe sobre la entrada selecionada del listview (Si no hay, sobre la primera)
+Al pulsar enter, se añade otra entrada del listview y se selecciona
+Progress que mientras se escribe está indeterminado, al no escribir miestra porcentaje hasta una length y ya no deja escribir más
