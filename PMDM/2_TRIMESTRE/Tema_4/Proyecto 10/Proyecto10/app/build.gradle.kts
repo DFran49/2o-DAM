@@ -53,8 +53,8 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.5")
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
-    implementation("lo.coil-kt.coil3:coil:3.0.4")
-    implementation("lo.coil-kt.coil3:coil-network-okhttp:3.0.4")
+    implementation("io.coil-kt.coil3:coil:3.0.4")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
     implementation("com.google.firebase:firebase-auth:23.1.0")
 
     testImplementation(libs.junit)

@@ -33,7 +33,7 @@ class ErrorFragment : Fragment() {
 
     fun inicializarMensajeError() {
         val mensaje = ErrorFragmentArgs.fromBundle(requireArguments()).mensajeError
-        binding.txtMensajeError.text = mensaje
+        binding.txtMensajeError.setText(mensaje)
     }
 
     private fun inicializarBinding(inflater: LayoutInflater,container: ViewGroup?) {
