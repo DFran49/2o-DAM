@@ -1,0 +1,112 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.fcm.pokeTeams;
+
+/**
+ *
+ * @author DFran49
+ */
+import com.fcm.pokeTeams.DAO.PokemonDAO;
+import com.fcm.pokeTeams.enums.VistasControladores;
+import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.modelos.PokemonEliminar;
+import com.fcm.pokeTeams.util.CargadorFXML;
+import com.fcm.pokeTeams.util.Conexion;
+import com.fcm.pokeTeams.util.Utilidades;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+public class controllerTarjetaPokemon implements Initializable {
+    private controllerCore cCore;
+    Pokemon pokemon;
+    Utilidades util = Utilidades.getInstance();
+    
+    @FXML
+    private ImageView imgPokemon;
+
+    @FXML
+    private ContextMenu menu;
+
+    @FXML
+    private SplitPane tarjeta;
+
+    @FXML
+    private Label txtEspecie;
+
+    @FXML
+    private Label txtId;
+
+    @FXML
+    void abrirMenu(ContextMenuEvent event) {
+        menu.show(imgPokemon.getParent().getParent(), event.getScreenX(), event.getScreenY());
+    }
+
+    @FXML
+    void abrirPokemon(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            Stage ventana = new Stage();
+            CargadorFXML.getInstance().cargar(VistasControladores.POKEMON, ventana);
+            ventana.getIcons().add(new Image("/img/Klink.png"));
+            ventana.setTitle("Ver datos de ".concat(pokemon.getEspecie()));
+            ventana.setUserData(pokemon);
+            ventana.show();
+        }
+    }
+    
+    @FXML
+    void editar(ActionEvent event) {
+        Stage ventana = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.ADDEDITPOKEMON, ventana);
+        ventana.getIcons().add(new Image("/img/Klink.png"));
+        ventana.setTitle("Editar ".concat(pokemon.getEspecie()));
+        ventana.setUserData(pokemon);
+        ventana.show();
+    }
+
+    @FXML
+    void eliminar(ActionEvent event) {
+        Stage ventanaConfirmar = new Stage();
+        CargadorFXML.getInstance().cargar(ventanaConfirmar, pokemon.getEspecie());
+        ventanaConfirmar.showAndWait();
+        if ((boolean) ventanaConfirmar.getUserData()) {
+            PokemonDAO.getInstance().delete(pokemon);
+            System.out.println(pokemon.getEspecie() + " eliminado.");
+            cCore.cargarGridPokemon();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        cCore = CargadorFXML.getInstance().getControllerCore();
+        
+        Platform.runLater(() -> {
+            pokemon = (Pokemon) tarjeta.getUserData();
+            asignarPokemon();
+        });
+    }
+
+    public void asignarPokemon() {
+        txtEspecie.setText(pokemon.getEspecie());
+        txtId.setText(Utilidades.definirIdPokemon(pokemon.getnPokedex()));
+        imgPokemon.setImage(new Image("/img/Klink.png"));
+        //util.recuperarImagenBBDD("", imgPokemon);
+        if (!cCore.entrenador.isEsAdmin()) {
+            menu.getItems().clear();
+        }
+    }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import ejercicios.ejercicio1.Boton?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ejercicios.ejercicio1.ControladorBoton">
+   <children>
+      <Boton fx:id="botonCustom" layoutX="162.0" layoutY="67.0" onAction="#pulsarBoton" textoSinClic="Cancelado" />
+   </children>
+</Pane>

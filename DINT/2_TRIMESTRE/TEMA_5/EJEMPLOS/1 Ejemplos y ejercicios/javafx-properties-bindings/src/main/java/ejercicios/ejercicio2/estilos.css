@@ -1,0 +1,28 @@
+.text-area .content {
+   -fx-background-color: black ;
+}
+
+
+
+.temaClaro {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.temaOscuro {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.letraPeque{
+    -fx-font-size: 10;
+}
+
+.letraMedia{
+    -fx-font-size: 12;
+}
+
+.letraGrande{
+    -fx-font-size: 18;
+}
+           
