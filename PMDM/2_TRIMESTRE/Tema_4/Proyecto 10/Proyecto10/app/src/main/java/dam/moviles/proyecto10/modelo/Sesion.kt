@@ -18,15 +18,15 @@ class Sesion private constructor() {
     fun iniciarSesion(
         correo: String,
         clave: String,
-        lambdaExito: (Usuario) -> Unit,
+        lambdaExito: (Sesion) -> Unit,
         lambdaError: (String) -> Unit
     ) {
-        FirebaseLogin().getLoginManager().login(
+        getLoginManager().login(
             correo,
             clave,
             lambdaExito = { usuario ->
                 _usuario = usuario
-                //lambdaExito(this)
+                lambdaExito(this)
             },
             lambdaError = { m -> lambdaError(m)}
         )
@@ -34,7 +34,7 @@ class Sesion private constructor() {
 
     fun cerrarSesion() {
         _usuario = null
-        FirebaseLogin().getLoginManager().logout()
+        getLoginManager().logout()
     }
 
     fun sesionIniciada() = _usuario!=null

@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import dam.moviles.proyecto10.R
 import dam.moviles.proyecto10.databinding.FragmentErrorBinding
 import dam.moviles.proyecto10.databinding.FragmentNuevoUsuarioBinding
+import dam.moviles.proyecto10.modelo.FirebaseLogin
 import dam.moviles.proyecto10.modelo.NavegadorError
+import dam.moviles.proyecto10.modelo.getLoginManager
 
 class NuevoUsuarioFragment : Fragment(), NavegadorError {
     private var _binding: FragmentNuevoUsuarioBinding? = null
@@ -23,7 +25,27 @@ class NuevoUsuarioFragment : Fragment(), NavegadorError {
         savedInstanceState: Bundle?
     ): View? {
         inicializarBinding(inflater,container)
+        inicializarBoton()
         return binding.root
+    }
+
+    private fun inicializarBoton() {
+        binding.btnNuevoUsuario.setOnClickListener {
+            getLoginManager().crearUsuario(
+                binding.txtUsuario.text.toString(),
+                binding.txtClave.text.toString(),
+                binding.txtNombreCompleto.text.toString(),
+                binding.txtDireccion.text.toString(),
+                binding.txtCiudad.text.toString(),
+                lambdaExito = {
+                    val nc = findNavController()
+                    val flecha = NuevoUsuarioFragmentDirections
+                                    .actionNuevoUsuarioFragmentToCorreoEnviadoFragment()
+                    nc.navigate(flecha)
+                },
+                lambdaError = { m -> navegarPantallaError(m) }
+            )
+        }
     }
 
     override fun getNavController(): NavController = findNavController()

@@ -63,5 +63,4 @@ class FirebaseLogin : LoginManager {
         Firebase.auth.signOut()
     }
 
-    override fun getLoginManager():LoginManager = FirebaseLogin()
 }

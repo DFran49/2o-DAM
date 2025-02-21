@@ -20,5 +20,7 @@ interface LoginManager {
 
     fun logout()
 
-    fun getLoginManager():LoginManager = FirebaseLogin()
+
 }
+
+fun getLoginManager():LoginManager = FirebaseLogin()

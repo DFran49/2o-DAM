@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import dam.moviles.proyecto10.databinding.FragmentCorreoEnviadoBinding
 
 
@@ -18,7 +19,14 @@ class CorreoEnviadoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         inicializarBinding(inflater,container)
+        inicializarBoton()
         return binding.root
+    }
+
+    private fun inicializarBoton() {
+        binding.btnAtras.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun inicializarBinding(inflater: LayoutInflater,container: ViewGroup?) {
