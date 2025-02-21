@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fcm.creadorComponentes;
+package cvs;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -16,17 +16,22 @@ import javafx.scene.control.TextField;
  * @author Francisco
  */
 public class MiText extends TextField {
-    private final StringProperty hint = new SimpleStringProperty();
-    private final IntegerProperty tamaño = new SimpleIntegerProperty();
-    private final TextField este = this;
+    private StringProperty hint;
+    private IntegerProperty tamaño;
 
     public MiText() {
-        inicializar("");
-    }
-
-    public MiText(String string) {
-        super();
-        inicializar(string);
+        tamaño = new SimpleIntegerProperty(this, "maxLength", -1); // -1 significa sin límite
+        hint = new SimpleStringProperty(this, "hint", "");
+        
+        this.textProperty().bind(Bindings.createStringBinding(() -> {
+            String text = super.getText();
+            return (tamaño.get() > 0 && text != null && text.length() > tamaño.get()) ? text.substring(0, tamaño.get()) : text;
+        },
+            textProperty(),
+            tamaño
+        ));
+        
+        promptTextProperty().bind(hint);
     }
 
     public String getHint() {
@@ -43,19 +48,5 @@ public class MiText extends TextField {
 
     public void setTamaño(int tamaño) {
         this.tamaño.set(tamaño);
-    }
-    
-    private void inicializar(String s) {
-        this.promptTextProperty().bind(Bindings.createStringBinding(() -> {
-            return hint.get();
-        },
-            hint
-        ));
-        
-        this.prefWidthProperty().bind(Bindings.createDoubleBinding(() -> {
-            return (double)tamaño.get()*2;
-        },
-            tamaño
-        ));
     }
 }
