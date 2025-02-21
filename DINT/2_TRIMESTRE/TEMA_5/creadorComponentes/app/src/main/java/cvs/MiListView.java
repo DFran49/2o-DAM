@@ -4,9 +4,8 @@
  */
 package cvs;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
@@ -16,6 +15,7 @@ import javafx.scene.input.KeyCode;
  * @author DFran49
  */
 public class MiListView extends ListView<String> {
+    StringProperty selectedText = new SimpleStringProperty();
     private MiText miTexto;
 
     public MiListView() {
@@ -29,25 +29,32 @@ public class MiListView extends ListView<String> {
                 setText(empty ? "" : item);
             }
         });
+        
+        getSelectionModel().selectFirst();
     }
     
     public void asignarTexto(MiText texto) {
-        this.miTexto = texto;
+        miTexto = texto;
+        
+        
+        getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectedText.set(newValue);
+            }
+        });
+        
+        miTexto.textProperty().bindBidirectional(selectedText);
+        
+        selectedText.addListener((obs, oldValue, newValue) -> {
+            int selectedIndex = getSelectionModel().getSelectedIndex();
+            getItems().set(selectedIndex, newValue);
+            getSelectionModel().select(selectedIndex);
+        });
 
-        // Vincular el texto del TextField a la entrada seleccionada
-        miTexto.textProperty().bind(
-            Bindings.createStringBinding(() -> {
-                int selectedIndex = getSelectionModel().getSelectedIndex();
-                return selectedIndex >= 0 ? getItems().get(selectedIndex) : "";
-            }, 
-                    getSelectionModel().selectedIndexProperty())
-        );
-
-        // Crear una nueva entrada al presionar Enter
         miTexto.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                getItems().add(""); // Nueva entrada vacía
-                getSelectionModel().select(getItems().size() - 1); // Seleccionar la nueva entrada
+                getItems().add("");
+                getSelectionModel().selectNext();
                 miTexto.clear();
             }
         });

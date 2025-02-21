@@ -5,7 +5,9 @@
 package cvs;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,19 +19,11 @@ import javafx.scene.control.TextField;
  */
 public class MiText extends TextField {
     private StringProperty hint;
-    private IntegerProperty tamaño;
+    protected DoubleProperty tamaño;
 
     public MiText() {
-        tamaño = new SimpleIntegerProperty(this, "maxLength", -1); // -1 significa sin límite
+        tamaño = new SimpleDoubleProperty(25); 
         hint = new SimpleStringProperty(this, "hint", "");
-        
-        this.textProperty().bind(Bindings.createStringBinding(() -> {
-            String text = super.getText();
-            return (tamaño.get() > 0 && text != null && text.length() > tamaño.get()) ? text.substring(0, tamaño.get()) : text;
-        },
-            textProperty(),
-            tamaño
-        ));
         
         promptTextProperty().bind(hint);
     }
@@ -38,7 +32,7 @@ public class MiText extends TextField {
         return hint.get();
     }
 
-    public Integer getTamaño() {
+    public Double getTamaño() {
         return tamaño.get();
     }
     
@@ -48,5 +42,9 @@ public class MiText extends TextField {
 
     public void setTamaño(int tamaño) {
         this.tamaño.set(tamaño);
+    }
+    
+    public DoubleProperty tamañoProperty() {
+        return tamaño;
     }
 }

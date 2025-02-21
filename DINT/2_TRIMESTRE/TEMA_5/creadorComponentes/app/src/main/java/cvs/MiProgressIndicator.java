@@ -6,6 +6,7 @@ package cvs;
 
 import java.awt.Image;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -20,31 +21,40 @@ import javafx.scene.control.TextField;
  * @author Francisco
  */
 public class MiProgressIndicator extends ProgressIndicator {
-    private final DoubleProperty progreso = new SimpleDoubleProperty(this, "porcentageProgreso", 0.0);
-    private final BooleanProperty indeterminado = new SimpleBooleanProperty(this, "esIndeterminado", false);
+    private DoubleProperty progreso = new SimpleDoubleProperty(0.0);
+    private BooleanProperty indeterminado = new SimpleBooleanProperty(true);
     private MiText miTexto;
 
-    public MiProgressIndicator(MiText texto) {
-        progressProperty().bind(
-            Bindings.when(indeterminado)
-                .then(ProgressIndicator.INDETERMINATE_PROGRESS)
-                .otherwise(progreso)
-        );
+    public MiProgressIndicator() {
     }
     
     public void asignarTexto(MiText texto) {
         miTexto = texto;
         
-        progreso.bind(
+        progressProperty().bind(
             Bindings.createDoubleBinding(() -> {
+                if (miTexto.getText() == null) {
+                    return 0.0;
+                }
                 double length = miTexto.getText().length();
                 double maxLength = miTexto.getTamaño();
-                return maxLength > 0 && length <= maxLength ? length / maxLength : 0.0;
+                double prog = 0;
+                if (maxLength > 0 && length <= maxLength) {
+                    prog = length / maxLength;
+                }
+                if (length > maxLength) {
+                    String text = miTexto.getText();
+                    miTexto.setText(text.substring(0, (int) miTexto.tamaño.get()));
+                }
+                if (miTexto.focusedProperty().get() == true) {
+                    return ProgressIndicator.INDETERMINATE_PROGRESS;
+                }
+                return prog;
             }, 
-                    miTexto.textProperty())
-        );
+                    miTexto.textProperty(),miTexto.focusedProperty()
+            ));
 
-        indeterminado.bind(miTexto.focusedProperty());
+        
     }
 
     public Double getProgreso() {

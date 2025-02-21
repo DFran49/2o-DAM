@@ -28,16 +28,14 @@ public class App extends Application {
         primaryStage.setScene(scene);*/
         
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("prueba.fxml"));
-        System.out.println(getClass().getResource("prueba.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("vista.fxml"));
+        System.out.println(getClass().getResource("vista.fxml"));
         try {
             
             Parent root = loader.load();
             Scene escena = new Scene(root);
+            escena.setOnMouseClicked(eh -> root.requestFocus());
             primaryStage.setScene(escena);
-            /*destino.setTitle("Lanzador");
-            destino.setResizable(false);
-            destino.centerOnScreen();*/
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }

@@ -22,7 +22,7 @@ javafx {
 }
 
 dependencies {
-    implementation files('libs/miText.jar')
+    implementation files('libs/misComponentes.jar')
     //No es necesario incluir las dependencias porque ya lo hace el plugin por nosotros
 }
 
