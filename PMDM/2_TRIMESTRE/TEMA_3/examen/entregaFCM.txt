@@ -1,0 +1,494 @@
+package dam.moviles.examentema3.modelo
+
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
+
+interface AcademiaApi {
+    @GET("consultarTodos.php")
+    suspend fun consultarTodosCursos():Cursos
+
+    @GET("consultarCurso.php")
+    suspend fun consultarCurso(
+        @Query("codigo") codigo:String
+    ):Curso
+
+    @POST("matricular.php")
+    suspend fun matricular(
+        @Body matricula: Matricula
+    ):Respuesta
+}
+
+
+
+package dam.moviles.examentema3.modelo
+
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
+import retrofit2.http.Body
+import retrofit2.http.Query
+
+class AcademiaRepository {
+    val academiaApi: AcademiaApi
+    init {
+        academiaApi = Retrofit.Builder()
+            .baseUrl("http://10.0.2.2/academia/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+            .create()
+    }
+
+    suspend fun consultarTodosCursos():Cursos = academiaApi.consultarTodosCursos()
+    suspend fun consultarCurso(codigo:String):Curso = academiaApi.consultarCurso(codigo)
+    suspend fun matricular(nombre:String,edad:Int,codigo:String):Respuesta = academiaApi.matricular(Matricula(nombre,edad,codigo))
+}
+
+
+
+package dam.moviles.examentema3.modelo
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
+
+@JsonClass(generateAdapter = true)
+data class Curso(
+    val nombre:String,
+    val descripcion:String,
+    val foto:String
+):Serializable
+
+
+
+package dam.moviles.examentema3.modelo
+
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
+
+@JsonClass(generateAdapter = true)
+data class Cursos(
+    val cursos:List<EntradaCurso>
+):Serializable
+
+
+
+package dam.moviles.examentema3.modelo
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
+
+@JsonClass(generateAdapter = true)
+data class EntradaCurso(
+    val codigo:String,
+    val nombre:String,
+    @Json(name = "num_plazas") val plazas:Int,
+    @Json(name = "plazas_ocupadas") val ocupadas:Int,
+    val departamento:String
+):Serializable
+
+
+
+package dam.moviles.examentema3.modelo
+
+import java.io.Serializable
+
+class EnvoltorioCurso(
+    val curso:Curso,
+    val entrada:EntradaCurso
+): Serializable
+
+
+
+package dam.moviles.examentema3.modelo
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
+
+@JsonClass(generateAdapter = true)
+data class Matricula(
+    val nombre:String,
+    val edad:Int,
+    @Json(name = "cod_curso") val curso:String,
+)
+
+
+
+package dam.moviles.examentema3.modelo
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
+
+@JsonClass(generateAdapter = true)
+data class Respuesta(
+    @Json(name = "cod_error") val codigo:Int,
+    @Json(name = "desc_error") val mensaje:String
+):Serializable
+
+
+
+package dam.moviles.examentema3.vista
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import dam.moviles.examentema3.databinding.CursoBinding
+import dam.moviles.examentema3.modelo.Cursos
+
+class CursoAdapter(
+    var cursos: Cursos,
+    val lambda:(CursoHolder) -> Unit
+) : RecyclerView.Adapter<CursoHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CursoHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = CursoBinding.inflate(inflater,parent,false)
+        return CursoHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: CursoHolder, position: Int) {
+        val curso = cursos.cursos.get(position)
+        holder.mostrarCurso(curso)
+        holder.binding.root.setOnClickListener{
+            lambda(holder)
+        }
+    }
+
+    override fun getItemCount(): Int = cursos.cursos.size
+
+}
+
+
+
+package dam.moviles.examentema3.vista
+
+import androidx.recyclerview.widget.RecyclerView
+import dam.moviles.examentema3.databinding.CursoBinding
+import dam.moviles.examentema3.modelo.Curso
+import dam.moviles.examentema3.modelo.EntradaCurso
+
+class CursoHolder(val binding:CursoBinding) : RecyclerView.ViewHolder(binding.root) {
+    lateinit var curso:EntradaCurso
+
+    fun mostrarCurso(c:EntradaCurso) {
+        curso = c
+        val libres = curso.plazas-curso.ocupadas
+        binding.txtLibres.setText("Quedan ${libres} plazas")
+        if (libres == 0) binding.txtLibres.setText("Plazas agotadas")
+
+        binding.txtPlazas.setText("Plazas: ${curso.plazas}")
+        binding.txtNombre.setText(curso.nombre)
+    }
+}
+
+
+
+package dam.moviles.examentema3.vista
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import coil3.load
+import dam.moviles.examentema3.R
+import dam.moviles.examentema3.databinding.FragmentDetalleCursoBinding
+import dam.moviles.examentema3.databinding.FragmentSelectorBinding
+import dam.moviles.examentema3.modelo.Curso
+import dam.moviles.examentema3.modelo.Cursos
+import dam.moviles.examentema3.modelo.EntradaCurso
+import dam.moviles.examentema3.modelo.EnvoltorioCurso
+
+class DetalleCursoFragment : Fragment() {
+    var _binding:FragmentDetalleCursoBinding? = null
+    val binding:FragmentDetalleCursoBinding
+        get() = checkNotNull(_binding)
+    lateinit var envoltorio:EnvoltorioCurso
+    lateinit var curso:Curso
+    lateinit var entrada:EntradaCurso
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        inicializarBinding(inflater,container)
+        cargarInfo()
+        inicializarInfo()
+        return binding.root
+    }
+
+    fun cargarInfo() {
+        envoltorio= DetalleCursoFragmentArgs.fromBundle(requireArguments()).curso
+        curso = envoltorio.curso
+        entrada = envoltorio.entrada
+    }
+
+    fun inicializarInfo() {
+        binding.txtNombreCurso.setText(curso.nombre)
+        binding.imgFotoCurso.load("http://10.0.2.2/academia/${curso.foto}")
+        binding.txtDescripcion.setText(curso.descripcion)
+        inicializarBoton()
+    }
+
+    fun inicializarBoton() {
+        val nc = findNavController()
+        val flecha = DetalleCursoFragmentDirections.actionDetalleCursoFragmentToMatricularAlumnoFragment(envoltorio)
+        binding.btnMatricular.setOnClickListener { nc.navigate(flecha) }
+        if (entrada.plazas <= entrada.ocupadas) binding.btnMatricular.isEnabled = false
+    }
+
+    fun inicializarBinding(inflater: LayoutInflater,container: ViewGroup?) {
+        _binding= FragmentDetalleCursoBinding.inflate(inflater,container,false)
+    }
+}
+
+
+
+package dam.moviles.examentema3.vista
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import dam.moviles.examentema3.R
+import dam.moviles.examentema3.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        inicializarBinding()
+        inicializarToolbar()
+        setContentView(binding.root)
+    }
+
+    fun inicializarToolbar() {
+        setSupportActionBar(binding.materialToolbar)
+    }
+
+    fun inicializarBinding() {
+        binding= ActivityMainBinding.inflate(layoutInflater)
+    }
+}
+
+
+
+package dam.moviles.examentema3.vista
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import coil3.load
+import dam.moviles.examentema3.R
+import dam.moviles.examentema3.databinding.FragmentDetalleCursoBinding
+import dam.moviles.examentema3.databinding.FragmentMatricularAlumnoBinding
+import dam.moviles.examentema3.modelo.AcademiaRepository
+import dam.moviles.examentema3.modelo.Curso
+import dam.moviles.examentema3.modelo.EntradaCurso
+import dam.moviles.examentema3.modelo.EnvoltorioCurso
+import dam.moviles.examentema3.modelo.Respuesta
+import kotlinx.coroutines.launch
+
+class MatricularAlumnoFragment : Fragment() {
+    var _binding: FragmentMatricularAlumnoBinding? = null
+    val binding: FragmentMatricularAlumnoBinding
+        get() = checkNotNull(_binding)
+    lateinit var envoltorio: EnvoltorioCurso
+    lateinit var curso: Curso
+    lateinit var entrada: EntradaCurso
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        inicializarBinding(inflater,container)
+        cargarInfo()
+        inicializarInfo()
+        return binding.root
+    }
+
+    fun cargarInfo() {
+        envoltorio= MatricularAlumnoFragmentArgs.fromBundle(requireArguments()).envoltorio
+        curso = envoltorio.curso
+        entrada = envoltorio.entrada
+    }
+
+    fun inicializarInfo() {
+        binding.txtCurso.setText(curso.nombre)
+        inicializarBoton()
+    }
+
+    fun inicializarBoton() {
+        binding.btnMatricularAlumno.setOnClickListener {
+            val nombre = binding.txtNombreNuevoAlumno.text.toString()
+            val edad = binding.txtEdadAlumno.text.toString().toInt()
+            lifecycleScope.launch {
+
+                var respuesta:Respuesta = AcademiaRepository().matricular(nombre,edad,entrada.codigo)
+                if (respuesta.codigo == 0) {
+                    findNavController().popBackStack()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        respuesta.mensaje,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    fun inicializarBinding(inflater: LayoutInflater,container: ViewGroup?) {
+        _binding= FragmentMatricularAlumnoBinding.inflate(inflater,container,false)
+    }
+}
+
+
+
+package dam.moviles.examentema3.vista
+
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import dam.moviles.examentema3.R
+import dam.moviles.examentema3.databinding.FragmentSelectorBinding
+import dam.moviles.examentema3.modelo.AcademiaRepository
+import dam.moviles.examentema3.modelo.Curso
+import dam.moviles.examentema3.modelo.Cursos
+import dam.moviles.examentema3.modelo.EnvoltorioCurso
+import dam.moviles.examentema3.modelo.Respuesta
+import dam.moviles.examentema3.viewModel.SelectorViewModel
+import kotlinx.coroutines.launch
+
+class SelectorFragment : Fragment() {
+    var _binding:FragmentSelectorBinding? = null
+    val binding:FragmentSelectorBinding
+        get() = checkNotNull(_binding)
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        inicializarBinding(inflater,container)
+        inicializarRecyclerView()
+        return binding.root
+    }
+
+    fun inicializarRecyclerView() {
+        lifecycleScope.launch {
+            var cursos:Cursos = AcademiaRepository().consultarTodosCursos()
+
+            binding.lstCursos.adapter = CursoAdapter(cursos){ holder ->
+                lifecycleScope.launch {
+                    var curso:Curso = AcademiaRepository().consultarCurso(holder.curso.codigo)
+                    var envoltorio = EnvoltorioCurso(curso,holder.curso)
+                    val nc = findNavController()
+                    val flecha = SelectorFragmentDirections.actionSelectorFragmentToDetalleCursoFragment(envoltorio)
+                    nc.navigate(flecha)
+                }
+            }
+        }
+    }
+
+    fun inicializarBinding(inflater: LayoutInflater,container: ViewGroup?) {
+        _binding= FragmentSelectorBinding.inflate(inflater,container,false)
+    }
+}
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/material_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"/>
+
+</LinearLayout>
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/selectorFragment">
+
+    <fragment
+        android:id="@+id/selectorFragment"
+        android:name="dam.moviles.examentema3.vista.SelectorFragment"
+        android:label="SelectorFragment"
+        tools:layout="@layout/fragment_selector">
+        <action
+            android:id="@+id/action_selectorFragment_to_detalleCursoFragment"
+            app:destination="@id/detalleCursoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleCursoFragment"
+        android:name="dam.moviles.examentema3.vista.DetalleCursoFragment"
+        android:label="DetalleCursoFragment"
+        tools:layout="@layout/fragment_detalle_curso">
+        <action
+            android:id="@+id/action_detalleCursoFragment_to_matricularAlumnoFragment"
+            app:destination="@id/matricularAlumnoFragment"
+            app:popUpTo="@id/selectorFragment" />
+        <argument
+            android:name="curso"
+            app:argType="dam.moviles.examentema3.modelo.EnvoltorioCurso" />
+    </fragment>
+    <fragment
+        android:id="@+id/matricularAlumnoFragment"
+        android:name="dam.moviles.examentema3.vista.MatricularAlumnoFragment"
+        android:label="MatricularAlumnoFragment"
+        tools:layout="@layout/fragment_matricular_alumno">
+        <argument
+            android:name="envoltorio"
+            app:argType="dam.moviles.examentema3.modelo.EnvoltorioCurso" />
+    </fragment>
+</navigation>
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/btnTodos"
+        android:title="Todos"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btnLibres"
+        android:title="Libres"
+        app:showAsAction="always" />
+</menu>

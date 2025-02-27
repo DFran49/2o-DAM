@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/selectorFragment">
+
+    <fragment
+        android:id="@+id/selectorFragment"
+        android:name="dam.moviles.examentema3.vista.SelectorFragment"
+        android:label="SelectorFragment"
+        tools:layout="@layout/fragment_selector">
+        <action
+            android:id="@+id/action_selectorFragment_to_detalleCursoFragment"
+            app:destination="@id/detalleCursoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleCursoFragment"
+        android:name="dam.moviles.examentema3.vista.DetalleCursoFragment"
+        android:label="DetalleCursoFragment"
+        tools:layout="@layout/fragment_detalle_curso">
+        <action
+            android:id="@+id/action_detalleCursoFragment_to_matricularAlumnoFragment"
+            app:destination="@id/matricularAlumnoFragment"
+            app:popUpTo="@id/selectorFragment" />
+        <argument
+            android:name="curso"
+            app:argType="dam.moviles.examentema3.modelo.EnvoltorioCurso" />
+    </fragment>
+    <fragment
+        android:id="@+id/matricularAlumnoFragment"
+        android:name="dam.moviles.examentema3.vista.MatricularAlumnoFragment"
+        android:label="MatricularAlumnoFragment"
+        tools:layout="@layout/fragment_matricular_alumno">
+        <argument
+            android:name="envoltorio"
+            app:argType="dam.moviles.examentema3.modelo.EnvoltorioCurso" />
+    </fragment>
+</navigation>

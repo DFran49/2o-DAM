@@ -1,0 +1,23 @@
+# docker-compose -f mongodb.yml -p mongodb up -d
+# mongosh [--host <HOST_IP>] [--port <PORT>] -u root -p y usar root como clave
+# version: '3.0'
+
+services:
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    networks:
+      - mongo
+#    volumes:
+#      - mongodb_data:/data/db
+
+networks:
+  mongo:
+    driver: bridge
+
+#volumes:
+#  mongodb_data:

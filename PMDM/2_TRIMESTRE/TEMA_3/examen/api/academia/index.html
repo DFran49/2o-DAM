@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<style>
+			i{
+				color:red;
+			}
+		</style>
+	</head>	
+	<body>
+		<h1>API de la academia</h1>			
+		<h2>Endpoints</h2>
+		<ul>
+			<li>
+				<h3>http://localhost/academia/consultarTodos.php</h3>
+				<p>Devuelve un json con todos los cursos disponibles. Por cada curso se muestra su código identificador, su nombre, número de plazas totales, número de plazas ocupadas y el departamento que lo imparte. Este endpoint usa el método GET</p>
+			</li>
+			<li>
+				<h3>http://localhost/academia/consultarCurso.php?codigo=<i>código del curso</i></h3>
+				<p>Devuelve un json con la información del curso cuyo código se pasa en la url. Se devuelve el nombre del curso, su descripción y la url (relativa a la dirección base del servidor) de la foto. Usa el método GET</p>
+			</li>
+			<li>
+				<h3>http://localhost/academia/matricular.php</h3>
+				<p>Sirve para matricular un alumno en un curso. Usa el método POST y necesita un json que tenga como claves: nombre (un String con el nombre del alumno), edad (un entero con la edad del alumno) y cod_curso (un String con el curso en el que se va a matricular). Actualmente este endpoint es experimental y no graba nada. Solo se limita de comprobar que los datos se han recibido correctamente e informar de ello </p>
+			</li>
+		</ul>
+	</body>
+</html>
