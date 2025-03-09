@@ -14,8 +14,6 @@ interface AcademiaApi {
         @Query("codigo") codigo:String
     ):Curso
 
-    @POST("matricular.php")
-    suspend fun matricular(
-        @Body matricula: Matricula
-    ):Respuesta
+
+
 }
