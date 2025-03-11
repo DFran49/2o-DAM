@@ -44,15 +44,3 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
-/*
-try {
-            Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3306/pokeTeams","root","root");
-            Statement st = c.createStatement();
-            String query = "Select * FROM pokemon";
-            ResultSet rs = st.executeQuery(query);
-            rs.next();
-            System.out.println(rs.getString("Especie"));
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-*/

@@ -3,8 +3,260 @@
  */
 package com.fcm.ExamenTema2;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class App {
+    private static boolean ejecucion = true;
+    
     public static void main(String[] args) {
+        while (ejecucion) {            
+            System.out.println("""
+                           1. Mostrar todos los empleados.
+                           2. Insertar un nuevo empleado.
+                           3. Calcular promedio de salario.
+                           4. Cambiar departamento de un empleado.
+                           5. Realizar transacción.
+                           0. Salir
+                           """);
+            System.out.println("Elija una opción.");
+            try {
+                int opcion = new Scanner(System.in).nextInt();
+                switch (opcion) {
+                    case 1 -> mostrarEmpleados();
+                    case 2 -> insertarEmpleado();
+                    case 3 -> calcularPromedios();
+                    case 4 -> cambiarDepartamento();
+                    case 5 -> realizarTransaccion();
+                    default -> salir();
+                }
+            } catch (Exception e) {
+                System.err.println("No ha introducido una opción válida, inténtelo de nuevo.");
+            }
+        }
+    }
+    
+    private static void mostrarEmpleados() {
+        System.out.println("Mostrando los empleados.");
         
+        try (Connection con = conectarBaseDatos()) {
+            String sql = "SELECT * FROM empleados JOIN departamentos USING (id_departamento) GROUP BY id_departamento, id_empleado";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            System.out.println("EMPLEADOS:");
+            String mostrar = "";
+            while (rs.next()) {
+                mostrar += rs.getString("nombre_departamento");
+                mostrar += " - ";
+                mostrar += rs.getString("nombre");
+                mostrar += " - ";
+                mostrar += rs.getDouble("salario");
+                mostrar += " - ";
+                mostrar += rs.getDate("fecha_ingreso");
+                System.out.println(mostrar);
+                mostrar = "";
+            }
+        } catch (SQLException ex) {
+            System.err.println("No se han podido leer los datos de la BBDD.");
+        }
+    }
+    
+    private static void insertarEmpleado() {
+        System.out.println("Se va a insertar un empleado.");
+        System.out.println("Introduzca el nombre del nuevo empleado.");
+        String nombre = new Scanner(System.in).nextLine();
+        System.out.println("Introduzca el salario del nuevo empleado.");
+        double salario = new Scanner(System.in).nextDouble();
+        System.out.println("Introduzca el departamento del nuevo empleado.");
+        int dep = new Scanner(System.in).nextInt();
+        
+        try (Connection con = conectarBaseDatos()) {
+            String sqlId = "SELECT * FROM departamentos WHERE id_departamento = ?";
+            PreparedStatement psId = con.prepareStatement(sqlId);
+            psId.setInt(1, dep);
+            ResultSet rsId = psId.executeQuery();
+            
+            if (!rsId.next()) {
+                System.err.println("No existe ese departamento.");
+            } else {
+                String sql = "INSERT INTO empleados (nombre, salario, fecha_ingreso, id_departamento) VALUES (?, ?, ?, ?)";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, nombre);
+                ps.setDouble(2, salario);
+                ps.setDate(3, Date.valueOf(LocalDate.now()));
+                ps.setInt(4, dep);
+                if (ps.executeUpdate() > 0) {
+                    System.out.println("Empleado introducido de forma satisfactoria.");
+                } else {
+                    System.out.println("No se pudo introducir el empleado.");
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("No se han podido leer los datos de la BBDD.");
+        }
+    }
+    
+    private static void calcularPromedios() {
+        System.out.println("Mostrando el promedio de salario por departamento.");
+        
+        try (Connection con = conectarBaseDatos()) {
+            String sql = "SELECT AVG(salario) AS media, nombre_departamento FROM empleados JOIN departamentos "
+                       + "USING (id_departamento) GROUP BY nombre_departamento";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            System.out.println("DEPARTAMENTOS:");
+            String mostrar = "";
+            while (rs.next()) {
+                mostrar += rs.getString("nombre_departamento");
+                mostrar += " - ";
+                mostrar += rs.getDouble("media");
+                System.out.println(mostrar);
+                mostrar = "";
+            }
+        } catch (SQLException ex) {
+            System.err.println("No se han podido leer los datos de la BBDD.");
+        }
+    }
+    
+    private static void cambiarDepartamento() {
+        System.out.println("Se va a cambiar a un empleado de departamento.");
+        System.out.println("Introduzca el id del empleado.");
+        int id = new Scanner(System.in).nextInt();
+        System.out.println("Introduzca el nuevo departamento del empleado.");
+        int dep = new Scanner(System.in).nextInt();
+        
+        try (Connection con = conectarBaseDatos()) {
+            String sqlId = "SELECT * FROM departamentos WHERE id_departamento = ?";
+            PreparedStatement psId = con.prepareStatement(sqlId);
+            psId.setInt(1, dep);
+            ResultSet rsId = psId.executeQuery();
+            boolean existe = rsId.next();
+            sqlId = "SELECT * FROM empleados WHERE id_empleado = ?";
+            psId = con.prepareStatement(sqlId);
+            psId.setInt(1, id);
+            rsId = psId.executeQuery();
+            
+            if (!existe || !rsId.next()) {
+                System.err.println("No existe ese departamento o ese empleado.");
+            } else {
+                String sql = "UPDATE empleados SET id_departamento = ? WHERE id_empleado = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, dep);
+                ps.setInt(2, id);
+                if (ps.executeUpdate() > 0) {
+                    System.out.println("Empleado cambiado de departamento de forma satisfactoria.");
+                } else {
+                    System.out.println("No se pudo cambiar de departamento al empleado.");
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("No se han podido leer los datos de la BBDD.");
+        }
+    }
+    
+    private static void realizarTransaccion() {
+        System.out.println("Migrando clientes.");
+        Connection con = conectarBaseDatos();
+        
+        try {
+            PreparedStatement psTrans = con.prepareStatement("START TRANSACTION;");
+            psTrans.executeQuery();
+            
+            System.out.println("Se va a insertar un empleado.");
+            System.out.println("Introduzca el nombre del nuevo empleado.");
+            String nombre = new Scanner(System.in).nextLine();
+            System.out.println("Introduzca el salario del nuevo empleado.");
+            double salario = new Scanner(System.in).nextDouble();
+            System.out.println("Introduzca el departamento del nuevo empleado.");
+            int dep = new Scanner(System.in).nextInt();
+            
+            String sqlId = "SELECT * FROM departamentos WHERE id_departamento = ?";
+            PreparedStatement psId = con.prepareStatement(sqlId);
+            psId.setInt(1, dep);
+            ResultSet rsId = psId.executeQuery();
+            
+            if (!rsId.next()) {
+                System.err.println("No existe ese departamento.");
+            } else {
+                String sql = "INSERT INTO empleados (nombre, salario, fecha_ingreso, id_departamento) VALUES (?, ?, ?, ?)";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, nombre);
+                ps.setDouble(2, salario);
+                ps.setDate(3, Date.valueOf(LocalDate.now()));
+                ps.setInt(4, dep);
+                if (ps.executeUpdate() > 0) {
+                    System.out.println("Empleado introducido de forma satisfactoria.");
+                } else {
+                    System.out.println("No se pudo introducir el empleado.");
+                }
+            }
+            
+            System.out.println("Se va a cambiar a un empleado de departamento.");
+            System.out.println("Introduzca el id del empleado.");
+            int id = new Scanner(System.in).nextInt();
+            System.out.println("Introduzca el nuevo salario del empleado.");
+            double sal = new Scanner(System.in).nextDouble();
+            
+            psId.setInt(1, id);
+            rsId = psId.executeQuery();
+
+            if (!rsId.next()) {
+                System.err.println("No existe ese empleado.");
+            } else {
+                String sql = "UPDATE empleados SET salario = ? WHERE id_empleado = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setDouble(1, sal);
+                ps.setInt(2, id);
+                if (ps.executeUpdate() > 0) {
+                    System.out.println("Salario de empleado cambiado de forma satisfactoria.");
+                } else {
+                    System.out.println("No se pudo cambiar de salario al empleado.");
+                }
+            }
+            PreparedStatement psCom = con.prepareStatement("COMMIT;");
+            psTrans.executeQuery();
+        } catch (SQLException ex) {
+            System.err.println("No se han podido leer los datos de la BBDD.");
+            try {
+                PreparedStatement psCom = con.prepareStatement("ROLLBACK;");
+                psCom.executeQuery();
+            } catch (SQLException ex1) {
+                System.err.println("Ha habido un fallo cancelando los cambios.");
+            }
+        } finally {
+            cerrarConexionBaseDatos(con);
+        }
+    }
+    
+    private static void salir() {
+        ejecucion = false;
+        System.out.println("Adios.");
+    }
+    
+    public static Connection conectarBaseDatos() {
+        String url = "jdbc:mariadb://localhost/empresa";
+        String usuario = "root", clave = "root";
+        try {
+            return DriverManager.getConnection(url,usuario,clave);
+        } catch (SQLException ex) {
+            System.err.println("No se ha podido conectar a la base de datos");
+        }
+        return null;
+    }
+    
+    public static void cerrarConexionBaseDatos(Connection con) {
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.err.println("No se ha podido cerrar la conexión a la base de datos");
+        }
     }
 }
