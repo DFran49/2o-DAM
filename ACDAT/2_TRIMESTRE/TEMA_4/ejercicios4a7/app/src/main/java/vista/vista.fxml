@@ -10,38 +10,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="707.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.JuegosController">
+<VBox alignment="CENTER" prefHeight="386.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.ejercicios4a7.ejercicio6.ControllerJuegos">
     <Label alignment="CENTER" prefHeight="70.0" prefWidth="210.0" text="Gestión de Juegos">
       <font>
          <Font name="System Bold" size="22.0" />
       </font></Label>
     
-    <TableView fx:id="juegosTable" prefHeight="424.0" prefWidth="752.0">
-        <columns>
-            <TableColumn fx:id="tituloCol" prefWidth="200" text="Título" />
-            <TableColumn fx:id="generoCol" prefWidth="150" text="Género" />
-            <TableColumn fx:id="precioCol" prefWidth="100" text="Precio" />
-            <TableColumn fx:id="fechaLanzamientoCol" prefWidth="150" text="Fecha de Lanzamiento" />
-        </columns>
-    </TableView>
-    
        <HBox alignment="CENTER" prefHeight="111.0" prefWidth="752.0">
-        <Button onAction="#refreshTable" text="Actualizar">
+        <Button onAction="#actualizarTabla" text="Actualizar">
          <HBox.margin>
             <Insets right="20.0" />
          </HBox.margin>
       </Button>
-        <Button onAction="#addJuego" text="Añadir Juego">
+        <Button onAction="#añadirJuego" text="Añadir Juego">
          <HBox.margin>
             <Insets right="20.0" />
          </HBox.margin>
       </Button>
-        <Button onAction="#deleteByGenero" text="Eliminar por Género">
+        <Button onAction="#borrarPorGenero" text="Eliminar por Género">
          <HBox.margin>
             <Insets right="20.0" />
          </HBox.margin>
       </Button>
-        <Button onAction="#updateJuego" text="Modificar Juego">
+        <Button onAction="#actualizarJuego" text="Modificar Juego">
          <HBox.margin>
             <Insets right="20.0" />
          </HBox.margin>
@@ -50,6 +41,15 @@
     
     <HBox alignment="CENTER" prefHeight="74.0" prefWidth="752.0">
         <Label text="Género:" />
-        <ComboBox fx:id="generoCombo" prefWidth="150" />
+        <ComboBox fx:id="cbGenero" prefWidth="150" />
     </HBox>
+    
+    <TableView fx:id="twJuegos" prefHeight="254.0" prefWidth="603.0">
+        <columns>
+            <TableColumn fx:id="colTitulo" prefWidth="200" text="Título" />
+            <TableColumn fx:id="colGenero" prefWidth="150" text="Género" />
+            <TableColumn fx:id="colPrecio" prefWidth="100" text="Precio" />
+            <TableColumn fx:id="colLanzamiento" prefWidth="150" text="Fecha de Lanzamiento" />
+        </columns>
+    </TableView>
 </VBox>

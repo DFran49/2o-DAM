@@ -10,7 +10,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-import java.net.URL;
 import java.text.ParseException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,47 +30,30 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author allae
+ * @author Francisco
  */
-
-public class JuegosController {
+public class ControllerJuegos {
     
     @FXML 
-    private TableView<Juego> juegosTable;
+    private TableView<Juego> twJuegos;
     @FXML 
-    private TableColumn<Juego, String> tituloCol;
+    private TableColumn<Juego, String> colTitulo;
     @FXML 
-    private TableColumn<Juego, String> generoCol;
+    private TableColumn<Juego, String> colGenero;
     @FXML 
-    private TableColumn<Juego, Double> precioCol;
+    private TableColumn<Juego, Double> colPrecio;
     @FXML 
-    private TableColumn<Juego, String> fechaLanzamientoCol;
+    private TableColumn<Juego, String> colLanzamiento;
     @FXML 
-    private ComboBox<String> generoCombo;
+    private ComboBox<String> cbGenero;
 
-    private MongoCollection<Document> juegosCollection;
+    private MongoCollection<Document> collectionJuegos;
     private ObservableList<Juego> juegosList = FXCollections.observableArrayList();
-
+    
     @FXML
-    public void initialize() {
-        // Conectar a MongoDB
-        MongoClient mongoClient = MongoClients.create("mongodb://root:root@localhost:27017");
-        MongoDatabase database = mongoClient.getDatabase("Allae");
-        juegosCollection = database.getCollection("juegos");
-
-        tituloCol.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-        generoCol.setCellValueFactory(new PropertyValueFactory<>("genero"));
-        precioCol.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        fechaLanzamientoCol.setCellValueFactory(new PropertyValueFactory<>("fechaLanzamiento"));
-
-        refreshTable();
-        loadGeneros();
-    }
-
-    @FXML
-    private void refreshTable() {
+    private void actualizarTabla() {
         juegosList.clear();
-        for (Document doc : juegosCollection.find()) {
+        for (Document doc : collectionJuegos.find()) {
             juegosList.add(new Juego(
                     doc.getString("titulo"),
                     doc.getString("genero"),
@@ -79,18 +61,11 @@ public class JuegosController {
                     doc.getDate("fecha_lanzamiento") != null ? new SimpleDateFormat("yyyy-MM-dd").format(doc.getDate("fecha_lanzamiento")) : ""
             ));
         }
-        juegosTable.setItems(juegosList);
-    }
-
-    private void loadGeneros() {
-        
-        List<String> generos = juegosCollection.distinct("genero", String.class).into(new ArrayList<>());
-
-        generoCombo.setItems(FXCollections.observableArrayList(generos));
+        twJuegos.setItems(juegosList);
     }
 
     @FXML
-    private void addJuego() {
+    private void añadirJuego() {
         TextField tituloField = new TextField();
         TextField generoField = new TextField();
         TextField precioField = new TextField();
@@ -116,12 +91,12 @@ public class JuegosController {
             if (response == ButtonType.OK) {
                 String titulo = tituloField.getText();
                 if (titulo == null || titulo.trim().isEmpty()) {
-                    showError("El título es obligatorio.");
+                    mostrarError("El título es obligatorio.");
                     return;
                 }
 
-                if (juegosCollection.find(Filters.eq("titulo", titulo)).first() != null) {
-                    showError("Ya existe un juego con ese título.");
+                if (collectionJuegos.find(Filters.eq("titulo", titulo)).first() != null) {
+                    mostrarError("Ya existe un juego con ese título.");
                     return;
                 }
 
@@ -136,33 +111,33 @@ public class JuegosController {
                     try {
                         nuevoJuego.append("fecha_lanzamiento", new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr));
                     } catch (Exception e) {
-                        showError("Formato de fecha inválido.");
+                        mostrarError("Formato de fecha inválido.");
                         return;
                     }
                 }
 
-                juegosCollection.insertOne(nuevoJuego);
-                refreshTable();
-                loadGeneros();
+                collectionJuegos.insertOne(nuevoJuego);
+                actualizarTabla();
+                cargarGeneros();
             }
         });
     }
 
     @FXML
-    private void deleteByGenero() {
-        String genero = generoCombo.getSelectionModel().getSelectedItem();
+    private void borrarPorGenero() {
+        String genero = cbGenero.getSelectionModel().getSelectedItem();
         if (genero != null && !genero.isEmpty()) {
-            juegosCollection.deleteMany(Filters.eq("genero", genero));
-            refreshTable();
-            loadGeneros();
+            collectionJuegos.deleteMany(Filters.eq("genero", genero));
+            actualizarTabla();
+            cargarGeneros();
         }
     }
 
     @FXML
-    private void updateJuego() {
-        Juego selectedJuego = juegosTable.getSelectionModel().getSelectedItem();
+    private void actualizarJuego() {
+        Juego selectedJuego = twJuegos.getSelectionModel().getSelectedItem();
         if (selectedJuego == null) {
-            showError("Selecciona un juego para modificar.");
+            mostrarError("Selecciona un juego para modificar.");
             return;
         }
 
@@ -195,29 +170,47 @@ public class JuegosController {
                 String nuevaFechaStr = fechaField.getText();
 
                 try {
-                    juegosCollection.updateOne(Filters.eq("titulo", selectedJuego.getTitulo()), Updates.combine(
+                    collectionJuegos.updateOne(Filters.eq("titulo", selectedJuego.getTitulo()), Updates.combine(
                             Updates.set("titulo", nuevoTitulo),
                             Updates.set("genero", nuevoGenero),
                             Updates.set("precio", nuevoPrecio),
                             Updates.set("fecha_lanzamiento", nuevaFechaStr.isEmpty() ? null : new SimpleDateFormat("yyyy-MM-dd").parse(nuevaFechaStr))
                     ));
                 } catch (ParseException ex) {
-                    Logger.getLogger(JuegosController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControllerJuegos.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                refreshTable();
-                loadGeneros();
+                actualizarTabla();
+                cargarGeneros();
             }
         });
     }
+    
+    @FXML
+    public void initialize() {
+        MongoClient mongoClient = MongoClients.create("mongodb://root:root@localhost:27017");
+        MongoDatabase database = mongoClient.getDatabase("Francisco");
+        collectionJuegos = database.getCollection("juegos");
 
-    private void showError(String message) {
+        colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        colGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colLanzamiento.setCellValueFactory(new PropertyValueFactory<>("fechaLanzamiento"));
+
+        actualizarTabla();
+        cargarGeneros();
+    }
+    
+    private void cargarGeneros() {
+        List<String> generos = collectionJuegos.distinct("genero", String.class).into(new ArrayList<>());
+        cbGenero.setItems(FXCollections.observableArrayList(generos));
+    }
+
+    private void mostrarError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
-
 }

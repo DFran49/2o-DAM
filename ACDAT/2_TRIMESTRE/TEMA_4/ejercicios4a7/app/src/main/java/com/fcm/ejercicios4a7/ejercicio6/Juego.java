@@ -14,7 +14,6 @@ public class Juego {
     private double precio;
     private String fechaLanzamiento;
 
-    // Constructor
     public Juego(String titulo, String genero, double precio, String fechaLanzamiento) {
         this.titulo = titulo;
         this.genero = genero;
@@ -22,7 +21,6 @@ public class Juego {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
-    // Getters y Setters
     public String getTitulo() {
         return titulo;
     }

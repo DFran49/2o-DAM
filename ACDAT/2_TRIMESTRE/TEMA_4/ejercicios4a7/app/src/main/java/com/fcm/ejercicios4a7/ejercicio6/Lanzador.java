@@ -15,15 +15,11 @@ public class Lanzador extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/juegos.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/vista.fxml"));
         Parent root = loader.load();
-        
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Proyecto Ejercicio6");
-
-        
+        primaryStage.setTitle("Centro de juegos");
         primaryStage.show();
     }
 }
